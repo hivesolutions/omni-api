@@ -45,49 +45,57 @@ BASE_URL = "https://ldj.frontdoorhd.com/"
 """ The default base url to be used when no other
 base url value is provided to the constructor """
 
-CLIENT_ID = ""
+CLIENT_ID = None
 
 CLIENT_SECRET = None
 
-REDIRECT_URL = None
+REDIRECT_URL = "http://localhost:8080/oauth"
+
+SCOPE = (
+    "base",
+    "base.user",
+    "base.admin"
+)
+""" The list of permission to be used to create the
+scope string for the oauth value """
 
 class Api(object):
 
     def __init__(self, *args, **kwargs):
-        object.__init__(self, *args, **kwargs)
+        object.__init__(self)
         self.base_url = kwargs.get("base_url", BASE_URL)
-        self.prefix = kwargs.get("prefix", "adm")
+        self.prefix = kwargs.get("prefix", "adm/")
         self.client_id = kwargs.get("client_id", CLIENT_ID)
         self.client_secret = kwargs.get("client_secret", CLIENT_SECRET)
         self.redirect_url = kwargs.get("redirect_url", REDIRECT_URL)
-        self.scope = kwargs.get("scope", ())
+        self.scope = kwargs.get("scope", SCOPE)
         self.access_token = None
 
-    def get(self, authenticate = True, token = False, **kwargs):
+    def get(self, url, authenticate = True, token = False, **kwargs):
         if authenticate: kwargs["session_id"] = self.session_id
         if token: kwargs["access_token"] = self.access_token
-        return appier.get(**kwargs)
+        return appier.get(url, **kwargs)
 
-    def post(self, authenticate = True, token = False, **kwargs):
+    def post(self, url, authenticate = True, token = False, **kwargs):
         if authenticate: kwargs["session_id"] = self.session_id
         if token: kwargs["access_token"] = self.access_token
-        return appier.post(**kwargs)
+        return appier.post(url, data_j = kwargs)
 
-    def put(self, authenticate = True, token = False, **kwargs):
+    def put(self, url, authenticate = True, token = False, **kwargs):
         if authenticate: kwargs["session_id"] = self.session_id
         if token: kwargs["access_token"] = self.access_token
-        return appier.post(**kwargs)
+        return appier.post(url, **kwargs)
 
-    def delete(self, authenticate = True, token = False, **kwargs):
+    def delete(self, url, authenticate = True, token = False, **kwargs):
         if authenticate: kwargs["session_id"] = self.session_id
         if token: kwargs["access_token"] = self.access_token
-        return appier.delete(**kwargs)
+        return appier.delete(url, **kwargs)
 
     def login(self):
         pass
 
     def oauth_autorize(self):
-        url = self.base_url + self.orefix + "oauth/authorize"
+        url = self.base_url + self.prefix + "oauth/authorize"
         values = dict(
             client_id = self.client_id,
             redirect_uri = self.redirect_url,
@@ -116,7 +124,3 @@ class Api(object):
 
     def oauth_session(self):
         pass
-
-if __name__ == "__main__":
-    api = Api()
-    print api
