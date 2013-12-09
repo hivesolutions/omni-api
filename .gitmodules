@@ -1,0 +1,3 @@
+[submodule "bin"]
+	path = bin
+	url = git@github.com:hivesolutions/omni_api_bin.git
