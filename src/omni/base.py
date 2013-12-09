@@ -37,14 +37,86 @@ __copyright__ = "Copyright (c) 2008-2012 Hive Solutions Lda."
 __license__ = "GNU General Public License (GPL), Version 3"
 """ The license for the module """
 
+import urllib
+
+import appier
+
 BASE_URL = "https://ldj.frontdoorhd.com/"
 """ The default base url to be used when no other
 base url value is provided to the constructor """
 
+CLIENT_ID = ""
+
+CLIENT_SECRET = None
+
+REDIRECT_URL = None
+
 class Api(object):
 
     def __init__(self, *args, **kwargs):
+        object.__init__(self, *args, **kwargs)
         self.base_url = kwargs.get("base_url", BASE_URL)
+        self.prefix = kwargs.get("prefix", "adm")
+        self.client_id = kwargs.get("client_id", CLIENT_ID)
+        self.client_secret = kwargs.get("client_secret", CLIENT_SECRET)
+        self.redirect_url = kwargs.get("redirect_url", REDIRECT_URL)
+        self.scope = kwargs.get("scope", ())
+        self.access_token = None
+
+    def get(self, authenticate = True, token = False, **kwargs):
+        if authenticate: kwargs["session_id"] = self.session_id
+        if token: kwargs["access_token"] = self.access_token
+        return appier.get(**kwargs)
+
+    def post(self, authenticate = True, token = False, **kwargs):
+        if authenticate: kwargs["session_id"] = self.session_id
+        if token: kwargs["access_token"] = self.access_token
+        return appier.post(**kwargs)
+
+    def put(self, authenticate = True, token = False, **kwargs):
+        if authenticate: kwargs["session_id"] = self.session_id
+        if token: kwargs["access_token"] = self.access_token
+        return appier.post(**kwargs)
+
+    def delete(self, authenticate = True, token = False, **kwargs):
+        if authenticate: kwargs["session_id"] = self.session_id
+        if token: kwargs["access_token"] = self.access_token
+        return appier.delete(**kwargs)
 
     def login(self):
         pass
+
+    def oauth_autorize(self):
+        url = self.base_url + self.orefix + "oauth/authorize"
+        values = dict(
+            client_id = self.client_id,
+            redirect_uri = self.redirect_url,
+            response_type = "code",
+            scope = " ".join(self.scope)
+        )
+
+        data = urllib.urlencode(values)
+        url = url + "?" + data
+        return url
+
+    def oauth_access(self, code):
+        url = self.base_url + "omni/oauth/access_token"
+        contents_s = self.post(
+            url,
+            authenticate = False,
+            token = False,
+            client_id = self.client_id,
+            client_secret = self.client_secret,
+            grant_type = "authorization_code",
+            redirect_uri = self.redirect_url,
+            code = code
+        )
+        self.access_token = contents_s["access_token"]
+        return self.access_token
+
+    def oauth_session(self):
+        pass
+
+if __name__ == "__main__":
+    api = Api()
+    print api
