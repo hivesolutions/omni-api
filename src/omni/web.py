@@ -38,11 +38,11 @@ __license__ = "GNU General Public License (GPL), Version 3"
 """ The license for the module """
 
 class WebApi(object):
-    
+
     def subscribe_web(self, callback_url):
         url = self.base_url + "omni/web/subscribe.json"
-        contents_s = self.post(
+        contents = self.post(
             url,
             url = callback_url
         )
-        return contents_s
+        return contents

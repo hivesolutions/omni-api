@@ -37,14 +37,9 @@ __copyright__ = "Copyright (c) 2008-2012 Hive Solutions Lda."
 __license__ = "GNU General Public License (GPL), Version 3"
 """ The license for the module """
 
-import base
-import errors
-import sale
-import store
-import web
+class SaleApi(object):
 
-from base import *
-from errors import *
-from sale import *
-from store import *
-from web import *
+    def stats_sales(self):
+        url = self.base + "omni/sale_snapshots/stats.json"
+        contents = self.get(url, unit = "day")
+        return contents

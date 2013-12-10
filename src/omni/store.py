@@ -38,13 +38,18 @@ __license__ = "GNU General Public License (GPL), Version 3"
 """ The license for the module """
 
 class StoreApi(object):
-    
+
     def list_stores(self, filter = "", start = 0, count = 10):
         url = self.base_url + "omni/stores.json"
-        contents_s = self.get(
+        contents = self.get(
             url,
             filter_string = filter,
             start_record = start,
             number_records = count
         )
-        return contents_s
+        return contents
+
+    def get_store(self, object_id):
+        url = self.base_url + "omni/stores/%d.json" % object_id
+        contents = self.get_json(url)
+        return  contents

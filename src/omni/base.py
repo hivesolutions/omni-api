@@ -60,10 +60,16 @@ BASE_URL = "https://ldj.frontdoorhd.com/"
 base url value is provided to the constructor """
 
 CLIENT_ID = None
+""" The default value to be used for the client id
+in case no client id is provided to the api client """
 
 CLIENT_SECRET = None
+""" The secret value to be used for situations where
+no client secret has been provided to the client """
 
 REDIRECT_URL = "http://localhost:8080/oauth"
+""" The redirect url used as default (fallback) value
+in case none is provided to the api (client) """
 
 SCOPE = (
     "base",
@@ -166,16 +172,16 @@ class Api(web.WebApi, store.StoreApi):
         username = username or self.username
         password = password or self.password
         url = self.base_url + "omni/login.json"
-        contents_s = self.get(
+        contents = self.get(
             url,
             auth = False,
             token = False,
             username = username,
             password = password
         )
-        self.username = contents_s.get("username", None)
-        self.acl = contents_s.get("acl", None)
-        self.session_id = contents_s.get("session_id", None)
+        self.username = contents.get("username", None)
+        self.acl = contents.get("acl", None)
+        self.session_id = contents.get("session_id", None)
         self.tokens = self.acl.keys()
         return self.session_id
 
@@ -194,7 +200,7 @@ class Api(web.WebApi, store.StoreApi):
 
     def oauth_access(self, code):
         url = self.base_url + "omni/oauth/access_token"
-        contents_s = self.post(
+        contents = self.post(
             url,
             auth = False,
             token = False,
@@ -204,15 +210,15 @@ class Api(web.WebApi, store.StoreApi):
             redirect_uri = self.redirect_url,
             code = code
         )
-        self.access_token = contents_s["access_token"]
+        self.access_token = contents["access_token"]
         return self.access_token
 
     def oauth_session(self):
         url = self.base_url + "omni/oauth/start_session"
-        contents_s = self.get(url, auth = False, token = True)
-        self.username = contents_s.get("username", None)
-        self.acl = contents_s.get("acl", None)
-        self.session_id = contents_s.get("session_id", None)
+        contents = self.get(url, auth = False, token = True)
+        self.username = contents.get("username", None)
+        self.acl = contents.get("acl", None)
+        self.session_id = contents.get("session_id", None)
         self.tokens = self.acl.keys()
         return self.session_id
 
