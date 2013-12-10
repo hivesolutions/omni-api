@@ -51,5 +51,5 @@ class StoreApi(object):
 
     def get_store(self, object_id):
         url = self.base_url + "omni/stores/%d.json" % object_id
-        contents = self.get_json(url)
-        return  contents
+        contents = self.get(url)
+        return contents
