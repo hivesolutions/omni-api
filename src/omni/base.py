@@ -43,6 +43,16 @@ import appier
 
 import errors
 
+DIRECT_MODE = 1
+""" The direct mode where a complete access is allowed
+to the client by providing the "normal" credentials to
+it and ensuring a complete authentication """
+
+OAUTH_MODE = 2
+""" The oauth client mode where the set of permissions
+(scope) is authorized on behalf on an already authenticated
+user using a web agent (recommended mode) """
+
 BASE_URL = "https://ldj.frontdoorhd.com/"
 """ The default base url to be used when no other
 base url value is provided to the constructor """
@@ -76,15 +86,17 @@ class Api(object):
         self.access_token = kwargs.get("access_token", None)
         self.session_id = kwargs.get("session_id", None)
         self.username = kwargs.get("username", None)
+        self.password = kwargs.get("password", None)
         self.acl = kwargs.get("acl", None)
         self.tokens = kwargs.get("tokens", None)
+        self.mode = self._get_mode()
 
     def request(self, method, *args, **kwargs):
         try:
             result = method(*args, **kwargs)
-        except appier.HTTPError, exception:
-            print exception.read_json()
-            raise errors.OAuthAccessError(
+        except appier.HTTPError:
+            if self.mode == DIRECT_MODE: raise
+            elif self.mode == OAUTH_MODE: raise errors.OAuthAccessError(
                 "Problems using access token found must re-authorize"
             )
 
@@ -134,20 +146,37 @@ class Api(object):
 
     def get_session_id(self):
         if self.session_id: return self.session_id
-        return self.oauth_session()
+        if self.mode == DIRECT_MODE: return self.login()
+        elif self.mode == OAUTH_MODE: return self.oauth_session()
 
     def get_access_token(self):
         if self.access_token: return self.access_token
+        if self.mode == DIRECT_MODE: return None
         raise errors.OAuthAccessError(
             "No access token found must re-authorize"
         )
 
     def auth_callback(self, params):
-        session_id = self.oauth_session()
+        self.session_id = None
+        session_id = self.get_session_id()
         params["session_id"] = session_id
 
-    def login(self):
-        pass
+    def login(self, username = None, password = None):
+        username = username or self.username
+        password = password or self.password
+        url = self.base_url + "omni/login.json"
+        contents_s = self.get(
+            url,
+            auth = False,
+            token = False,
+            username = username,
+            password = password
+        )
+        self.username = contents_s.get("username", None)
+        self.acl = contents_s.get("acl", None)
+        self.session_id = contents_s.get("session_id", None)
+        self.tokens = self.acl.keys()
+        return self.session_id
 
     def subscribe_web(self, callback_url):
         url = self.base_url + "omni/web/subscribe.json"
@@ -203,3 +232,7 @@ class Api(object):
         self.session_id = contents_s.get("session_id", None)
         self.tokens = self.acl.keys()
         return self.session_id
+
+    def _get_mode(self):
+        if self.username and self.password: return DIRECT_MODE
+        return OAUTH_MODE
