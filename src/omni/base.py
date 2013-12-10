@@ -42,6 +42,7 @@ import urllib
 import appier
 
 import web
+import sale
 import store
 import errors
 
@@ -81,7 +82,7 @@ SCOPE = (
 """ The list of permission to be used to create the
 scope string for the oauth value """
 
-class Api(web.WebApi, store.StoreApi):
+class Api(web.WebApi, sale.SaleApi, store.StoreApi):
 
     def __init__(self, *args, **kwargs):
         self.base_url = kwargs.get("base_url", BASE_URL)

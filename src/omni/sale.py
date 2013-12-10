@@ -40,6 +40,6 @@ __license__ = "GNU General Public License (GPL), Version 3"
 class SaleApi(object):
 
     def stats_sales(self):
-        url = self.base + "omni/sale_snapshots/stats.json"
+        url = self.base_url + "omni/sale_snapshots/stats.json"
         contents = self.get(url, unit = "day")
         return contents
