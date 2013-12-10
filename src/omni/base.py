@@ -57,7 +57,8 @@ SCOPE = (
     "base",
     "base.user",
     "base.admin",
-    "foundation.store.list"
+    "foundation.store.list",
+    "foundation.web.subscribe"
 )
 """ The list of permission to be used to create the
 scope string for the oauth value """
@@ -93,40 +94,40 @@ class Api(object):
         if auth: kwargs["session_id"] = self.get_session_id()
         if token: kwargs["access_token"] = self.get_access_token()
 
-    def get(self, url, auth = True, token = False, **kwargs):
+    def get(self, _url, auth = True, token = False, **kwargs):
         self.build_kwargs(kwargs, auth = auth, token = token)
         return self.request(
             appier.get,
-            url,
+            _url,
             params = kwargs,
             auth_callback = self.auth_callback
         )
 
-    def post(self, url, auth = True, token = False, data = None, **kwargs):
+    def post(self, _url, auth = True, token = False, data = None, **kwargs):
         self.build_kwargs(kwargs, auth = auth, token = token)
         return self.request(
             appier.post,
-            url,
+            _url,
             params = kwargs,
             data = data,
             auth_callback = self.auth_callback
         )
 
-    def put(self, url, auth = True, token = False, data = None, **kwargs):
+    def put(self, _url, auth = True, token = False, data = None, **kwargs):
         self.build_kwargs(kwargs, auth = auth, token = token)
         return self.request(
             appier.put,
-            url,
+            _url,
             params = kwargs,
             data = data,
             auth_callback = self.auth_callback
         )
 
-    def delete(self, url, auth = True, token = False, **kwargs):
+    def delete(self, _url, auth = True, token = False, **kwargs):
         self.build_kwargs(kwargs, auth = auth, token = token)
         return self.request(
             appier.delete,
-            url,
+            _url,
             params = kwargs,
             auth_callback = self.auth_callback
         )
@@ -147,6 +148,14 @@ class Api(object):
 
     def login(self):
         pass
+
+    def subscribe_web(self, callback_url):
+        url = self.base_url + "omni/web/subscribe.json"
+        contents_s = self.post(
+            url,
+            url = callback_url
+        )
+        return contents_s
 
     def list_stores(self, filter = "", start = 0, count = 10):
         url = self.base_url + "omni/stores.json"
