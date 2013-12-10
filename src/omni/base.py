@@ -41,6 +41,8 @@ import urllib
 
 import appier
 
+import web
+import store
 import errors
 
 DIRECT_MODE = 1
@@ -73,10 +75,9 @@ SCOPE = (
 """ The list of permission to be used to create the
 scope string for the oauth value """
 
-class Api(object):
+class Api(web.WebApi, store.StoreApi):
 
     def __init__(self, *args, **kwargs):
-        object.__init__(self)
         self.base_url = kwargs.get("base_url", BASE_URL)
         self.prefix = kwargs.get("prefix", "adm/")
         self.client_id = kwargs.get("client_id", CLIENT_ID)
@@ -177,24 +178,6 @@ class Api(object):
         self.session_id = contents_s.get("session_id", None)
         self.tokens = self.acl.keys()
         return self.session_id
-
-    def subscribe_web(self, callback_url):
-        url = self.base_url + "omni/web/subscribe.json"
-        contents_s = self.post(
-            url,
-            url = callback_url
-        )
-        return contents_s
-
-    def list_stores(self, filter = "", start = 0, count = 10):
-        url = self.base_url + "omni/stores.json"
-        contents_s = self.get(
-            url,
-            filter_string = filter,
-            start_record = start,
-            number_records = count
-        )
-        return contents_s
 
     def oauth_autorize(self):
         url = self.base_url + self.prefix + "oauth/authorize"

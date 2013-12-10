@@ -37,10 +37,14 @@ __copyright__ = "Copyright (c) 2008-2012 Hive Solutions Lda."
 __license__ = "GNU General Public License (GPL), Version 3"
 """ The license for the module """
 
-import base
-import errors
-import store
-
-from base import *
-from errors import *
-from store import *
+class StoreApi(object):
+    
+    def list_stores(self, filter = "", start = 0, count = 10):
+        url = self.base_url + "omni/stores.json"
+        contents_s = self.get(
+            url,
+            filter_string = filter,
+            start_record = start,
+            number_records = count
+        )
+        return contents_s

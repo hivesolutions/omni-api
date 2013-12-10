@@ -37,10 +37,12 @@ __copyright__ = "Copyright (c) 2008-2012 Hive Solutions Lda."
 __license__ = "GNU General Public License (GPL), Version 3"
 """ The license for the module """
 
-import base
-import errors
-import store
-
-from base import *
-from errors import *
-from store import *
+class WebApi(object):
+    
+    def subscribe_web(self, callback_url):
+        url = self.base_url + "omni/web/subscribe.json"
+        contents_s = self.post(
+            url,
+            url = callback_url
+        )
+        return contents_s
