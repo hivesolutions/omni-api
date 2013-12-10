@@ -41,6 +41,8 @@ import urllib
 
 import appier
 
+import errors
+
 BASE_URL = "https://ldj.frontdoorhd.com/"
 """ The default base url to be used when no other
 base url value is provided to the constructor """
@@ -54,7 +56,8 @@ REDIRECT_URL = "http://localhost:8080/oauth"
 SCOPE = (
     "base",
     "base.user",
-    "base.admin"
+    "base.admin",
+    "foundation.store.list"
 )
 """ The list of permission to be used to create the
 scope string for the oauth value """
@@ -69,30 +72,91 @@ class Api(object):
         self.client_secret = kwargs.get("client_secret", CLIENT_SECRET)
         self.redirect_url = kwargs.get("redirect_url", REDIRECT_URL)
         self.scope = kwargs.get("scope", SCOPE)
-        self.access_token = None
+        self.access_token = kwargs.get("access_token", None)
+        self.session_id = kwargs.get("session_id", None)
+        self.username = kwargs.get("username", None)
+        self.acl = kwargs.get("acl", None)
+        self.tokens = kwargs.get("tokens", None)
 
-    def get(self, url, authenticate = True, token = False, **kwargs):
-        if authenticate: kwargs["session_id"] = self.session_id
-        if token: kwargs["access_token"] = self.access_token
-        return appier.get(url, **kwargs)
+    def request(self, method, *args, **kwargs):
+        try:
+            result = method(*args, **kwargs)
+        except appier.HTTPError, exception:
+            print exception.read_json()
+            raise errors.OAuthAccessError(
+                "Problems using access token found must re-authorize"
+            )
 
-    def post(self, url, authenticate = True, token = False, **kwargs):
-        if authenticate: kwargs["session_id"] = self.session_id
-        if token: kwargs["access_token"] = self.access_token
-        return appier.post(url, data_j = kwargs)
+        return result
 
-    def put(self, url, authenticate = True, token = False, **kwargs):
-        if authenticate: kwargs["session_id"] = self.session_id
-        if token: kwargs["access_token"] = self.access_token
-        return appier.post(url, **kwargs)
+    def build_kwargs(self, kwargs, auth = True, token = False):
+        if auth: kwargs["session_id"] = self.get_session_id()
+        if token: kwargs["access_token"] = self.get_access_token()
 
-    def delete(self, url, authenticate = True, token = False, **kwargs):
-        if authenticate: kwargs["session_id"] = self.session_id
-        if token: kwargs["access_token"] = self.access_token
-        return appier.delete(url, **kwargs)
+    def get(self, url, auth = True, token = False, **kwargs):
+        self.build_kwargs(kwargs, auth = auth, token = token)
+        return self.request(
+            appier.get,
+            url,
+            params = kwargs,
+            auth_callback = self.auth_callback
+        )
+
+    def post(self, url, auth = True, token = False, data = None, **kwargs):
+        self.build_kwargs(kwargs, auth = auth, token = token)
+        return self.request(
+            appier.post,
+            url,
+            params = kwargs,
+            data = data,
+            auth_callback = self.auth_callback
+        )
+
+    def put(self, url, auth = True, token = False, data = None, **kwargs):
+        self.build_kwargs(kwargs, auth = auth, token = token)
+        return self.request(
+            appier.put,
+            url,
+            params = kwargs,
+            data = data,
+            auth_callback = self.auth_callback
+        )
+
+    def delete(self, url, auth = True, token = False, **kwargs):
+        self.build_kwargs(kwargs, auth = auth, token = token)
+        return self.request(
+            appier.delete,
+            url,
+            params = kwargs,
+            auth_callback = self.auth_callback
+        )
+
+    def get_session_id(self):
+        if self.session_id: return self.session_id
+        return self.oauth_session()
+
+    def get_access_token(self):
+        if self.access_token: return self.access_token
+        raise errors.OAuthAccessError(
+            "No access token found must re-authorize"
+        )
+
+    def auth_callback(self, params):
+        session_id = self.oauth_session()
+        params["session_id"] = session_id
 
     def login(self):
         pass
+
+    def list_stores(self, filter = "", start = 0, count = 10):
+        url = self.base_url + "omni/stores.json"
+        contents_s = self.get(
+            url,
+            filter_string = filter,
+            start_record = start,
+            number_records = count
+        )
+        return contents_s
 
     def oauth_autorize(self):
         url = self.base_url + self.prefix + "oauth/authorize"
@@ -111,7 +175,7 @@ class Api(object):
         url = self.base_url + "omni/oauth/access_token"
         contents_s = self.post(
             url,
-            authenticate = False,
+            auth = False,
             token = False,
             client_id = self.client_id,
             client_secret = self.client_secret,
@@ -123,4 +187,10 @@ class Api(object):
         return self.access_token
 
     def oauth_session(self):
-        pass
+        url = self.base_url + "omni/oauth/start_session"
+        contents_s = self.get(url, auth = False, token = True)
+        self.username = contents_s.get("username", None)
+        self.acl = contents_s.get("acl", None)
+        self.session_id = contents_s.get("session_id", None)
+        self.tokens = self.acl.keys()
+        return self.session_id
