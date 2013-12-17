@@ -45,6 +45,7 @@ import web
 import sale
 import store
 import errors
+import customer
 import employee
 
 DIRECT_MODE = 1
@@ -83,7 +84,13 @@ SCOPE = (
 """ The list of permission to be used to create the
 scope string for the oauth value """
 
-class Api(web.WebApi, sale.SaleApi, store.StoreApi, employee.EmployeeApi):
+class Api(
+    web.WebApi,
+    sale.SaleApi,
+    store.StoreApi,
+    customer.CustomerApi,
+    employee.EmployeeApi
+):
 
     def __init__(self, *args, **kwargs):
         self.base_url = kwargs.get("base_url", BASE_URL)

@@ -37,20 +37,19 @@ __copyright__ = "Copyright (c) 2008-2012 Hive Solutions Lda."
 __license__ = "GNU General Public License (GPL), Version 3"
 """ The license for the module """
 
-import base
-import customer
-import employee
-import errors
-import export
-import sale
-import store
-import web
+class CustomerApi(object):
 
-from base import *
-from customer import *
-from employee import *
-from errors import *
-from export import *
-from sale import *
-from store import *
-from web import *
+    def list_persons(self, filter = "", start = 0, count = 10):
+        url = self.base_url + "omni/customer_persons.json"
+        contents = self.get(
+            url,
+            filter_string = filter,
+            start_record = start,
+            number_records = count
+        )
+        return contents
+
+    def get_person(self, object_id):
+        url = self.base_url + "omni/customer_persons/%d.json" % object_id
+        contents = self.get(url)
+        return contents
