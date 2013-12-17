@@ -81,7 +81,8 @@ def export(
     attributes,
     names = None,
     type_m = None,
-    step = STEP
+    step = STEP,
+    output = True
 ):
     names = names or attributes
     type_m = type_m or dict()
@@ -101,4 +102,4 @@ def export(
 
         index += step
 
-        print index
+        if output: print index
