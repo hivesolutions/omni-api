@@ -37,9 +37,9 @@ __copyright__ = "Copyright (c) 2008-2012 Hive Solutions Lda."
 __license__ = "GNU General Public License (GPL), Version 3"
 """ The license for the module """
 
-import os
-
 import omni
+
+import base
 
 ATTRIBUTES = (
     "name",
@@ -68,11 +68,7 @@ TYPE_M = {
 }
 
 if __name__ == "__main__":
-    api = omni.Api(
-        username = os.environ.get("OMNI_USERNAME"),
-        password = os.environ.get("OMNI_PASSWORD")
-    )
-
+    api = base.get_api()
     file = open("customers.csv", "wb")
     try:
         omni.export(
