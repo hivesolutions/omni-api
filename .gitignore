@@ -1,4 +1,5 @@
 *.pyc
+*.csv
 
 /dist/
 /src/omni_api.egg-info/
