@@ -45,6 +45,7 @@ import web
 import sale
 import store
 import errors
+import invoice
 import customer
 import employee
 
@@ -88,6 +89,7 @@ class Api(
     web.WebApi,
     sale.SaleApi,
     store.StoreApi,
+    invoice.InvoiceApi,
     customer.CustomerApi,
     employee.EmployeeApi
 ):
