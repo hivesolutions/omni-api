@@ -49,6 +49,7 @@ import invoice
 import customer
 import document
 import employee
+import root_entity
 import money_sale_slip
 
 DIRECT_MODE = 1
@@ -95,6 +96,7 @@ class Api(
     customer.CustomerApi,
     document.DocumentApi,
     employee.EmployeeApi,
+    root_entity.RootEntityApi,
     money_sale_slip.MoneySaleSlipApi
 ):
 

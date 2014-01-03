@@ -37,28 +37,9 @@ __copyright__ = "Copyright (c) 2008-2012 Hive Solutions Lda."
 __license__ = "GNU General Public License (GPL), Version 3"
 """ The license for the module """
 
-import base
-import customer
-import document
-import employee
-import errors
-import export
-import invoice
-import money_sale_slip
-import root_entity
-import sale
-import store
-import web
+class RootEntityApi(object):
 
-from base import *
-from customer import *
-from document import *
-from employee import *
-from errors import *
-from export import *
-from invoice import *
-from money_sale_slip import *
-from root_entity import *
-from sale import *
-from store import *
-from web import *
+    def sequence_root_entity(self, object_id):
+        url = self.base_url + "omni/root_entity/%d/sequence.json" % object_id
+        contents = self.get(url)
+        return contents
