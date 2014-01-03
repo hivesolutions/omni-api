@@ -47,6 +47,7 @@ import store
 import errors
 import invoice
 import customer
+import document
 import employee
 import money_sale_slip
 
@@ -92,6 +93,7 @@ class Api(
     store.StoreApi,
     invoice.InvoiceApi,
     customer.CustomerApi,
+    document.DocumentApi,
     employee.EmployeeApi,
     money_sale_slip.MoneySaleSlipApi
 ):

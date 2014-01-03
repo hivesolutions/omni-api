@@ -37,26 +37,18 @@ __copyright__ = "Copyright (c) 2008-2012 Hive Solutions Lda."
 __license__ = "GNU General Public License (GPL), Version 3"
 """ The license for the module """
 
-import base
-import customer
-import document
-import employee
-import errors
-import export
-import invoice
-import money_sale_slip
-import sale
-import store
-import web
+class DocumentApi(object):
 
-from base import *
-from customer import *
-from document import *
-from employee import *
-from errors import *
-from export import *
-from invoice import *
-from money_sale_slip import *
-from sale import *
-from store import *
-from web import *
+    @classmethod
+    def default_customers(cls, documents):
+        for document in documents:
+            cls.default_customer(document)
+
+    @classmethod
+    def default_customer(cls, document):
+        payload = document["payload"]
+        operation = payload["operation"]
+        customer = operation["customer"]
+        operation["customer"] = customer or dict(
+            short_name = "Anonymous"
+        )
