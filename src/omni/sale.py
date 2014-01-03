@@ -54,6 +54,11 @@ class SaleApi(object):
         contents = self.get(url)
         return contents
 
+    def vat_sale(self, object_id):
+        url = self.base_url + "omni/sales/%d/vat.json" % object_id
+        contents = self.get(url)
+        return contents
+
     def stats_sales(
         self,
         unit = "day",

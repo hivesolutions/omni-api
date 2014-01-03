@@ -48,6 +48,7 @@ import errors
 import invoice
 import customer
 import employee
+import money_sale_slip
 
 DIRECT_MODE = 1
 """ The direct mode where a complete access is allowed
@@ -91,7 +92,8 @@ class Api(
     store.StoreApi,
     invoice.InvoiceApi,
     customer.CustomerApi,
-    employee.EmployeeApi
+    employee.EmployeeApi,
+    money_sale_slip.MoneySaleSlipApi
 ):
 
     def __init__(self, *args, **kwargs):

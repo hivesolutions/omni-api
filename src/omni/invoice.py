@@ -49,7 +49,7 @@ class InvoiceApi(object):
         )
         return contents
 
-    def get_invoices(self, object_id):
+    def get_invoice(self, object_id):
         url = self.base_url + "omni/invoices/%d.json" % object_id
         contents = self.get(url)
         return contents
