@@ -37,7 +37,37 @@ __copyright__ = "Copyright (c) 2008-2012 Hive Solutions Lda."
 __license__ = "GNU General Public License (GPL), Version 3"
 """ The license for the module """
 
+import util
+
 class InvoiceApi(object):
+
+    @classmethod
+    def normalize_invoice(cls, invoice):
+        payload = invoice.get("payload", {})
+        operation = payload.get("operation", {})
+
+        operation["subtotal"] = operation["price_vat"] + operation["discount_vat"]
+
+        operation["vat_s"] = util.format_places(operation["vat"], 2)
+        operation["subtotal_s"] = util.format_places(operation["subtotal"], 2)
+        operation["discount_vat_s"] = util.format_places(operation["discount_vat"], 2)
+        operation["price_vat_s"] = util.format_places(operation["price_vat"], 2)
+
+        for item in operation["vat_list"]:
+            item["vat_rate_s"] = util.format_places(item["vat_rate"], 2)
+            item["vat_s"] = util.format_places(item["vat"], 2)
+
+        for sale_line in operation["sale_lines"]:
+            sale_line["vat_rate_s"] = util.format_places(sale_line["vat_rate"], 2)
+            sale_line["quantity_s"] = util.format_places(
+                sale_line["quantity"],
+                sale_line.get("quantity_places", 0),
+            )
+            sale_line["unit_discount_vat_s"] = util.format_places(sale_line["unit_discount_vat"], 2)
+            sale_line["unit_price_vat_s"] = util.format_places(sale_line["unit_price_vat"], 2)
+            sale_line["price_vat_s"] = util.format_places(sale_line["price_vat"], 2)
+
+        operation["lines"] = operation["sale_lines"]
 
     def list_invoices(self, filter = "", start = 0, count = 10):
         url = self.base_url + "omni/invoices.json"
