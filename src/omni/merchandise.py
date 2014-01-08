@@ -37,30 +37,14 @@ __copyright__ = "Copyright (c) 2008-2012 Hive Solutions Lda."
 __license__ = "GNU General Public License (GPL), Version 3"
 """ The license for the module """
 
-import base
-import customer
-import document
-import employee
-import errors
-import export
-import invoice
-import merchandise
-import money_sale_slip
-import root_entity
-import sale
-import store
-import web
+class MerchandiseApi(object):
 
-from base import *
-from customer import *
-from document import *
-from employee import *
-from errors import *
-from export import *
-from invoice import *
-from merchandise import *
-from money_sale_slip import *
-from root_entity import *
-from sale import *
-from store import *
-from web import *
+    def list_merchandise(self, filter = "", start = 0, count = 10):
+        url = self.base_url + "omni/merchandise.json"
+        contents = self.get(
+            url,
+            filter_string = filter,
+            start_record = start,
+            number_records = count
+        )
+        return contents

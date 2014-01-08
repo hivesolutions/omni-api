@@ -49,6 +49,11 @@ class SaleApi(object):
         )
         return contents
 
+    def create_sale(self, sale):
+        url = self.base_url + "omni/sales.json"
+        contents = self.post(url, data_j = sale)
+        return contents
+
     def get_sale(self, object_id):
         url = self.base_url + "omni/sales/%d.json" % object_id
         contents = self.get(url)
@@ -57,6 +62,16 @@ class SaleApi(object):
     def vat_sale(self, object_id):
         url = self.base_url + "omni/sales/%d/vat.json" % object_id
         contents = self.get(url)
+        return contents
+
+    def issue_money_sale_slip_sale(self, object_id, metadata = {}):
+        url = self.base_url + "omni/sales/%d/issue_money_sale_slip.json" % object_id
+        contents = self.post(url, data_j = dict(metadata = metadata))
+        return contents
+
+    def issue_invoice_sale(self, object_id, metadata = None):
+        url = self.base_url + "omni/sales/%d/issue_invoice.json" % object_id
+        contents = self.post(url, data_j = dict(metadata = metadata))
         return contents
 
     def stats_sales(

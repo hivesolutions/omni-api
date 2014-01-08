@@ -50,6 +50,7 @@ import customer
 import document
 import employee
 import root_entity
+import merchandise
 import money_sale_slip
 
 DIRECT_MODE = 1
@@ -97,6 +98,7 @@ class Api(
     document.DocumentApi,
     employee.EmployeeApi,
     root_entity.RootEntityApi,
+    merchandise.MerchandiseApi,
     money_sale_slip.MoneySaleSlipApi
 ):
 
@@ -139,23 +141,25 @@ class Api(
             auth_callback = self.auth_callback
         )
 
-    def post(self, _url, auth = True, token = False, data = None, **kwargs):
+    def post(self, _url, auth = True, token = False, data = None, data_j = None, **kwargs):
         self.build_kwargs(kwargs, auth = auth, token = token)
         return self.request(
             appier.post,
             _url,
             params = kwargs,
             data = data,
+            data_j = data_j,
             auth_callback = self.auth_callback
         )
 
-    def put(self, _url, auth = True, token = False, data = None, **kwargs):
+    def put(self, _url, auth = True, token = False, data = None, data_j = None, **kwargs):
         self.build_kwargs(kwargs, auth = auth, token = token)
         return self.request(
             appier.put,
             _url,
             params = kwargs,
             data = data,
+            data_j = data_j,
             auth_callback = self.auth_callback
         )
 
