@@ -69,13 +69,12 @@ class InvoiceApi(object):
 
         operation["lines"] = operation["sale_lines"]
 
-    def list_invoices(self, filter = "", start = 0, count = 10):
+    def list_invoices(self, *args, **kwargs):
+        util.filter_args(kwargs)
         url = self.base_url + "omni/invoices.json"
         contents = self.get(
             url,
-            filter_string = filter,
-            start_record = start,
-            number_records = count
+            **kwargs
         )
         return contents
 

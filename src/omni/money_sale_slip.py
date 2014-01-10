@@ -37,15 +37,16 @@ __copyright__ = "Copyright (c) 2008-2012 Hive Solutions Lda."
 __license__ = "GNU General Public License (GPL), Version 3"
 """ The license for the module """
 
+import util
+
 class MoneySaleSlipApi(object):
 
-    def list_money_sale_slips(self, filter = "", start = 0, count = 10):
+    def list_money_sale_slips(self, *args, **kwargs):
+        util.filter_args(kwargs)
         url = self.base_url + "omni/money_sale_slips.json"
         contents = self.get(
             url,
-            filter_string = filter,
-            start_record = start,
-            number_records = count
+            **kwargs
         )
         return contents
 

@@ -40,3 +40,21 @@ __license__ = "GNU General Public License (GPL), Version 3"
 def format_places(number, places):
     format_s = "%%0.0%df" % places
     return format_s % number
+
+def filter_args(kwargs):
+    if not "object" in kwargs: return
+    object = kwargs["object"]
+
+    filter_def = object.get("find_d", None)
+    filter_string = object.get("find_s", "")
+    start_record = object.get("skip", 0)
+    number_records = object.get("limit", 10)
+
+    kwargs["start_record"] = start_record
+    kwargs["number_records"] = number_records
+    if filter_def: kwargs["filters[]"] = [
+        "%s:%s" % (filter_def, filter_string)
+    ]
+    else: kwargs["filter_string"] = filter_string
+
+    del kwargs["object"]
