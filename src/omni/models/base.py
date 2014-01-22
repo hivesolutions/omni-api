@@ -37,25 +37,10 @@ __copyright__ = "Copyright (c) 2008-2012 Hive Solutions Lda."
 __license__ = "GNU General Public License (GPL), Version 3"
 """ The license for the module """
 
-import util
+import appier
 
-class MerchandiseApi(object):
+class Base(appier.Model):
 
-    def list_merchandise(self, *args, **kwargs):
-        util.filter_args(kwargs)
-        url = self.base_url + "omni/merchandise.json"
-        contents = self.get(
-            url,
-            **kwargs
-        )
-        return contents
-
-    def list_store_merchandise(self, store_id = None, *args, **kwargs):
-        util.filter_args(kwargs)
-        url = self.base_url + "omni/merchandise/store.json"
-        contents = self.get(
-            url,
-            store_id = store_id,
-            **kwargs
-        )
-        return contents
+    object_id = dict(
+        type = int
+    )
