@@ -38,13 +38,6 @@ __license__ = "GNU General Public License (GPL), Version 3"
 """ The license for the module """
 
 import base
-import customer
-import line
-import merchandise
-import sale
 
-from base import *
-from customer import *
-from line import *
-from merchandise import *
-from sale import *
+class Customer(base.Base):
+    pass
