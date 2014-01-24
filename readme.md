@@ -18,11 +18,13 @@ api = omni.Api(
 Alternativly it's possible to use the api throught an OAuth base approach using
 the provided client id and secret values.
 
+```python
 api = omni.Api(
     base_url = "http://frontdoorhq.com",
     client_id = "YOUR_OAUTH_ID",
     client_secret = "YOUR_OAUTH_SECRET",
 )
+```
 
 ## Examples
 
