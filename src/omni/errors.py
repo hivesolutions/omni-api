@@ -40,5 +40,8 @@ __license__ = "GNU General Public License (GPL), Version 3"
 class ApiError(RuntimeError):
     pass
 
+class AccessError(ApiError):
+    pass
+
 class OAuthAccessError(ApiError):
     pass

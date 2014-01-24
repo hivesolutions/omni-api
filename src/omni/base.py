@@ -63,6 +63,11 @@ OAUTH_MODE = 2
 (scope) is authorized on behalf on an already authenticated
 user using a web agent (recommended mode) """
 
+UNSET_MODE = 3
+""" The unset client mode for situations where the client
+exists but not enough information is provided to it so that
+it knows how to interact with the server side (detached client) """
+
 BASE_URL = "https://ldj.frontdoorhd.com/"
 """ The default base url to be used when no other
 base url value is provided to the constructor """
@@ -125,6 +130,7 @@ class Api(
             elif self.mode == OAUTH_MODE: raise errors.OAuthAccessError(
                 "Problems using access token found must re-authorize"
             )
+            raise
 
         return result
 
@@ -185,6 +191,9 @@ class Api(
         )
 
     def auth_callback(self, params):
+        if not self._has_mode(): raise errors.AccessError(
+            "Session expired or authentication issues"
+        )
         self.session_id = None
         session_id = self.get_session_id()
         params["session_id"] = session_id
@@ -243,6 +252,10 @@ class Api(
         self.tokens = self.acl.keys()
         return self.session_id
 
+    def _has_mode(self):
+        return self.mode == DIRECT_MODE or self.mode == OAUTH_MODE
+
     def _get_mode(self):
         if self.username and self.password: return DIRECT_MODE
-        return OAUTH_MODE
+        elif self.client_id and self.client_secret: return OAUTH_MODE
+        return UNSET_MODE
