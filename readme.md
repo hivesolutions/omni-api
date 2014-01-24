@@ -22,7 +22,7 @@ the provided client id and secret values.
 api = omni.Api(
     base_url = "http://frontdoorhq.com",
     client_id = "YOUR_OAUTH_ID",
-    client_secret = "YOUR_OAUTH_SECRET",
+    client_secret = "YOUR_OAUTH_SECRET"
 )
 ```
 
