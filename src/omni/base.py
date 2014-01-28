@@ -43,6 +43,7 @@ import appier
 
 import web
 import sale
+import user
 import store
 import errors
 import invoice
@@ -98,6 +99,7 @@ scope string for the oauth value """
 class Api(
     web.WebApi,
     sale.SaleApi,
+    user.UserApi,
     store.StoreApi,
     invoice.InvoiceApi,
     customer.CustomerApi,
@@ -255,6 +257,9 @@ class Api(
         self.session_id = contents.get("session_id", None)
         self.tokens = self.acl.keys()
         return self.session_id
+
+    def ping(self):
+        return self.self_user()
 
     def _has_mode(self):
         return self.mode == DIRECT_MODE or self.mode == OAUTH_MODE
