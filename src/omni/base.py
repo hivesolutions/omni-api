@@ -51,6 +51,7 @@ import document
 import employee
 import root_entity
 import merchandise
+import system_company
 import money_sale_slip
 
 DIRECT_MODE = 1
@@ -104,6 +105,7 @@ class Api(
     employee.EmployeeApi,
     root_entity.RootEntityApi,
     merchandise.MerchandiseApi,
+    system_company.SystemCompanyApi,
     money_sale_slip.MoneySaleSlipApi
 ):
 
@@ -120,6 +122,8 @@ class Api(
         self.password = kwargs.get("password", None)
         self.acl = kwargs.get("acl", None)
         self.tokens = kwargs.get("tokens", None)
+        self.company = kwargs.get("company", None)
+        self.wrap_exception = kwargs.get("wrap_exception", False)
         self.mode = self._get_mode()
 
     def request(self, method, *args, **kwargs):

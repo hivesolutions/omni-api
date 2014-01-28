@@ -37,7 +37,10 @@ __copyright__ = "Copyright (c) 2008-2012 Hive Solutions Lda."
 __license__ = "GNU General Public License (GPL), Version 3"
 """ The license for the module """
 
-import operation
+import base
 
-class Sale(operation.Operation):
-    pass
+class Operation(base.Base):
+
+    type = dict(
+        type = int
+    )

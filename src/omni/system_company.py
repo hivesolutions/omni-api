@@ -37,7 +37,13 @@ __copyright__ = "Copyright (c) 2008-2012 Hive Solutions Lda."
 __license__ = "GNU General Public License (GPL), Version 3"
 """ The license for the module """
 
-import operation
+class SystemCompanyApi(object):
 
-class Sale(operation.Operation):
-    pass
+    def load_system_company(self):
+        contents = self.self_system_company()
+        self.company = contents
+
+    def self_system_company(self):
+        url = self.base_url + "omni/system_companies/self.json"
+        contents = self.get(url)
+        return contents

@@ -50,9 +50,9 @@ class SaleApi(object):
         )
         return contents
 
-    def create_sale(self, sale):
+    def create_sale(self, payload):
         url = self.base_url + "omni/sales.json"
-        contents = self.post(url, data_j = sale)
+        contents = self.post(url, data_j = payload)
         return contents
 
     def get_sale(self, object_id):
