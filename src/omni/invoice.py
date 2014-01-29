@@ -46,10 +46,16 @@ class InvoiceApi(object):
         payload = invoice.get("payload", {})
         operation = payload.get("operation", {})
 
-        operation["subtotal"] = operation["price_vat"] + operation["discount_vat"]
+        type = operation.get("type", 1)
+
+        if type == 1:
+            operation["subtotal"] = operation["price_vat"] + operation["discount_vat"]
+        elif type == 2:
+            operation["subtotal"] = operation["price"]["value"]
 
         operation["vat_s"] = util.format_places(operation["vat"], 2)
         operation["subtotal_s"] = util.format_places(operation["subtotal"], 2)
+        operation["discount_s"] = util.format_places(operation["discount"], 2)
         operation["discount_vat_s"] = util.format_places(operation["discount_vat"], 2)
         operation["price_vat_s"] = util.format_places(operation["price_vat"], 2)
 

@@ -40,4 +40,11 @@ __license__ = "GNU General Public License (GPL), Version 3"
 import operation
 
 class Sale(operation.Operation):
-    pass
+
+    discount = dict(
+        type = float
+    )
+
+    discount_vat = dict(
+        type = float
+    )
