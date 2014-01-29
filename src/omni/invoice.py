@@ -69,8 +69,11 @@ class InvoiceApi(object):
                 sale_line["quantity"],
                 sale_line.get("quantity_places", 0),
             )
+            sale_line["unit_discount_s"] = util.format_places(sale_line["unit_discount"], 2)
             sale_line["unit_discount_vat_s"] = util.format_places(sale_line["unit_discount_vat"], 2)
+            sale_line["unit_price_s"] = util.format_places(sale_line["unit_price"]["value"], 2)
             sale_line["unit_price_vat_s"] = util.format_places(sale_line["unit_price_vat"], 2)
+            sale_line["price_s"] = util.format_places(sale_line["price"], 2)
             sale_line["price_vat_s"] = util.format_places(sale_line["price_vat"], 2)
 
         operation["lines"] = operation["sale_lines"]
