@@ -76,7 +76,9 @@ class InvoiceApi(object):
             sale_line["unit_price_vat_s"] = util.format_places(sale_line["unit_price_vat"], 2)
             sale_line["price_s"] = util.format_places(sale_line["price"], 2)
             sale_line["price_vat_s"] = util.format_places(sale_line["price_vat"], 2)
-            sale_line["weight_s"] = util.format_places(merchandise["weight"] or 0.0 * sale_line["quantity"], 3)
+            sale_line["weight_s"] = util.format_places(
+                (merchandise["weight"] or 0.0) * sale_line["quantity"], 3
+            )
 
         operation["lines"] = operation["sale_lines"]
 
