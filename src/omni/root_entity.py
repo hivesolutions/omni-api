@@ -46,6 +46,11 @@ class RootEntityApi(object):
         contents = self.get(url)
         return contents
 
+    def media_root_entity(self, object_id, label):
+        url = self.base_url + "omni/root_entities/%d/media.json" % object_id
+        contents = self.get(url, label = label)
+        return contents
+
     def set_media_root_entity(
         self,
         object_id,

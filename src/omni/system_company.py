@@ -47,3 +47,8 @@ class SystemCompanyApi(object):
         url = self.base_url + "omni/system_companies/self.json"
         contents = self.get(url)
         return contents
+
+    def media_system_company(self, label):
+        system_company = self.self_system_company()
+        object_id = system_company["object_id"]
+        return self.media_root_entity(object_id, label)
