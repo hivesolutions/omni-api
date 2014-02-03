@@ -37,9 +37,34 @@ __copyright__ = "Copyright (c) 2008-2012 Hive Solutions Lda."
 __license__ = "GNU General Public License (GPL), Version 3"
 """ The license for the module """
 
+import base64
+
 class RootEntityApi(object):
 
     def sequence_root_entity(self, object_id):
-        url = self.base_url + "omni/root_entity/%d/sequence.json" % object_id
+        url = self.base_url + "omni/root_entities/%d/sequence.json" % object_id
         contents = self.get(url)
+        return contents
+
+    def set_media_root_entity(
+        self,
+        object_id,
+        label,
+        data,
+        mime_type = None,
+        width = None,
+        height = None,
+        url = None
+    ):
+        data_b64 = base64.b64encode(data)
+        data_j = dict(
+            label = label,
+            data_b64 = data_b64,
+            mime_type = mime_type,
+            width = width,
+            height = height,
+            url = url
+        )
+        url = self.base_url + "omni/root_entities/%d/media/set.json" % object_id
+        contents = self.post(url, data_j = data_j)
         return contents
