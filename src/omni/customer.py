@@ -41,6 +41,15 @@ import util
 
 class CustomerApi(object):
 
+    def list_customers(self, *args, **kwargs):
+        util.filter_args(kwargs)
+        url = self.base_url + "omni/customers.json"
+        contents = self.get(
+            url,
+            **kwargs
+        )
+        return contents
+
     def list_persons(self, *args, **kwargs):
         util.filter_args(kwargs)
         url = self.base_url + "omni/customer_persons.json"
