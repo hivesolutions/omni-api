@@ -39,7 +39,7 @@ __license__ = "GNU General Public License (GPL), Version 3"
 
 import base64
 
-class RootEntityApi(object):
+class EntityApi(object):
 
     def sequence_entity(self, object_id):
         url = self.base_url + "omni/entities/%d/sequence.json" % object_id

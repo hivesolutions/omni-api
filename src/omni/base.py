@@ -46,11 +46,11 @@ import sale
 import user
 import store
 import errors
+import entity
 import invoice
 import customer
 import document
 import employee
-import root_entity
 import merchandise
 import system_company
 import money_sale_slip
@@ -101,11 +101,11 @@ class Api(
     sale.SaleApi,
     user.UserApi,
     store.StoreApi,
+    entity.EntityApi,
     invoice.InvoiceApi,
     customer.CustomerApi,
     document.DocumentApi,
     employee.EmployeeApi,
-    root_entity.RootEntityApi,
     merchandise.MerchandiseApi,
     system_company.SystemCompanyApi,
     money_sale_slip.MoneySaleSlipApi

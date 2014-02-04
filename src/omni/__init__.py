@@ -41,12 +41,12 @@ import base
 import customer
 import document
 import employee
+import entity
 import errors
 import export
 import invoice
 import merchandise
 import money_sale_slip
-import root_entity
 import sale
 import store
 import web
@@ -55,12 +55,12 @@ from base import *
 from customer import *
 from document import *
 from employee import *
+from entity import *
 from errors import *
 from export import *
 from invoice import *
 from merchandise import *
 from money_sale_slip import *
-from root_entity import *
 from sale import *
 from store import *
 from web import *
