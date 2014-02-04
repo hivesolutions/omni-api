@@ -51,4 +51,4 @@ class SystemCompanyApi(object):
     def media_system_company(self, label):
         system_company = self.self_system_company()
         object_id = system_company["object_id"]
-        return self.media_root_entity(object_id, label)
+        return self.media_entity(object_id, label)
