@@ -53,7 +53,7 @@ def filter_args(kwargs):
     kwargs["start_record"] = start_record
     kwargs["number_records"] = number_records
     if filter_def: kwargs["filters[]"] = [
-        "%s:%s" % (filter_def, filter_string)
+        "%s:%s" % (filter_part, filter_string) for filter_part in filter_def
     ]
     else: kwargs["filter_string"] = filter_string
 
