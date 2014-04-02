@@ -93,11 +93,11 @@ def export(
     index = 0
 
     while True:
-        objects = caller(start = index, count = STEP)
+        objects = caller(start = index, count = step)
         if not objects: break
 
         for object in objects:
-            values =  [get_field(object, key, type_m = type_m) for key in attributes]
+            values = [get_field(object, key, type_m = type_m) for key in attributes]
             csv_f.writerow(values)
 
         index += step
