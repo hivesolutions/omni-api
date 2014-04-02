@@ -93,7 +93,8 @@ def export(
     index = 0
 
     while True:
-        objects = caller(start = index, count = step)
+        object = dict(skip = index, limit = step)
+        objects = caller(object = object)
         if not objects: break
 
         for object in objects:
