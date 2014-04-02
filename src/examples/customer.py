@@ -63,9 +63,9 @@ NAMES = (
     "country"
 )
 
-TYPE_M = {
-    "birth_date" : "date"
-}
+TYPE_M = dict(
+    birth_date = "date"
+)
 
 if __name__ == "__main__":
     api = base.get_api()
