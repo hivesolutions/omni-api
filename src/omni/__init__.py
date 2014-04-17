@@ -45,7 +45,11 @@ import invoice
 import merchandise
 import money_sale_slip
 import sale
+import signed_document
 import store
+import system_company
+import user
+import util
 import web
 
 from base import *
@@ -59,5 +63,9 @@ from invoice import *
 from merchandise import *
 from money_sale_slip import *
 from sale import *
+from signed_document import *
 from store import *
+from system_company import *
+from user import *
+from util import *
 from web import *
