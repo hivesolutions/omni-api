@@ -54,6 +54,7 @@ import employee
 import merchandise
 import system_company
 import money_sale_slip
+import signed_document
 
 DIRECT_MODE = 1
 """ The direct mode where a complete access is allowed
@@ -97,6 +98,7 @@ SCOPE = (
 scope string for the oauth value """
 
 class Api(
+    appier.Observable,
     web.WebApi,
     sale.SaleApi,
     user.UserApi,
@@ -108,10 +110,12 @@ class Api(
     employee.EmployeeApi,
     merchandise.MerchandiseApi,
     system_company.SystemCompanyApi,
-    money_sale_slip.MoneySaleSlipApi
+    money_sale_slip.MoneySaleSlipApi,
+    signed_document.SignedDocumentApi
 ):
 
     def __init__(self, *args, **kwargs):
+        appier.Observable.__init__(self, *args, **kwargs)
         self.base_url = kwargs.get("base_url", BASE_URL)
         self.prefix = kwargs.get("prefix", "adm/")
         self.client_id = kwargs.get("client_id", CLIENT_ID)
@@ -219,6 +223,7 @@ class Api(
         self.acl = contents.get("acl", None)
         self.session_id = contents.get("session_id", None)
         self.tokens = self.acl.keys()
+        self.trigger("auth", contents)
         return self.session_id
 
     def oauth_autorize(self):
@@ -247,6 +252,7 @@ class Api(
             code = code
         )
         self.access_token = contents["access_token"]
+        self.trigger("access_token", self.access_token)
         return self.access_token
 
     def oauth_session(self):
@@ -256,6 +262,7 @@ class Api(
         self.acl = contents.get("acl", None)
         self.session_id = contents.get("session_id", None)
         self.tokens = self.acl.keys()
+        self.trigger("auth", contents)
         return self.session_id
 
     def ping(self):
