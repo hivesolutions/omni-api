@@ -19,6 +19,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Hive Omni ERP. If not, see <http://www.gnu.org/licenses/>.
 
+__author__ = "João Magalhães <joamag@hive.pt>"
+""" The author(s) of the module """
+
 __version__ = "1.0.0"
 """ The version of the module """
 
@@ -34,42 +37,29 @@ __copyright__ = "Copyright (c) 2008-2012 Hive Solutions Lda."
 __license__ = "GNU General Public License (GPL), Version 3"
 """ The license for the module """
 
-import base
-import customer
-import document
-import employee
-import entity
-import errors
-import export
-import invoice
-import merchandise
-import money_sale_slip
-import return_
-import sale
-import signed_document
-import store
-import supplier
-import system_company
-import user
 import util
-import web
 
-from base import *
-from customer import *
-from document import *
-from employee import *
-from entity import *
-from errors import *
-from export import *
-from invoice import *
-from merchandise import *
-from money_sale_slip import *
-from return_ import *
-from sale import *
-from signed_document import *
-from store import *
-from supplier import *
-from system_company import *
-from user import *
-from util import *
-from web import *
+class SupplierApi(object):
+
+    def list_suppliers(self, *args, **kwargs):
+        util.filter_args(kwargs)
+        url = self.base_url + "omni/suppliers.json"
+        contents = self.get(
+            url,
+            **kwargs
+        )
+        return contents
+
+    def list_companies(self, *args, **kwargs):
+        util.filter_args(kwargs)
+        url = self.base_url + "omni/supplier_companies.json"
+        contents = self.get(
+            url,
+            **kwargs
+        )
+        return contents
+
+    def get_company(self, object_id):
+        url = self.base_url + "omni/supplier_companies/%d.json" % object_id
+        contents = self.get(url)
+        return contents

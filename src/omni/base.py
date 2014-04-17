@@ -50,6 +50,7 @@ import entity
 import return_
 import invoice
 import customer
+import supplier
 import document
 import employee
 import merchandise
@@ -108,6 +109,7 @@ class Api(
     return_.ReturnApi,
     invoice.InvoiceApi,
     customer.CustomerApi,
+    supplier.SupplierApi,
     document.DocumentApi,
     employee.EmployeeApi,
     merchandise.MerchandiseApi,
