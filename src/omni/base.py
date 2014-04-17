@@ -47,6 +47,7 @@ import user
 import store
 import errors
 import entity
+import return_
 import invoice
 import customer
 import document
@@ -104,6 +105,7 @@ class Api(
     user.UserApi,
     store.StoreApi,
     entity.EntityApi,
+    return_.ReturnApi,
     invoice.InvoiceApi,
     customer.CustomerApi,
     document.DocumentApi,

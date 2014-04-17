@@ -75,6 +75,15 @@ class SaleApi(object):
         contents = self.post(url, data_j = dict(metadata = metadata))
         return contents
 
+    def self_sales(self, *args, **kwargs):
+        util.filter_args(kwargs)
+        url = self.base_url + "omni/sales/self.json"
+        contents = self.get(
+            url,
+            **kwargs
+        )
+        return contents
+
     def stats_sales(
         self,
         unit = "day",
