@@ -30,7 +30,7 @@ For these type of handling the `OAuthAccessError` exception must be handled and 
 the user must be redirect to the url provided by `api.oauth_autorize` method call.
 
 Running then the `api.oauth_access` call with the returned `code` from the server side
-that should be used to redeam the `access_token` required for session authentication.
+that should be used to redeem the `access_token` required for session authentication.
 
 ## Examples
 
