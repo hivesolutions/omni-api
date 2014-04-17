@@ -50,6 +50,10 @@ class MerchandiseApi(object):
         )
         return contents
 
+    def update_merchandise(self, id, payload):
+        url = self.base_url + "omni/merchandise/%d/update.json" % id
+        self.post(url, data_m = payload)
+
     def list_store_merchandise(self, store_id = None, *args, **kwargs):
         util.filter_args(kwargs)
         url = self.base_url + "omni/merchandise/store.json"
@@ -59,3 +63,7 @@ class MerchandiseApi(object):
             **kwargs
         )
         return contents
+
+    def prices_merchandise(self, items):
+        url = self.base_url + "omni/merchandise/prices.json"
+        self.put(url, data_j = items)
