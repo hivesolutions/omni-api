@@ -54,3 +54,8 @@ class SignedDocumentApi(object):
         url = self.base_url + "omni/signed_documents/submit_invoice_at.json"
         contents = self.get(url, document_id = document_id)
         return contents
+
+    def submit_transport_at(self, document_id):
+        url = self.base_url + "omni/signed_documents/submit_transport_at.json"
+        contents = self.get(url, document_id = document_id)
+        return contents

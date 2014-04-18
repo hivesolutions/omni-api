@@ -134,7 +134,7 @@ class Api(
         self.tokens = kwargs.get("tokens", None)
         self.company = kwargs.get("company", None)
         self.wrap_exception = kwargs.get("wrap_exception", False)
-        self.mode = self._get_mode()
+        self.mode = kwargs.get("mode", None) or self._get_mode()
 
     def request(self, method, *args, **kwargs):
         try:
