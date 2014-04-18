@@ -161,7 +161,7 @@ class Api(
             auth_callback = self.auth_callback
         )
 
-    def post(self, _url, auth = True, token = False, data = None, data_j = None, **kwargs):
+    def post(self, _url, auth = True, token = False, data = None, data_j = None, data_m = None, **kwargs):
         self.build_kwargs(kwargs, auth = auth, token = token)
         return self.request(
             appier.post,
@@ -169,10 +169,11 @@ class Api(
             params = kwargs,
             data = data,
             data_j = data_j,
+            data_m = data_m,
             auth_callback = self.auth_callback
         )
 
-    def put(self, _url, auth = True, token = False, data = None, data_j = None, **kwargs):
+    def put(self, _url, auth = True, token = False, data = None, data_j = None, data_m = None, **kwargs):
         self.build_kwargs(kwargs, auth = auth, token = token)
         return self.request(
             appier.put,
@@ -180,6 +181,7 @@ class Api(
             params = kwargs,
             data = data,
             data_j = data_j,
+            data_m = data_m,
             auth_callback = self.auth_callback
         )
 
