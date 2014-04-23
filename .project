@@ -3,6 +3,7 @@
 	<name>omni_api</name>
 	<comment></comment>
 	<projects>
+		<project>appier</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
