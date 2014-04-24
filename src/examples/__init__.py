@@ -36,6 +36,8 @@ __license__ = "GNU General Public License (GPL), Version 3"
 
 from . import base
 from . import customer
+from . import error
 
 from .base import *
 from .customer import *
+from .error import *

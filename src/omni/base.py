@@ -158,20 +158,20 @@ class Api(
         if auth: kwargs["session_id"] = self.get_session_id()
         if token: kwargs["access_token"] = self.get_access_token()
 
-    def get(self, _url, auth = True, token = False, **kwargs):
+    def get(self, url, auth = True, token = False, **kwargs):
         self.build_kwargs(kwargs, auth = auth, token = token)
         return self.request(
             appier.get,
-            _url,
+            url,
             params = kwargs,
             auth_callback = self.auth_callback
         )
 
-    def post(self, _url, auth = True, token = False, data = None, data_j = None, data_m = None, **kwargs):
+    def post(self, url, auth = True, token = False, data = None, data_j = None, data_m = None, **kwargs):
         self.build_kwargs(kwargs, auth = auth, token = token)
         return self.request(
             appier.post,
-            _url,
+            url,
             params = kwargs,
             data = data,
             data_j = data_j,
@@ -179,11 +179,11 @@ class Api(
             auth_callback = self.auth_callback
         )
 
-    def put(self, _url, auth = True, token = False, data = None, data_j = None, data_m = None, **kwargs):
+    def put(self, url, auth = True, token = False, data = None, data_j = None, data_m = None, **kwargs):
         self.build_kwargs(kwargs, auth = auth, token = token)
         return self.request(
             appier.put,
-            _url,
+            url,
             params = kwargs,
             data = data,
             data_j = data_j,
@@ -191,11 +191,11 @@ class Api(
             auth_callback = self.auth_callback
         )
 
-    def delete(self, _url, auth = True, token = False, **kwargs):
+    def delete(self, url, auth = True, token = False, **kwargs):
         self.build_kwargs(kwargs, auth = auth, token = token)
         return self.request(
             appier.delete,
-            _url,
+            url,
             params = kwargs,
             auth_callback = self.auth_callback
         )
