@@ -37,33 +37,11 @@ __copyright__ = "Copyright (c) 2008-2014 Hive Solutions Lda."
 __license__ = "GNU General Public License (GPL), Version 3"
 """ The license for the module """
 
-from omni import util
+import omni
 
-class MerchandiseApi(object):
+import base
 
-    def list_merchandise(self, *args, **kwargs):
-        util.filter_args(kwargs)
-        url = self.base_url + "omni/merchandise.json"
-        contents = self.get(
-            url,
-            **kwargs
-        )
-        return contents
-
-    def update_merchandise(self, id, payload):
-        url = self.base_url + "omni/merchandise/%d/update.json" % id
-        self.post(url, data_m = payload)
-
-    def list_store_merchandise(self, store_id = None, *args, **kwargs):
-        util.filter_args(kwargs)
-        url = self.base_url + "omni/merchandise/store.json"
-        contents = self.get(
-            url,
-            store_id = store_id,
-            **kwargs
-        )
-        return contents
-
-    def prices_merchandise(self, items):
-        url = self.base_url + "omni/merchandise/prices.json"
-        self.put(url, data_j = items)
+if __name__ == "__main__":
+    api = base.get_api()
+    try: api.get_sale(1)
+    except omni.OmniError as error: print(error)

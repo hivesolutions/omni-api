@@ -37,26 +37,24 @@ __copyright__ = "Copyright (c) 2008-2014 Hive Solutions Lda."
 __license__ = "GNU General Public License (GPL), Version 3"
 """ The license for the module """
 
-import urllib
-
 import appier
 
-import web
-import sale
-import user
-import store
-import errors
-import entity
-import return_
-import invoice
-import customer
-import supplier
-import document
-import employee
-import merchandise
-import system_company
-import money_sale_slip
-import signed_document
+from omni import web
+from omni import sale
+from omni import user
+from omni import store
+from omni import errors
+from omni import entity
+from omni import return_
+from omni import invoice
+from omni import customer
+from omni import supplier
+from omni import document
+from omni import employee
+from omni import merchandise
+from omni import system_company
+from omni import money_sale_slip
+from omni import signed_document
 
 DIRECT_MODE = 1
 """ The direct mode where a complete access is allowed
@@ -133,20 +131,28 @@ class Api(
         self.acl = kwargs.get("acl", None)
         self.tokens = kwargs.get("tokens", None)
         self.company = kwargs.get("company", None)
-        self.wrap_exception = kwargs.get("wrap_exception", False)
+        self.wrap_exception = kwargs.get("wrap_exception", True)
         self.mode = kwargs.get("mode", None) or self._get_mode()
 
     def request(self, method, *args, **kwargs):
         try:
             result = method(*args, **kwargs)
-        except appier.HTTPError:
-            if self.mode == DIRECT_MODE: raise
+        except appier.exceptions.HTTPError as exception:
+            if self.mode == DIRECT_MODE: self.handle_error(exception)
             elif self.mode == OAUTH_MODE: raise errors.OAuthAccessError(
                 "Problems using access token found must re-authorize"
             )
             raise
 
         return result
+
+    def handle_error(self, error):
+        if not self.wrap_exception: raise
+        data = error.read_json()
+        if not data: raise
+        exception = data.get("exception", {})
+        error = errors.OmniError(error, exception)
+        raise error
 
     def build_kwargs(self, kwargs, auth = True, token = False):
         if auth: kwargs["session_id"] = self.get_session_id()
@@ -241,7 +247,7 @@ class Api(
             scope = " ".join(self.scope)
         )
 
-        data = urllib.urlencode(values)
+        data = appier.urlencode(values)
         url = url + "?" + data
         return url
 

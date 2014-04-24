@@ -38,8 +38,9 @@ __license__ = "GNU General Public License (GPL), Version 3"
 """ The license for the module """
 
 import csv
-import types
 import datetime
+
+import appier
 
 STEP = 256
 """ The default step value to be used in the iteration
@@ -48,7 +49,7 @@ value on this field may create some memory problems in the
 server and a large latency """
 
 def to_string(value, encoding = "iso-8859-1"):
-    if type(value) == types.UnicodeType:
+    if appier.is_unicode(value):
         value = value.encode(encoding, errors = "ignore")
     return value
 
@@ -103,4 +104,4 @@ def export(
 
         index += step
 
-        if output: print index
+        if output: print(index)

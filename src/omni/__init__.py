@@ -34,42 +34,42 @@ __copyright__ = "Copyright (c) 2008-2014 Hive Solutions Lda."
 __license__ = "GNU General Public License (GPL), Version 3"
 """ The license for the module """
 
-import base
-import customer
-import document
-import employee
-import entity
-import errors
-import export
-import invoice
-import merchandise
-import money_sale_slip
-import return_
-import sale
-import signed_document
-import store
-import supplier
-import system_company
-import user
-import util
-import web
+from . import base
+from . import customer
+from . import document
+from . import employee
+from . import entity
+from . import errors
+from . import export
+from . import invoice
+from . import merchandise
+from . import money_sale_slip
+from . import return_
+from . import sale
+from . import signed_document
+from . import store
+from . import supplier
+from . import system_company
+from . import user
+from . import util
+from . import web
 
-from base import *
-from customer import *
-from document import *
-from employee import *
-from entity import *
-from errors import *
-from export import *
-from invoice import *
-from merchandise import *
-from money_sale_slip import *
-from return_ import *
-from sale import *
-from signed_document import *
-from store import *
-from supplier import *
-from system_company import *
-from user import *
-from util import *
-from web import *
+from .base import *
+from .customer import *
+from .document import *
+from .employee import *
+from .entity import *
+from .errors import *
+from .export import *
+from .invoice import *
+from .merchandise import *
+from .money_sale_slip import *
+from .return_ import *
+from .sale import *
+from .signed_document import *
+from .store import *
+from .supplier import *
+from .system_company import *
+from .user import *
+from .util import *
+from .web import *

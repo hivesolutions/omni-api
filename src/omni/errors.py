@@ -37,6 +37,8 @@ __copyright__ = "Copyright (c) 2008-2014 Hive Solutions Lda."
 __license__ = "GNU General Public License (GPL), Version 3"
 """ The license for the module """
 
+import appier
+
 class ApiError(RuntimeError):
     pass
 
@@ -45,3 +47,27 @@ class AccessError(ApiError):
 
 class OAuthAccessError(ApiError):
     pass
+
+class OmniError(ApiError):
+
+    def __init__(self, error, exception = {}):
+        ApiError.__init__(self)
+        self.error = error
+        self.exception = exception
+
+    def __str__(self):
+        return self.full_message()
+
+    def __unicode__(self):
+        return appier.UNICODE(self.full_message())
+
+    def message(self):
+        return self.exception.get("message", "Undefined message")
+
+    def full_message(self):
+        message = self.message()
+        exception_name = self.exception.get("exception_name", None)
+        return "%s - %s" % (exception_name, message) if exception_name else message
+
+    def traceback(self):
+        return self.exception.get("traceback", None)

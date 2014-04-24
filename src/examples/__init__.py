@@ -34,8 +34,8 @@ __copyright__ = "Copyright (c) 2008-2014 Hive Solutions Lda."
 __license__ = "GNU General Public License (GPL), Version 3"
 """ The license for the module """
 
-import base
-import customer
+from . import base
+from . import customer
 
-from base import *
-from customer import *
+from .base import *
+from .customer import *
