@@ -39,7 +39,7 @@ __license__ = "GNU General Public License (GPL), Version 3"
 
 import omni
 
-import base
+from examples import base
 
 ATTRIBUTES = (
     "name",

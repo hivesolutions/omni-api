@@ -39,7 +39,7 @@ __license__ = "GNU General Public License (GPL), Version 3"
 
 import omni
 
-import base
+from examples import base
 
 if __name__ == "__main__":
     api = base.get_api()
