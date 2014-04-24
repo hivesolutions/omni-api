@@ -48,12 +48,12 @@ around the values retrieved from the server side, a large
 value on this field may create some memory problems in the
 server and a large latency """
 
-def to_string(value, encoding = "iso-8859-1"):
-    if appier.is_unicode(value):
+def to_string(value, encoding = None):
+    if encoding and appier.is_unicode(value):
         value = value.encode(encoding, errors = "ignore")
     return value
 
-def to_date(value):
+def to_date(value, encoding = None):
     try: value_d = datetime.datetime.utcfromtimestamp(value)
     except: return ""
     return value_d.strftime("%Y-%m-%d")
@@ -63,7 +63,8 @@ FUNCS = dict(
     date = to_date
 )
 
-def get_field(object, name, encoding = "iso-8859-1", type_m = dict()):
+def get_field(object, name, encoding = "latin-1", type_m = dict()):
+    if appier.PYTHON_3: encoding = None
     name_l = name.split(".")
 
     for key in name_l:
@@ -72,9 +73,19 @@ def get_field(object, name, encoding = "iso-8859-1", type_m = dict()):
 
     _type = type_m.get(name, "string")
     func = FUNCS.get(_type, None)
-    object = func(object) if func and not object == None else object
+    object = func(object, encoding = encoding) if func and not object == None else object
 
     return object
+
+def open_export(path):
+    if appier.PYTHON_3: return open(
+        path,
+        "w",
+        newline = "",
+        encoding = "latin-1",
+        errors = "ignore"
+    )
+    else: return open(path, "wb")
 
 def export(
     file,

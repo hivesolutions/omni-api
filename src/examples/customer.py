@@ -69,7 +69,7 @@ TYPE_M = dict(
 
 if __name__ == "__main__":
     api = base.get_api()
-    file = open("customers.csv", "wb")
+    file = omni.open_export("customers.csv")
     try:
         omni.export(
             file,
