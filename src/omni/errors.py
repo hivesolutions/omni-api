@@ -61,13 +61,16 @@ class OmniError(ApiError):
     def __unicode__(self):
         return appier.UNICODE(self.full_message())
 
+    def name(self):
+        return self.exception.get("exception_name", "Undefined")
+
     def message(self):
         return self.exception.get("message", "Undefined message")
 
     def full_message(self):
         message = self.message()
-        exception_name = self.exception.get("exception_name", None)
-        return "%s - %s" % (exception_name, message) if exception_name else message
+        name = self.name()
+        return "%s - %s" % (name, message) if name else message
 
     def traceback(self):
         return self.exception.get("traceback", None)
