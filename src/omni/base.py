@@ -98,7 +98,7 @@ SCOPE = (
 scope string for the oauth value """
 
 class Api(
-    appier.Observable,
+    appier.Api,
     web.WebApi,
     sale.SaleApi,
     user.UserApi,
@@ -117,7 +117,7 @@ class Api(
 ):
 
     def __init__(self, *args, **kwargs):
-        appier.Observable.__init__(self, *args, **kwargs)
+        appier.Api.__init__(self, *args, **kwargs)
         self.base_url = kwargs.get("base_url", BASE_URL)
         self.prefix = kwargs.get("prefix", "adm/")
         self.client_id = kwargs.get("client_id", CLIENT_ID)
