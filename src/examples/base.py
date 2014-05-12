@@ -37,12 +37,12 @@ __copyright__ = "Copyright (c) 2008-2014 Hive Solutions Lda."
 __license__ = "GNU General Public License (GPL), Version 3"
 """ The license for the module """
 
-import os
+import appier
 
 import omni
 
 def get_api():
     return omni.Api(
-        username = os.environ.get("OMNI_USERNAME"),
-        password = os.environ.get("OMNI_PASSWORD")
+        username = appier.conf("OMNI_USERNAME"),
+        password = appier.conf("OMNI_PASSWORD")
     )
