@@ -94,7 +94,7 @@ SCOPE = (
     "foundation.store.list",
     "foundation.web.subscribe"
 )
-""" The list of permission to be used to create the
+""" The list of permissions to be used to create the
 scope string for the oauth value """
 
 class Api(
@@ -246,7 +246,6 @@ class Api(
             response_type = "code",
             scope = " ".join(self.scope)
         )
-
         data = appier.urlencode(values)
         url = url + "?" + data
         return url
