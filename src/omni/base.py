@@ -98,7 +98,7 @@ SCOPE = (
 scope string for the oauth value """
 
 class Api(
-    appier.Api,
+    appier.OAuth2Api,
     web.WebApi,
     sale.SaleApi,
     user.UserApi,
@@ -117,7 +117,7 @@ class Api(
 ):
 
     def __init__(self, *args, **kwargs):
-        appier.Api.__init__(self, *args, **kwargs)
+        appier.OAuth2Api.__init__(self, *args, **kwargs)
         self.base_url = kwargs.get("base_url", BASE_URL)
         self.prefix = kwargs.get("prefix", "adm/")
         self.client_id = kwargs.get("client_id", CLIENT_ID)
@@ -134,71 +134,28 @@ class Api(
         self.wrap_exception = kwargs.get("wrap_exception", True)
         self.mode = kwargs.get("mode", None) or self._get_mode()
 
-    def request(self, method, *args, **kwargs):
-        try:
-            result = method(*args, **kwargs)
-        except appier.exceptions.HTTPError as exception:
-            if self.mode == DIRECT_MODE: self.handle_error(exception)
-            elif self.mode == OAUTH_MODE: raise errors.OAuthAccessError(
-                "Problems using access token found must re-authorize"
-            )
-            raise
-
-        return result
+    def build(self, headers, kwargs):
+        auth = kwargs.get("auth", True)
+        token = kwargs.get("token", False)
+        if auth: kwargs["session_id"] = self.get_session_id()
+        if token: kwargs["access_token"] = self.get_access_token()
+        if "auth" in kwargs: del kwargs["auth"]
+        if "token" in kwargs: del kwargs["token"]
 
     def handle_error(self, error):
+        if self.mode == DIRECT_MODE: self.handle_direct(error)
+        elif self.mode == OAUTH_MODE: raise appier.OAuthAccessError(
+            message = "Problems using access token found must re-authorize"
+        )
+        raise
+
+    def handle_direct(self, error):
         if not self.wrap_exception: raise
         data = error.read_json()
         if not data: raise
         exception = data.get("exception", {})
         error = errors.OmniError(error, exception)
         raise error
-
-    def build_kwargs(self, kwargs, auth = True, token = False):
-        if auth: kwargs["session_id"] = self.get_session_id()
-        if token: kwargs["access_token"] = self.get_access_token()
-
-    def get(self, url, auth = True, token = False, **kwargs):
-        self.build_kwargs(kwargs, auth = auth, token = token)
-        return self.request(
-            appier.get,
-            url,
-            params = kwargs,
-            auth_callback = self.auth_callback
-        )
-
-    def post(self, url, auth = True, token = False, data = None, data_j = None, data_m = None, **kwargs):
-        self.build_kwargs(kwargs, auth = auth, token = token)
-        return self.request(
-            appier.post,
-            url,
-            params = kwargs,
-            data = data,
-            data_j = data_j,
-            data_m = data_m,
-            auth_callback = self.auth_callback
-        )
-
-    def put(self, url, auth = True, token = False, data = None, data_j = None, data_m = None, **kwargs):
-        self.build_kwargs(kwargs, auth = auth, token = token)
-        return self.request(
-            appier.put,
-            url,
-            params = kwargs,
-            data = data,
-            data_j = data_j,
-            data_m = data_m,
-            auth_callback = self.auth_callback
-        )
-
-    def delete(self, url, auth = True, token = False, **kwargs):
-        self.build_kwargs(kwargs, auth = auth, token = token)
-        return self.request(
-            appier.delete,
-            url,
-            params = kwargs,
-            auth_callback = self.auth_callback
-        )
 
     def get_session_id(self):
         if self.session_id: return self.session_id
@@ -208,13 +165,13 @@ class Api(
     def get_access_token(self):
         if self.access_token: return self.access_token
         if self.mode == DIRECT_MODE: return None
-        raise errors.OAuthAccessError(
-            "No access token found must re-authorize"
+        raise appier.OAuthAccessError(
+            message = "No access token found must re-authorize"
         )
 
     def auth_callback(self, params):
-        if not self._has_mode(): raise errors.AccessError(
-            "Session expired or authentication issues"
+        if not self._has_mode(): raise appier.APIAccessError(
+            message = "Session expired or authentication issues"
         )
         self.session_id = None
         session_id = self.get_session_id()
