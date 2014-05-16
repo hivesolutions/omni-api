@@ -195,7 +195,7 @@ class Api(
         self.trigger("auth", contents)
         return self.session_id
 
-    def oauth_autorize(self, state = None):
+    def oauth_authorize(self, state = None):
         url = self.base_url + self.prefix + "oauth/authorize"
         values = dict(
             client_id = self.client_id,
