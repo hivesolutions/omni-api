@@ -39,19 +39,10 @@ __license__ = "GNU General Public License (GPL), Version 3"
 
 import appier
 
-class ApiError(RuntimeError):
-    pass
-
-class AccessError(ApiError):
-    pass
-
-class OAuthAccessError(ApiError):
-    pass
-
-class OmniError(ApiError):
+class OmniError(appier.APIError):
 
     def __init__(self, error, exception = {}):
-        ApiError.__init__(self)
+        appier.APIError.__init__(self)
         self.error = error
         self.exception = exception
 
