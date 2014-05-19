@@ -56,21 +56,6 @@ from omni import system_company
 from omni import money_sale_slip
 from omni import signed_document
 
-DIRECT_MODE = 1
-""" The direct mode where a complete access is allowed
-to the client by providing the "normal" credentials to
-it and ensuring a complete authentication """
-
-OAUTH_MODE = 2
-""" The oauth client mode where the set of permissions
-(scope) is authorized on behalf on an already authenticated
-user using a web agent (recommended mode) """
-
-UNSET_MODE = 3
-""" The unset client mode for situations where the client
-exists but not enough information is provided to it so that
-it knows how to interact with the server side (detached client) """
-
 BASE_URL = "https://ldj.frontdoorhd.com/"
 """ The default base url to be used when no other
 base url value is provided to the constructor """
@@ -143,8 +128,8 @@ class Api(
         if "token" in kwargs: del kwargs["token"]
 
     def handle_error(self, error):
-        if self.mode == DIRECT_MODE: self.handle_direct(error)
-        elif self.mode == OAUTH_MODE: raise appier.OAuthAccessError(
+        if self.is_direct(): self.handle_direct(error)
+        elif self.is_oauth(): raise appier.OAuthAccessError(
             message = "Problems using access token found must re-authorize"
         )
         raise
@@ -159,12 +144,12 @@ class Api(
 
     def get_session_id(self):
         if self.session_id: return self.session_id
-        if self.mode == DIRECT_MODE: return self.login()
-        elif self.mode == OAUTH_MODE: return self.oauth_session()
+        if self.is_direct(): return self.login()
+        elif self.is_oauth(): return self.oauth_session()
 
     def get_access_token(self):
         if self.access_token: return self.access_token
-        if self.mode == DIRECT_MODE: return None
+        if self.is_direct(): return None
         raise appier.OAuthAccessError(
             message = "No access token found must re-authorize"
         )
@@ -238,9 +223,9 @@ class Api(
         return self.self_user()
 
     def _has_mode(self):
-        return self.mode == DIRECT_MODE or self.mode == OAUTH_MODE
+        return self.is_direct() or self.is_oauth()
 
     def _get_mode(self):
-        if self.username and self.password: return DIRECT_MODE
-        elif self.client_id and self.client_secret: return OAUTH_MODE
-        return UNSET_MODE
+        if self.username and self.password: return appier.OAuthApi.DIRECT_MODE
+        elif self.client_id and self.client_secret: return appier.OAuthApi.OAUTH_MODE
+        return appier.OAuthApi.UNSET_MODE
