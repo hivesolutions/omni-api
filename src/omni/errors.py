@@ -42,7 +42,7 @@ import appier
 class OmniError(appier.APIError):
 
     def __init__(self, error, exception = {}):
-        appier.APIError.__init__(self)
+        appier.APIError.__init__(self, "Omni internal error")
         self.error = error
         self.exception = exception
 
@@ -55,13 +55,13 @@ class OmniError(appier.APIError):
     def name(self):
         return self.exception.get("exception_name", "Undefined")
 
-    def message(self):
+    def description(self):
         return self.exception.get("message", "Undefined message")
 
     def full_message(self):
-        message = self.message()
+        description = self.description()
         name = self.name()
-        return "%s - %s" % (name, message) if name else message
+        return "%s - %s" % (name, description) if name else description
 
     def traceback(self):
         return self.exception.get("traceback", None)
