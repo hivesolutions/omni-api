@@ -50,12 +50,12 @@ class SignedDocumentApi(object):
         )
         return contents
 
-    def submit_invoice_at(self, document_id):
-        url = self.base_url + "omni/signed_documents/submit_invoice_at.json"
-        contents = self.get(url, document_id = document_id)
+    def submit_invoice_at(self, object_id):
+        url = self.base_url + "omni/signed_documents/%d/submit_invoice_at.json" % object_id
+        contents = self.get(url)
         return contents
 
-    def submit_transport_at(self, document_id):
-        url = self.base_url + "omni/signed_documents/submit_transport_at.json"
-        contents = self.get(url, document_id = document_id)
+    def submit_transport_at(self, object_id):
+        url = self.base_url + "omni/signed_documents/%d/submit_transport_at.json" % object_id
+        contents = self.get(url)
         return contents
