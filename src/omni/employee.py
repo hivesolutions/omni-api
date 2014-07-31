@@ -62,10 +62,10 @@ class EmployeeApi(object):
 
     def stats_employee(
         self,
-        employee_id = None,
         unit = "month",
         span = 7,
         store_id = None,
+        employee_id = None,
         has_global = None,
         output = "simple"
     ):
