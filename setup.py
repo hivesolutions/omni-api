@@ -42,13 +42,13 @@ import setuptools
 
 setuptools.setup(
     name = "omni_api",
-    version = "0.1.10",
+    version = "0.1.11",
     author = "Hive Solutions Lda.",
     author_email = "development@hive.pt",
     description = "Omni API",
     license = "GNU General Public License (GPL), Version 3",
     keywords = "omni api",
-    url = "http://omni.com",
+    url = "http://omni_api.hive.pt",
     zip_safe = False,
     packages = [
         "omni"
