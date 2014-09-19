@@ -62,11 +62,9 @@ class EmployeeApi(object):
 
     def stats_employee(
         self,
+        date = None,
         unit = "month",
         span = 7,
-        year = None,
-        month = None,
-        day = None,
         store_id = None,
         employee_id = None,
         has_global = None,
@@ -75,11 +73,9 @@ class EmployeeApi(object):
         url = self.base_url + "omni/employee_snapshots/stats.json"
         contents = self.get(
             url,
+            date = date,
             unit = unit,
             span = span,
-            year = year,
-            month = month,
-            day = day,
             store_id = store_id,
             employee_id = employee_id,
             has_global = has_global,
