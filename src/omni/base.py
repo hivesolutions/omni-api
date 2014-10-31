@@ -189,7 +189,7 @@ class Api(
             scope = " ".join(self.scope)
         )
         if state: values["state"] = state
-        data = appier.urlencode(values)
+        data = appier.legacy.urlencode(values)
         url = url + "?" + data
         return url
 
