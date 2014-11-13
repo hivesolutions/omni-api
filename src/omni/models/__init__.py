@@ -43,8 +43,8 @@ from . import line
 from . import merchandise
 from . import sale
 
-from .base import *
-from .customer import *
-from .line import *
-from .merchandise import *
-from .sale import *
+from .base import Base
+from .customer import Customer
+from .line import Line
+from .merchandise import Merchandise
+from .sale import Sale

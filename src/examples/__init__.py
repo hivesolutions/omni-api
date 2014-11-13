@@ -38,6 +38,4 @@ from . import base
 from . import customer
 from . import error
 
-from .base import *
-from .customer import *
-from .error import *
+from .base import get_api

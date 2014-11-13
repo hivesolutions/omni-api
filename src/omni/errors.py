@@ -50,7 +50,7 @@ class OmniError(appier.APIError):
         return self.full_message()
 
     def __unicode__(self):
-        return appier.UNICODE(self.full_message())
+        return appier.legacy.UNICODE(self.full_message())
 
     def name(self):
         return self.exception.get("exception_name", "Undefined")

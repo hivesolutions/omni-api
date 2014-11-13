@@ -49,7 +49,7 @@ value on this field may create some memory problems in the
 server and a large latency """
 
 def to_string(value, encoding = None):
-    if encoding and appier.is_unicode(value):
+    if encoding and appier.legacy.is_unicode(value):
         value = value.encode(encoding, errors = "ignore")
     return value
 
@@ -64,7 +64,7 @@ FUNCS = dict(
 )
 
 def get_field(object, name, encoding = "latin-1", type_m = dict()):
-    if appier.PYTHON_3: encoding = None
+    if appier.legacy.PYTHON_3: encoding = None
     name_l = name.split(".")
 
     for key in name_l:
@@ -78,7 +78,7 @@ def get_field(object, name, encoding = "latin-1", type_m = dict()):
     return object
 
 def open_export(path):
-    if appier.PYTHON_3: return open(
+    if appier.legacy.PYTHON_3: return open(
         path,
         "w",
         newline = "",

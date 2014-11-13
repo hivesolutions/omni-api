@@ -54,22 +54,24 @@ from . import user
 from . import util
 from . import web
 
-from .base import *
-from .customer import *
-from .document import *
-from .employee import *
-from .entity import *
-from .errors import *
-from .export import *
-from .invoice import *
-from .merchandise import *
-from .money_sale_slip import *
-from .return_ import *
-from .sale import *
-from .signed_document import *
-from .store import *
-from .supplier import *
-from .system_company import *
-from .user import *
-from .util import *
-from .web import *
+from .base import Api
+from .customer import CustomerApi
+from .document import DocumentApi
+from .employee import EmployeeApi
+from .entity import EntityApi
+from .errors import OmniError
+from .export import FUNCS, get_field, open_export
+from .invoice import InvoiceApi
+from .merchandise import MerchandiseApi
+from .money_sale_slip import MoneySaleSlipApi
+from .return_ import ReturnApi
+from .sale import SaleApi
+from .signed_document import SignedDocumentApi
+from .store import StoreApi
+from .supplier import SupplierApi
+from .system_company import SystemCompanyApi
+from .user import UserApi
+from .util import format_places, filter_args
+from .web import WebApi
+
+from .export import export as export_do
