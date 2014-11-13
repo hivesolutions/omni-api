@@ -39,22 +39,22 @@ __license__ = "GNU General Public License (GPL), Version 3"
 
 import appier
 
-from omni import web
-from omni import sale
-from omni import user
-from omni import store
-from omni import errors
-from omni import entity
-from omni import return_
-from omni import invoice
-from omni import customer
-from omni import supplier
-from omni import document
-from omni import employee
-from omni import merchandise
-from omni import system_company
-from omni import money_sale_slip
-from omni import signed_document
+from . import web
+from . import sale
+from . import user
+from . import store
+from . import errors
+from . import entity
+from . import return_
+from . import invoice
+from . import customer
+from . import supplier
+from . import document
+from . import employee
+from . import merchandise
+from . import system_company
+from . import money_sale_slip
+from . import signed_document
 
 BASE_URL = "https://ldj.frontdoorhd.com/"
 """ The default base url to be used when no other
