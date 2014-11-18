@@ -45,6 +45,7 @@ from . import invoice
 from . import merchandise
 from . import money_sale_slip
 from . import return_
+from . import sale_snapshot
 from . import sale
 from . import signed_document
 from . import store
@@ -65,6 +66,7 @@ from .invoice import InvoiceApi
 from .merchandise import MerchandiseApi
 from .money_sale_slip import MoneySaleSlipApi
 from .return_ import ReturnApi
+from .sale_snapshot import SaleSnapshotApi
 from .sale import SaleApi
 from .signed_document import SignedDocumentApi
 from .store import StoreApi

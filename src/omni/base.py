@@ -52,6 +52,7 @@ from . import supplier
 from . import document
 from . import employee
 from . import merchandise
+from . import sale_snapshot
 from . import system_company
 from . import money_sale_slip
 from . import signed_document
@@ -96,6 +97,7 @@ class Api(
     document.DocumentApi,
     employee.EmployeeApi,
     merchandise.MerchandiseApi,
+    sale_snapshot.SaleSnapshotApi,
     system_company.SystemCompanyApi,
     money_sale_slip.MoneySaleSlipApi,
     signed_document.SignedDocumentApi
