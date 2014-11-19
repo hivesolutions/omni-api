@@ -39,7 +39,7 @@ __license__ = "GNU General Public License (GPL), Version 3"
 
 class SaleSnapshotApi(object):
 
-    def snapshot_apply_entries(self, payload):
+    def entries_sales_snapshot(self, payload):
         url = self.base_url + "omni/sale_snapshots/apply/entries.json"
         contents = self.post(url, data_j = payload)
         return contents
