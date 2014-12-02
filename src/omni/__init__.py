@@ -55,7 +55,7 @@ from . import user
 from . import util
 from . import web
 
-from .base import Api
+from .base import BASE_URL, Api
 from .customer import CustomerApi
 from .document import DocumentApi
 from .employee import EmployeeApi
