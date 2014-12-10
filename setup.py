@@ -42,7 +42,7 @@ import setuptools
 
 setuptools.setup(
     name = "omni_api",
-    version = "0.1.15",
+    version = "0.1.16",
     author = "Hive Solutions Lda.",
     author_email = "development@hive.pt",
     description = "Omni API",
@@ -51,7 +51,8 @@ setuptools.setup(
     url = "http://omni_api.hive.pt",
     zip_safe = False,
     packages = [
-        "omni"
+        "omni",
+        "omni.models"
     ],
     package_dir = {
         "" : os.path.normpath("src")
