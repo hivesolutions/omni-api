@@ -157,7 +157,7 @@ class Api(
         )
 
     def auth_callback(self, params):
-        if not self._has_mode(): raise appier.APIAccessError(
+        if not self._has_mode(): raise appier.OAuthAccessError(
             message = "Session expired or authentication issues"
         )
         self.session_id = None
