@@ -55,32 +55,41 @@ class InvoiceApi(object):
 
         operation["vat_s"] = util.format_places(operation["vat"], 2)
         operation["subtotal_s"] = util.format_places(operation["subtotal"], 2)
-        operation["discount_s"] = util.format_places(operation["discount"], 2)
-        operation["discount_vat_s"] = util.format_places(operation["discount_vat"], 2)
+
+        if "discount" in operation and not operation["discount"] == None:
+            operation["discount_s"] = util.format_places(operation["discount"], 2)
+
+        if "discount_vat" in operation and not operation["discount_vat"] == None:
+            operation["discount_vat_s"] = util.format_places(operation["discount_vat"], 2)
+
         operation["price_vat_s"] = util.format_places(operation["price_vat"], 2)
 
         for item in operation["vat_list"]:
             item["vat_rate_s"] = util.format_places(item["vat_rate"], 2)
             item["vat_s"] = util.format_places(item["vat"], 2)
 
-        for sale_line in operation["sale_lines"]:
-            merchandise = sale_line["merchandise"]
-            sale_line["vat_rate_s"] = util.format_places(sale_line["vat_rate"], 2)
-            sale_line["quantity_s"] = util.format_places(
-                sale_line["quantity"],
-                sale_line.get("quantity_places", 0),
+        lines = operation.get("sale_lines", [])
+        lines = operation.get("lines", lines)
+
+        for line in lines:
+            merchandise = line["merchandise"]
+            line["vat_rate_s"] = util.format_places(line["vat_rate"], 2)
+            line["quantity_s"] = util.format_places(
+                line["quantity"],
+                line.get("quantity_places", 0),
             )
-            sale_line["unit_discount_s"] = util.format_places(sale_line["unit_discount"], 2)
-            sale_line["unit_discount_vat_s"] = util.format_places(sale_line["unit_discount_vat"], 2)
-            sale_line["unit_price_s"] = util.format_places(sale_line["unit_price"]["value"], 2)
-            sale_line["unit_price_vat_s"] = util.format_places(sale_line["unit_price_vat"], 2)
-            sale_line["price_s"] = util.format_places(sale_line["price"], 2)
-            sale_line["price_vat_s"] = util.format_places(sale_line["price_vat"], 2)
-            sale_line["weight_s"] = util.format_places(
-                (merchandise["weight"] or 0.0) * sale_line["quantity"], 3
+            line["unit_discount_s"] = util.format_places(line["unit_discount"], 2)
+            line["unit_discount_vat_s"] = util.format_places(line["unit_discount_vat"], 2)
+            line["unit_price_s"] = util.format_places(line["unit_price"]["value"], 2)
+            line["unit_price_vat_s"] = util.format_places(line["unit_price_vat"], 2)
+            line["price_s"] = util.format_places(line["price"], 2)
+            line["price_vat_s"] = util.format_places(line["price_vat"], 2)
+            line["weight_s"] = util.format_places(
+                (merchandise["weight"] or 0.0) * line["quantity"], 3
             )
 
-        operation["lines"] = operation["sale_lines"]
+        if "sale_lines" in operation:
+            operation["lines"] = operation["sale_lines"]
 
     def list_invoices(self, *args, **kwargs):
         util.filter_args(kwargs)
