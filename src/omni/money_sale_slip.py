@@ -55,6 +55,6 @@ class MoneySaleSlipApi(object):
         return contents
 
     def get_money_sale_slip(self, object_id):
-        url = self.base_url + "omni/money_sale_slip/%d.json" % object_id
+        url = self.base_url + "omni/money_sale_slips/%d.json" % object_id
         contents = self.get(url)
         return contents
