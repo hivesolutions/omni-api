@@ -35,6 +35,7 @@ __license__ = "GNU General Public License (GPL), Version 3"
 """ The license for the module """
 
 from . import base
+from . import credit_note
 from . import customer
 from . import document
 from . import employee
@@ -56,6 +57,7 @@ from . import util
 from . import web
 
 from .base import BASE_URL, Api
+from .credit_note import CreditNoteApi
 from .customer import CustomerApi
 from .document import DocumentApi
 from .employee import EmployeeApi
