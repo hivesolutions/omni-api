@@ -113,7 +113,7 @@ class Api(
         self.scope = appier.conf("OMNI_SCOPE", SCOPE)
         self.username = appier.conf("OMNI_USERNAME", None)
         self.password = appier.conf("OMNI_PASSWORD", None)
-        self.base_url = kwargs.get("base_url", self.base_ur)
+        self.base_url = kwargs.get("base_url", self.base_url)
         self.prefix = kwargs.get("prefix", self.prefix)
         self.client_id = kwargs.get("client_id", self.client_id)
         self.client_secret = kwargs.get("client_secret", self.client_secret)
