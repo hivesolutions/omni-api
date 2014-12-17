@@ -41,6 +41,10 @@ from . import util
 
 class MoneySaleSlipApi(object):
 
+    @classmethod
+    def normalize_money_sale_slip(cls, money_sale_slip):
+        cls.normalize_invoice(money_sale_slip)
+
     def list_money_sale_slips(self, *args, **kwargs):
         util.filter_args(kwargs)
         url = self.base_url + "omni/money_sale_slips.json"
