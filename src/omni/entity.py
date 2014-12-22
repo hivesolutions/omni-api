@@ -46,9 +46,9 @@ class EntityApi(object):
         contents = self.get(url)
         return contents
 
-    def media_entity(self, object_id, label):
+    def media_entity(self, object_id, dimensions = None, label = None):
         url = self.base_url + "omni/entities/%d/media.json" % object_id
-        contents = self.get(url, label = label)
+        contents = self.get(url, dimensions = dimensions, label = label)
         return contents
 
     def info_media_entity(self, object_id, dimensions = None, label = None):
