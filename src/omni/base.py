@@ -43,6 +43,7 @@ from . import web
 from . import sale
 from . import user
 from . import store
+from . import media
 from . import errors
 from . import entity
 from . import return_
@@ -90,6 +91,7 @@ class Api(
     sale.SaleApi,
     user.UserApi,
     store.StoreApi,
+    media.MediaApi,
     entity.EntityApi,
     return_.ReturnApi,
     invoice.InvoiceApi,

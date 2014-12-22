@@ -43,6 +43,7 @@ from . import entity
 from . import errors
 from . import export
 from . import invoice
+from . import media
 from . import merchandise
 from . import money_sale_slip
 from . import return_
@@ -65,6 +66,7 @@ from .entity import EntityApi
 from .errors import OmniError
 from .export import FUNCS, get_field, open_export
 from .invoice import InvoiceApi
+from .media import MediaApi
 from .merchandise import MerchandiseApi
 from .money_sale_slip import MoneySaleSlipApi
 from .return_ import ReturnApi
