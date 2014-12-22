@@ -227,6 +227,7 @@ class Api(
         url = self.base_url + "omni/oauth/start_session"
         contents = self.get(url, auth = False, token = True)
         self.username = contents.get("username", None)
+        self.object_id = contents.get("object_id", None)
         self.acl = contents.get("acl", None)
         self.session_id = contents.get("session_id", None)
         self.tokens = self.acl.keys()
