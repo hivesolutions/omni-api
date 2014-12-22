@@ -125,6 +125,7 @@ class Api(
         self.session_id = kwargs.get("session_id", None)
         self.username = kwargs.get("username", self.username)
         self.password = kwargs.get("password", self.password)
+        self.object_id = kwargs.get("object_id", None)
         self.acl = kwargs.get("acl", None)
         self.tokens = kwargs.get("tokens", None)
         self.company = kwargs.get("company", None)
@@ -186,6 +187,7 @@ class Api(
             password = password
         )
         self.username = contents.get("username", None)
+        self.object_id = contents.get("object_id", None)
         self.acl = contents.get("acl", None)
         self.session_id = contents.get("session_id", None)
         self.tokens = self.acl.keys()
