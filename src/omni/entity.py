@@ -39,6 +39,8 @@ __license__ = "GNU General Public License (GPL), Version 3"
 
 import base64
 
+import appier
+
 class EntityApi(object):
 
     def sequence_entity(self, object_id):
@@ -67,6 +69,7 @@ class EntityApi(object):
         url = None
     ):
         data_b64 = base64.b64encode(data)
+        data_b64 = appier.legacy.str(data_b64)
         data_j = dict(
             label = label,
             data_b64 = data_b64,
