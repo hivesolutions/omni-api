@@ -53,6 +53,11 @@ class EntityApi(object):
         contents = self.get(url, dimensions = dimensions, label = label)
         return contents
 
+    def public_media_entity(self, object_id, dimensions = None, label = None):
+        url = self.base_url + "omni/entities/%d/media/public.json" % object_id
+        contents = self.get(url, dimensions = dimensions, label = label)
+        return contents
+
     def info_media_entity(self, object_id, dimensions = None, label = None):
         url = self.base_url + "omni/entities/%d/media/info.json" % object_id
         contents = self.get(url, dimensions = dimensions, label = label)
@@ -66,7 +71,8 @@ class EntityApi(object):
         mime_type = None,
         width = None,
         height = None,
-        url = None
+        url = None,
+        visibility = None
     ):
         data_b64 = base64.b64encode(data)
         data_b64 = appier.legacy.str(data_b64)
@@ -76,7 +82,8 @@ class EntityApi(object):
             mime_type = mime_type,
             width = width,
             height = height,
-            url = url
+            url = url,
+            visibility = visibility
         )
         url = self.base_url + "omni/entities/%d/media/set.json" % object_id
         contents = self.post(url, data_j = data_j)
