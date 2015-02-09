@@ -58,6 +58,7 @@ from . import sale_snapshot
 from . import system_company
 from . import money_sale_slip
 from . import signed_document
+from . import consignment_out
 
 BASE_URL = "https://ldj.frontdoorhd.com/"
 """ The default base url to be used when no other
@@ -104,7 +105,8 @@ class Api(
     sale_snapshot.SaleSnapshotApi,
     system_company.SystemCompanyApi,
     money_sale_slip.MoneySaleSlipApi,
-    signed_document.SignedDocumentApi
+    signed_document.SignedDocumentApi,
+    consignment_out.ConsignmentOutApi
 ):
 
     def __init__(self, *args, **kwargs):
