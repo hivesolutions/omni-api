@@ -36,6 +36,7 @@ __license__ = "GNU General Public License (GPL), Version 3"
 
 from . import base
 from . import consignment_out
+from . import consignment_slip
 from . import credit_note
 from . import customer
 from . import document
@@ -60,6 +61,7 @@ from . import web
 
 from .base import BASE_URL, Api
 from .consignment_out import ConsignmentOutApi
+from .consignment_slip import ConsignmentSlipApi
 from .credit_note import CreditNoteApi
 from .customer import CustomerApi
 from .document import DocumentApi
