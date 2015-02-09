@@ -47,8 +47,8 @@ class DocumentApi(object):
     @classmethod
     def default_customer(cls, document):
         payload = document["payload"]
-        operation = payload["operation"]
-        customer = operation["customer"]
+        operation = payload.get("operation", {})
+        customer = operation.get("customer", None)
         operation["customer"] = customer or dict(
             short_name = "Anonymous"
         )
