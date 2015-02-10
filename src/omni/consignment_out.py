@@ -50,6 +50,11 @@ class ConsignmentOutApi(object):
         )
         return contents
 
+    def create_consignment_out(self, payload):
+        url = self.base_url + "omni/consignments_out.json"
+        contents = self.post(url, data_j = payload)
+        return contents
+
     def get_consignment_out(self, object_id):
         url = self.base_url + "omni/consignments_out/%d.json" % object_id
         contents = self.get(url)
