@@ -49,6 +49,7 @@ from . import media
 from . import merchandise
 from . import money_sale_slip
 from . import return_
+from . import sale_order
 from . import sale_snapshot
 from . import sale
 from . import signed_document
@@ -74,6 +75,7 @@ from .media import MediaApi
 from .merchandise import MerchandiseApi
 from .money_sale_slip import MoneySaleSlipApi
 from .return_ import ReturnApi
+from .sale_order import SaleOrderApi
 from .sale_snapshot import SaleSnapshotApi
 from .sale import SaleApi
 from .signed_document import SignedDocumentApi
