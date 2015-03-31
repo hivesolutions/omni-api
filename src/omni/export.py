@@ -50,7 +50,7 @@ server and a large latency """
 
 def to_string(value, encoding = None):
     if encoding and appier.legacy.is_unicode(value):
-        value = value.encode(encoding, errors = "ignore")
+        value = value.encode(encoding, "ignore")
     return value
 
 def to_date(value, encoding = None):
