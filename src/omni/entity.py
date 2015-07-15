@@ -66,25 +66,33 @@ class EntityApi(object):
     def set_media_entity(
         self,
         object_id,
-        label,
         data,
+        position = None,
+        label = None,
         mime_type = None,
         width = None,
         height = None,
+        dimensions = None,
         url = None,
-        visibility = None
+        visibility = None,
+        engine = None,
+        thumbnails = None
     ):
         data_b64 = base64.b64encode(data)
         data_b64 = appier.legacy.str(data_b64)
         data_j = dict(
-            label = label,
             data_b64 = data_b64,
+            label = label,
             mime_type = mime_type,
             width = width,
             height = height,
+            dimensions = dimensions,
             url = url,
-            visibility = visibility
+            visibility = visibility,
         )
+        if not position == None: data_j["position"] = position
+        if not engine == None: data_j["engine"] = engine
+        if not thumbnails == None: data_j["thumbnails"] = thumbnails
         url = self.base_url + "omni/entities/%d/media/set.json" % object_id
         contents = self.post(url, data_j = data_j)
         return contents
