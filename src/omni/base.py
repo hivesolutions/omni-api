@@ -177,7 +177,7 @@ class Api(
             message = "No access token found must re-authorize"
         )
 
-    def auth_callback(self, params):
+    def auth_callback(self, params, headers):
         if not self._has_mode(): raise appier.APIAccessError(
             message = "Session expired or authentication issues"
         )
