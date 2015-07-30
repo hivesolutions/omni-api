@@ -191,6 +191,7 @@ class Api(
         url = self.base_url + "omni/login.json"
         contents = self.get(
             url,
+            callback = False,
             auth = False,
             token = False,
             username = username,
@@ -235,7 +236,7 @@ class Api(
 
     def oauth_session(self):
         url = self.base_url + "omni/oauth/start_session"
-        contents = self.get(url, auth = False, token = True)
+        contents = self.get(url, callback = False, auth = False, token = True)
         self.username = contents.get("username", None)
         self.object_id = contents.get("object_id", None)
         self.acl = contents.get("acl", None)
