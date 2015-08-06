@@ -39,5 +39,10 @@ __license__ = "GNU General Public License (GPL), Version 3"
 
 class MediaApi(object):
 
+    def info_media(self, object_id):
+        url = self.base_url + "omni/media/%d/info.json" % object_id
+        contents = self.get(url)
+        return contents
+
     def get_media_url(self, secret, size = "original"):
         return self.open_url + "omni/media/%s" % secret
