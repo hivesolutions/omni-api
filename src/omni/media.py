@@ -46,7 +46,7 @@ class MediaApi(object):
 
     def update_media(self, id, payload):
         url = self.base_url + "omni/media/%d/update.json" % id
-        contents = self.post(url, data_m = payload)
+        contents = self.post(url, data_j = payload)
         return contents
 
     def delete_media(self, object_id):
