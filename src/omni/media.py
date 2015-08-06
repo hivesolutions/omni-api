@@ -37,6 +37,10 @@ __copyright__ = "Copyright (c) 2008-2015 Hive Solutions Lda."
 __license__ = "GNU General Public License (GPL), Version 3"
 """ The license for the module """
 
+import base64
+
+import appier
+
 class MediaApi(object):
 
     def info_media(self, object_id):
@@ -46,6 +50,7 @@ class MediaApi(object):
 
     def update_media(self, id, payload):
         url = self.base_url + "omni/media/%d/update.json" % id
+        self._wrap_data(payload)
         contents = self.post(url, data_j = payload)
         return contents
 
@@ -56,3 +61,11 @@ class MediaApi(object):
 
     def get_media_url(self, secret, size = "original"):
         return self.open_url + "omni/media/%s" % secret
+    
+    def _wrap_data(self, payload):
+        if not "data" in payload: return
+        data = payload["data"]
+        data_b64 = base64.b64encode(data)
+        data_b64 = appier.legacy.str(data_b64)
+        payload["data_b64"] = data_b64
+        del payload["data"]
