@@ -91,6 +91,7 @@ class EntityApi(object):
         dimensions = None,
         url = None,
         visibility = None,
+        description = None,
         engine = None,
         thumbnails = None
     ):
@@ -105,6 +106,7 @@ class EntityApi(object):
             dimensions = dimensions,
             url = url,
             visibility = visibility,
+            description = description
         )
         if not position == None: data_j["position"] = position
         if not engine == None: data_j["engine"] = engine
