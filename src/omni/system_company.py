@@ -48,20 +48,32 @@ class SystemCompanyApi(object):
         contents = self.get(url)
         return contents
 
-    def media_system_company(self, dimensions = None, label = None):
+    def media_system_company(
+        self,
+        position = None,
+        dimensions = None,
+        label = None
+    ):
         system_company = self.self_system_company()
         object_id = system_company["object_id"]
         return self.media_entity(
             object_id,
+            position = position,
             dimensions = dimensions,
             label = label
         )
 
-    def public_media_system_company(self, dimensions = None, label = None):
+    def public_media_system_company(
+        self,
+        position = None,
+        dimensions = None,
+        label = None
+    ):
         system_company = self.self_system_company()
         object_id = system_company["object_id"]
         return self.public_media_entity(
             object_id,
+            position = position,
             dimensions = dimensions,
             label = label
         )
