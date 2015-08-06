@@ -62,7 +62,7 @@ from . import signed_document
 from . import consignment_out
 from . import consignment_slip
 
-BASE_URL = "https://ldj.frontdoorhd.com/"
+BASE_URL = "http://localhost:8080/mvc/"
 """ The default base url to be used when no other
 base url value is provided to the constructor """
 
