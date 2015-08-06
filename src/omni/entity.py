@@ -41,7 +41,23 @@ import base64
 
 import appier
 
+from . import util
+
 class EntityApi(object):
+
+    def list_entities(self, *args, **kwargs):
+        util.filter_args(kwargs)
+        url = self.base_url + "omni/entities.json"
+        contents = self.get(
+            url,
+            **kwargs
+        )
+        return contents
+
+    def get_entity(self, object_id):
+        url = self.base_url + "omni/entities/%d.json" % object_id
+        contents = self.get(url)
+        return contents
 
     def sequence_entity(self, object_id):
         url = self.base_url + "omni/entities/%d/sequence.json" % object_id
