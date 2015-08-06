@@ -44,5 +44,10 @@ class MediaApi(object):
         contents = self.get(url)
         return contents
 
+    def delete_media(self, object_id):
+        url = self.base_url + "omni/media/%d/delete.json" % object_id
+        contents = self.post(url)
+        return contents
+
     def get_media_url(self, secret, size = "original"):
         return self.open_url + "omni/media/%s" % secret
