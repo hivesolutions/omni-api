@@ -41,7 +41,18 @@ import base64
 
 import appier
 
+from . import util
+
 class MediaApi(object):
+
+    def list_media(self, *args, **kwargs):
+        util.filter_args(kwargs)
+        url = self.base_url + "omni/media.json"
+        contents = self.get(
+            url,
+            **kwargs
+        )
+        return contents
 
     def info_media(self, object_id):
         url = self.base_url + "omni/media/%d/info.json" % object_id
