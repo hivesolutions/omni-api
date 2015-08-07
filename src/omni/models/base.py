@@ -47,4 +47,6 @@ class Base(appier.Model):
 
     description = dict()
 
-    metadata = dict()
+    metadata = dict(
+        type = dict
+    )
