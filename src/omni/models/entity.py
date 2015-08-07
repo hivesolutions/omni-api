@@ -38,17 +38,6 @@ __license__ = "GNU General Public License (GPL), Version 3"
 """ The license for the module """
 
 from . import base
-from . import customer
-from . import entity
-from . import line
-from . import merchandise
-from . import operation
-from . import sale
 
-from .base import Base
-from .customer import Customer
-from .entity import Entity
-from .line import Line
-from .merchandise import Merchandise
-from .operation import Operation
-from .sale import Sale
+class Entity(base.Base):
+    pass

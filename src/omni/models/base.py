@@ -44,3 +44,7 @@ class Base(appier.Model):
     object_id = dict(
         type = int
     )
+
+    description = dict()
+
+    metadata = dict()
