@@ -42,5 +42,3 @@ from . import base
 class Merchandise(base.Base):
 
     company_product_code = dict()
-
-    description = dict()
