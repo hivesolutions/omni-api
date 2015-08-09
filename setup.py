@@ -45,7 +45,7 @@ setuptools.setup(
     version = "0.2.13",
     author = "Hive Solutions Lda.",
     author_email = "development@hive.pt",
-    description = "Omni API",
+    description = "Omni API Client",
     license = "GNU General Public License (GPL), Version 3",
     keywords = "omni api",
     url = "http://omni_api.hive.pt",
