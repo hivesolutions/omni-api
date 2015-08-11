@@ -71,7 +71,7 @@ if __name__ == "__main__":
     api = base.get_api()
     file = omni.open_export("customers.csv")
     try:
-        omni.export(
+        omni.export_do(
             file,
             api.list_persons,
             ATTRIBUTES,
