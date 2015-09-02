@@ -143,12 +143,10 @@ class Api(
         self.mode = kwargs.get("mode", None) or self._get_mode()
 
     def build(self, method, url, headers, kwargs):
-        auth = kwargs.get("auth", True)
-        token = kwargs.get("token", False)
+        auth = kwargs.pop("auth", True)
+        token = kwargs.pop("token", False)
         if auth: kwargs["session_id"] = self.get_session_id()
         if token: kwargs["access_token"] = self.get_access_token()
-        if "auth" in kwargs: del kwargs["auth"]
-        if "token" in kwargs: del kwargs["token"]
 
     def handle_error(self, error):
         if self.is_direct(): self.handle_direct(error)
