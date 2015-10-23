@@ -61,6 +61,7 @@ from . import money_sale_slip
 from . import signed_document
 from . import consignment_out
 from . import consignment_slip
+from . import stock_adjustment
 
 BASE_URL = "http://localhost:8080/mvc/"
 """ The default base url to be used when no other
@@ -110,7 +111,8 @@ class Api(
     money_sale_slip.MoneySaleSlipApi,
     signed_document.SignedDocumentApi,
     consignment_out.ConsignmentOutApi,
-    consignment_slip.ConsignmentSlipApi
+    consignment_slip.ConsignmentSlipApi,
+    stock_adjustment.StockAdjustmentApi
 ):
 
     def __init__(self, *args, **kwargs):
