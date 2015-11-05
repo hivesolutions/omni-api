@@ -144,7 +144,18 @@ class Api(
         self.wrap_exception = kwargs.get("wrap_exception", True)
         self.mode = kwargs.get("mode", None) or self._get_mode()
 
-    def build(self, method, url, headers, kwargs):
+    def build(
+        self,
+        method,
+        url,
+        data = None,
+        data_j = None,
+        data_m = None,
+        headers = None,
+        params = None,
+        mime = None,
+        kwargs = None
+    ):
         auth = kwargs.pop("auth", True)
         token = kwargs.pop("token", False)
         if auth: kwargs["session_id"] = self.get_session_id()
