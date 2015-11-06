@@ -50,6 +50,7 @@ from . import return_
 from . import invoice
 from . import customer
 from . import supplier
+from . import transfer
 from . import document
 from . import employee
 from . import sale_order
@@ -101,6 +102,7 @@ class Api(
     invoice.InvoiceApi,
     customer.CustomerApi,
     supplier.SupplierApi,
+    transfer.TransferApi,
     document.DocumentApi,
     employee.EmployeeApi,
     sale_order.SaleOrderApi,
