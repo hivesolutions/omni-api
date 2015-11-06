@@ -58,6 +58,7 @@ from . import stock_adjustment
 from . import store
 from . import supplier
 from . import system_company
+from . import transfer
 from . import user
 from . import util
 from . import web
@@ -85,6 +86,7 @@ from .stock_adjustment import StockAdjustmentApi
 from .store import StoreApi
 from .supplier import SupplierApi
 from .system_company import SystemCompanyApi
+from .transfer import TransferApi
 from .user import UserApi
 from .util import format_places, filter_args
 from .web import WebApi
