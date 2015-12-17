@@ -68,3 +68,7 @@ class MerchandiseApi(object):
     def prices_merchandise(self, items):
         url = self.base_url + "omni/merchandise/prices.json"
         self.put(url, data_j = items)
+
+    def costs_merchandise(self, items):
+        url = self.base_url + "omni/merchandise/costs.json"
+        self.put(url, data_j = items)
