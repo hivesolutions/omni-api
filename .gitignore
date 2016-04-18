@@ -2,4 +2,5 @@
 *.csv
 
 /dist
+/build
 /src/omni_api.egg-info
