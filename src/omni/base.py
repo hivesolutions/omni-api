@@ -48,6 +48,7 @@ from . import errors
 from . import entity
 from . import return_
 from . import invoice
+from . import product
 from . import customer
 from . import supplier
 from . import transfer
@@ -101,6 +102,7 @@ class Api(
     entity.EntityApi,
     return_.ReturnApi,
     invoice.InvoiceApi,
+    product.ProductApi,
     customer.CustomerApi,
     supplier.SupplierApi,
     transfer.TransferApi,
