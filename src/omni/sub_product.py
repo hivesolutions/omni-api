@@ -43,7 +43,7 @@ class SubProductApi(object):
 
     def list_sub_products(self, *args, **kwargs):
         util.filter_args(kwargs)
-        url = self.base_url + "omni/subproducts.json"
+        url = self.base_url + "omni/sub_products.json"
         contents = self.get(
             url,
             **kwargs
@@ -51,6 +51,6 @@ class SubProductApi(object):
         return contents
 
     def get_sub_product(self, object_id):
-        url = self.base_url + "omni/sub_product/%d.json" % object_id
+        url = self.base_url + "omni/sub_products/%d.json" % object_id
         contents = self.get(url)
         return contents
