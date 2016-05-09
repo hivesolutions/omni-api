@@ -55,6 +55,7 @@ from . import document
 from . import employee
 from . import sale_order
 from . import credit_note
+from . import sub_product
 from . import merchandise
 from . import sale_snapshot
 from . import system_company
@@ -107,6 +108,7 @@ class Api(
     employee.EmployeeApi,
     sale_order.SaleOrderApi,
     credit_note.CreditNoteApi,
+    sub_product.SubProductApi,
     merchandise.MerchandiseApi,
     sale_snapshot.SaleSnapshotApi,
     system_company.SystemCompanyApi,
