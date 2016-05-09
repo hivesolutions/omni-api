@@ -56,6 +56,7 @@ from . import sale
 from . import signed_document
 from . import stock_adjustment
 from . import store
+from . import sub_product
 from . import supplier
 from . import system_company
 from . import transfer
@@ -84,6 +85,7 @@ from .sale import SaleApi
 from .signed_document import SignedDocumentApi
 from .stock_adjustment import StockAdjustmentApi
 from .store import StoreApi
+from .sub_product import SubProductApi
 from .supplier import SupplierApi
 from .system_company import SystemCompanyApi
 from .transfer import TransferApi
