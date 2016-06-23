@@ -45,6 +45,7 @@ from . import employee
 from . import entity
 from . import errors
 from . import export
+from . import inventory_line
 from . import invoice
 from . import media
 from . import merchandise
@@ -75,6 +76,7 @@ from .employee import EmployeeApi
 from .entity import EntityApi
 from .errors import OmniError
 from .export import FUNCS, get_field, open_export
+from .inventory_line import InventoryLineApi
 from .invoice import InvoiceApi
 from .media import MediaApi
 from .merchandise import MerchandiseApi

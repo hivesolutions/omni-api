@@ -59,6 +59,7 @@ from . import credit_note
 from . import sub_product
 from . import merchandise
 from . import sale_snapshot
+from . import inventory_line
 from . import system_company
 from . import money_sale_slip
 from . import signed_document
@@ -113,6 +114,7 @@ class Api(
     sub_product.SubProductApi,
     merchandise.MerchandiseApi,
     sale_snapshot.SaleSnapshotApi,
+    inventory_line.InventoryLineApi,
     system_company.SystemCompanyApi,
     money_sale_slip.MoneySaleSlipApi,
     signed_document.SignedDocumentApi,
