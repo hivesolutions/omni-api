@@ -80,3 +80,5 @@ if __name__ == "__main__":
         )
     finally:
         file.close()
+else:
+    __path__ = []

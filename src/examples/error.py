@@ -45,3 +45,5 @@ if __name__ == "__main__":
     api = base.get_api()
     try: api.get_sale(1)
     except omni.OmniError as error: print(error)
+else:
+    __path__ = []
