@@ -1,6 +1,6 @@
-# Omni API
+# [Omni API](http://omni-api.hive.pt)
 
-Simple rest api wrapper for the omni infra-structure.
+Simple REST API wrapper for the Omni infra-structure.
 
 ## Usage
 
