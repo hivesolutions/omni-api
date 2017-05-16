@@ -48,7 +48,7 @@ setuptools.setup(
     description = "Omni API Client",
     license = "Apache License, Version 2.0",
     keywords = "omni api",
-    url = "http://omni_api.hive.pt",
+    url = "http://omni-api.hive.pt",
     zip_safe = False,
     packages = [
         "omni",
