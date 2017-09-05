@@ -66,35 +66,35 @@ from . import user
 from . import util
 from . import web
 
-from .base import BASE_URL, Api
-from .consignment_out import ConsignmentOutApi
-from .consignment_slip import ConsignmentSlipApi
-from .credit_note import CreditNoteApi
-from .customer import CustomerApi
-from .document import DocumentApi
-from .employee import EmployeeApi
-from .entity import EntityApi
+from .base import BASE_URL, API
+from .consignment_out import ConsignmentOutAPI
+from .consignment_slip import ConsignmentSlipAPI
+from .credit_note import CreditNoteAPI
+from .customer import CustomerAPI
+from .document import DocumentAPI
+from .employee import EmployeeAPI
+from .entity import EntityAPI
 from .errors import OmniError
 from .export import FUNCS, get_field, open_export
-from .inventory_line import InventoryLineApi
-from .invoice import InvoiceApi
-from .media import MediaApi
-from .merchandise import MerchandiseApi
-from .money_sale_slip import MoneySaleSlipApi
-from .product import ProductApi
-from .return_ import ReturnApi
-from .sale_order import SaleOrderApi
-from .sale_snapshot import SaleSnapshotApi
-from .sale import SaleApi
-from .signed_document import SignedDocumentApi
-from .stock_adjustment import StockAdjustmentApi
-from .store import StoreApi
-from .sub_product import SubProductApi
-from .supplier import SupplierApi
-from .system_company import SystemCompanyApi
-from .transfer import TransferApi
-from .user import UserApi
+from .inventory_line import InventoryLineAPI
+from .invoice import InvoiceAPI
+from .media import MediaAPI
+from .merchandise import MerchandiseAPI
+from .money_sale_slip import MoneySaleSlipAPI
+from .product import ProductAPI
+from .return_ import ReturnAPI
+from .sale_order import SaleOrderAPI
+from .sale_snapshot import SaleSnapshotAPI
+from .sale import SaleAPI
+from .signed_document import SignedDocumentAPI
+from .stock_adjustment import StockAdjustmentAPI
+from .store import StoreAPI
+from .sub_product import SubProductAPI
+from .supplier import SupplierAPI
+from .system_company import SystemCompanyAPI
+from .transfer import TransferAPI
+from .user import UserAPI
 from .util import format_places, filter_args
-from .web import WebApi
+from .web import WebAPI
 
 from .export import export as export_do

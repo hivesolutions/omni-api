@@ -43,7 +43,7 @@ import appier
 
 from . import util
 
-class MediaApi(object):
+class MediaAPI(object):
 
     def list_media(self, *args, **kwargs):
         util.filter_args(kwargs)

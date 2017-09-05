@@ -39,7 +39,7 @@ __license__ = "Apache License, Version 2.0"
 
 from . import util
 
-class MoneySaleSlipApi(object):
+class MoneySaleSlipAPI(object):
 
     @classmethod
     def normalize_money_sale_slip(cls, money_sale_slip):

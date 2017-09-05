@@ -39,7 +39,7 @@ __license__ = "Apache License, Version 2.0"
 
 from . import util
 
-class ConsignmentOutApi(object):
+class ConsignmentOutAPI(object):
 
     def list_consignments_out(self, *args, **kwargs):
         util.filter_args(kwargs)

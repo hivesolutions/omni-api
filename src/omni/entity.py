@@ -43,7 +43,7 @@ import appier
 
 from . import util
 
-class EntityApi(object):
+class EntityAPI(object):
 
     def list_entities(self, *args, **kwargs):
         util.filter_args(kwargs)

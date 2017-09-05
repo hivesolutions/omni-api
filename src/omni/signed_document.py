@@ -39,7 +39,7 @@ __license__ = "Apache License, Version 2.0"
 
 from . import util
 
-class SignedDocumentApi(object):
+class SignedDocumentAPI(object):
 
     def list_signed_documents(self, *args, **kwargs):
         util.filter_args(kwargs)

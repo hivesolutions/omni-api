@@ -39,7 +39,7 @@ __license__ = "Apache License, Version 2.0"
 
 from . import util
 
-class InventoryLineApi(object):
+class InventoryLineAPI(object):
 
     def list_inventory_lines(self, *args, **kwargs):
         util.filter_args(kwargs)

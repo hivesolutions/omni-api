@@ -39,7 +39,7 @@ __license__ = "Apache License, Version 2.0"
 
 from . import util
 
-class SubProductApi(object):
+class SubProductAPI(object):
 
     def list_sub_products(self, *args, **kwargs):
         util.filter_args(kwargs)

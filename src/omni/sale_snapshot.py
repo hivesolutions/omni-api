@@ -37,7 +37,7 @@ __copyright__ = "Copyright (c) 2008-2017 Hive Solutions Lda."
 __license__ = "Apache License, Version 2.0"
 """ The license for the module """
 
-class SaleSnapshotApi(object):
+class SaleSnapshotAPI(object):
 
     def entries_sales_snapshot(self, payload):
         url = self.base_url + "omni/sale_snapshots/apply/entries.json"

@@ -37,7 +37,7 @@ __copyright__ = "Copyright (c) 2008-2017 Hive Solutions Lda."
 __license__ = "Apache License, Version 2.0"
 """ The license for the module """
 
-class WebApi(object):
+class WebAPI(object):
 
     def subscribe_web(self, callback_url):
         url = self.base_url + "omni/web/subscribe.json"

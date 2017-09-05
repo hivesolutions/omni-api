@@ -39,7 +39,7 @@ __license__ = "Apache License, Version 2.0"
 
 from . import util
 
-class StoreApi(object):
+class StoreAPI(object):
 
     def list_stores(self, *args, **kwargs):
         util.filter_args(kwargs)

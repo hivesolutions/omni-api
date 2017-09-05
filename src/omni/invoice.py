@@ -39,7 +39,7 @@ __license__ = "Apache License, Version 2.0"
 
 from . import util
 
-class InvoiceApi(object):
+class InvoiceAPI(object):
 
     @classmethod
     def normalize_invoice(cls, invoice):

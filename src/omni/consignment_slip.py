@@ -39,7 +39,7 @@ __license__ = "Apache License, Version 2.0"
 
 from . import util
 
-class ConsignmentSlipApi(object):
+class ConsignmentSlipAPI(object):
 
     @classmethod
     def normalize_consignment_slip(cls, consignment_slip):

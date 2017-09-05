@@ -39,7 +39,7 @@ __license__ = "Apache License, Version 2.0"
 
 from . import util
 
-class EmployeeApi(object):
+class EmployeeAPI(object):
 
     def list_employees(self, *args, **kwargs):
         util.filter_args(kwargs)

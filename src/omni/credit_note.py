@@ -39,7 +39,7 @@ __license__ = "Apache License, Version 2.0"
 
 from . import util
 
-class CreditNoteApi(object):
+class CreditNoteAPI(object):
 
     @classmethod
     def normalize_credit_note(cls, credit_note):

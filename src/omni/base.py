@@ -93,38 +93,38 @@ SCOPE = (
 """ The list of permissions to be used to create the
 scope string for the oauth value """
 
-class Api(
-    appier.OAuth2Api,
-    web.WebApi,
-    sale.SaleApi,
-    user.UserApi,
-    store.StoreApi,
-    media.MediaApi,
-    entity.EntityApi,
-    return_.ReturnApi,
-    invoice.InvoiceApi,
-    product.ProductApi,
-    customer.CustomerApi,
-    supplier.SupplierApi,
-    transfer.TransferApi,
-    document.DocumentApi,
-    employee.EmployeeApi,
-    sale_order.SaleOrderApi,
-    credit_note.CreditNoteApi,
-    sub_product.SubProductApi,
-    merchandise.MerchandiseApi,
-    sale_snapshot.SaleSnapshotApi,
-    inventory_line.InventoryLineApi,
-    system_company.SystemCompanyApi,
-    money_sale_slip.MoneySaleSlipApi,
-    signed_document.SignedDocumentApi,
-    consignment_out.ConsignmentOutApi,
-    consignment_slip.ConsignmentSlipApi,
-    stock_adjustment.StockAdjustmentApi
+class API(
+    appier.OAuth2API,
+    web.WebAPI,
+    sale.SaleAPI,
+    user.UserAPI,
+    store.StoreAPI,
+    media.MediaAPI,
+    entity.EntityAPI,
+    return_.ReturnAPI,
+    invoice.InvoiceAPI,
+    product.ProductAPI,
+    customer.CustomerAPI,
+    supplier.SupplierAPI,
+    transfer.TransferAPI,
+    document.DocumentAPI,
+    employee.EmployeeAPI,
+    sale_order.SaleOrderAPI,
+    credit_note.CreditNoteAPI,
+    sub_product.SubProductAPI,
+    merchandise.MerchandiseAPI,
+    sale_snapshot.SaleSnapshotAPI,
+    inventory_line.InventoryLineAPI,
+    system_company.SystemCompanyAPI,
+    money_sale_slip.MoneySaleSlipAPI,
+    signed_document.SignedDocumentAPI,
+    consignment_out.ConsignmentOutAPI,
+    consignment_slip.ConsignmentSlipAPI,
+    stock_adjustment.StockAdjustmentAPI
 ):
 
     def __init__(self, *args, **kwargs):
-        appier.OAuth2Api.__init__(self, *args, **kwargs)
+        appier.OAuth2API.__init__(self, *args, **kwargs)
         self.base_url = appier.conf("OMNI_BASE_URL", BASE_URL)
         self.open_url = appier.conf("OMNI_OPEN_URL", self.base_url)
         self.prefix = appier.conf("OMNI_PREFIX", "adm/")
@@ -271,6 +271,6 @@ class Api(
         return self.is_direct() or self.is_oauth()
 
     def _get_mode(self):
-        if self.username and self.password: return appier.OAuthApi.DIRECT_MODE
-        elif self.client_id and self.client_secret: return appier.OAuthApi.OAUTH_MODE
-        return appier.OAuthApi.UNSET_MODE
+        if self.username and self.password: return appier.OAuthAPI.DIRECT_MODE
+        elif self.client_id and self.client_secret: return appier.OAuthAPI.OAUTH_MODE
+        return appier.OAuthAPI.UNSET_MODE

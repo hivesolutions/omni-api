@@ -42,7 +42,7 @@ import appier
 import omni
 
 def get_api():
-    return omni.Api(
+    return omni.API(
         username = appier.conf("OMNI_USERNAME"),
         password = appier.conf("OMNI_PASSWORD")
     )
