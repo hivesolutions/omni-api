@@ -94,7 +94,7 @@ def export(
     names = None,
     type_m = None,
     step = STEP,
-    output = True
+    callback = None
 ):
     names = names or attributes
     type_m = type_m or dict()
@@ -113,6 +113,15 @@ def export(
             values = [get_field(object, key, type_m = type_m) for key in attributes]
             csv_f.writerow(values)
 
-        index += step
+        # in case there's a valid callback function to be called
+        # runs the call with the current index and objects
+        if callback: callback(index, objects)
 
-        if output: print(index)
+        # increments the current base index by the length of the
+        # received objects, this should be the next index
+        index += len(objects)
+
+        # verifies if the current retrieval is considered valid
+        # meets expectations and if not breaks the current loop
+        is_valid = len(objects) == step
+        if not is_valid: break

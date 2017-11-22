@@ -37,9 +37,11 @@ __copyright__ = "Copyright (c) 2008-2017 Hive Solutions Lda."
 __license__ = "Apache License, Version 2.0"
 """ The license for the module """
 
+import sys
+
 import omni
 
-from . import base
+import base
 
 ATTRIBUTES = (
     "name",
@@ -67,6 +69,8 @@ TYPE_M = dict(
     birth_date = "date"
 )
 
+STEP = 32768
+
 if __name__ == "__main__":
     api = base.get_api()
     file = omni.open_export("customers.csv")
@@ -76,7 +80,9 @@ if __name__ == "__main__":
             api.list_persons,
             ATTRIBUTES,
             names = NAMES,
-            type_m = TYPE_M
+            type_m = TYPE_M,
+            step = STEP,
+            callback = lambda i, v: sys.stdout.write("Imported " + str(i + len(v)) + " items\n")
         )
     finally:
         file.close()
