@@ -69,7 +69,7 @@ from . import stock_adjustment
 
 BASE_URL = "http://localhost:8080/mvc/"
 """ The default base URL to be used when no other
-base url value is provided to the constructor """
+base URL value is provided to the constructor """
 
 CLIENT_ID = None
 """ The default value to be used for the client id
