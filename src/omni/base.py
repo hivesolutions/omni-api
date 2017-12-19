@@ -68,7 +68,7 @@ from . import consignment_slip
 from . import stock_adjustment
 
 BASE_URL = "http://localhost:8080/mvc/"
-""" The default base url to be used when no other
+""" The default base URL to be used when no other
 base url value is provided to the constructor """
 
 CLIENT_ID = None
