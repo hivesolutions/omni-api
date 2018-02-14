@@ -86,6 +86,7 @@ class SaleAPI(object):
 
     def stats_sales(
         self,
+        date = None,
         unit = "day",
         span = 7,
         store_id = None,
@@ -95,6 +96,7 @@ class SaleAPI(object):
         url = self.base_url + "omni/sale_snapshots/stats.json"
         contents = self.get(
             url,
+            date = date,
             unit = unit,
             span = span,
             store_id = store_id,
