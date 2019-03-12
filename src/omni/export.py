@@ -55,7 +55,7 @@ def to_string(value, encoding = None):
 
 def to_date(value, encoding = None):
     try: value_d = datetime.datetime.utcfromtimestamp(value)
-    except: return ""
+    except Exception: return ""
     return value_d.strftime("%Y-%m-%d")
 
 FUNCS = dict(
