@@ -171,9 +171,10 @@ class API(
 
     def handle_error(self, error):
         if self.is_direct(): self.handle_direct(error)
-        elif self.is_oauth(): raise appier.OAuthAccessError(
-            message = "Problems using access token found must re-authorize"
-        )
+        elif self.is_oauth():
+            raise appier.OAuthAccessError(
+                message = "Problems using access token found must re-authorize"
+            )
         raise
 
     def handle_direct(self, error):
