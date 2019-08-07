@@ -170,20 +170,15 @@ class API(
         if token: kwargs["access_token"] = self.get_access_token()
 
     def handle_error(self, error):
-        if self.is_direct(): self.handle_direct(error)
+        if not error.code in appier.http.AUTH_ERRORS:
+            self._wrap_error(error)
+        if self.is_direct():
+            self._wrap_error(error)
         elif self.is_oauth():
             raise appier.OAuthAccessError(
                 message = "Problems using access token found must re-authorize"
             )
         raise
-
-    def handle_direct(self, error):
-        if not self.wrap_exception: raise
-        data = error.read_json()
-        if not data: raise
-        exception = data.get("exception", {})
-        error = errors.OmniError(error, exception)
-        raise error
 
     def get_session_id(self):
         if self.session_id: return self.session_id
@@ -267,6 +262,14 @@ class API(
 
     def ping(self):
         return self.self_user()
+
+    def _wrap_error(self, error):
+        if not self.wrap_exception: raise
+        data = error.read_json()
+        if not data: raise
+        exception = data.get("exception", {})
+        error = errors.OmniError(error, exception)
+        raise error
 
     def _has_mode(self):
         return self.is_direct() or self.is_oauth()
