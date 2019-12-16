@@ -37,56 +37,23 @@ __copyright__ = "Copyright (c) 2008-2019 Hive Solutions Lda."
 __license__ = "Apache License, Version 2.0"
 """ The license for the module """
 
-import sys
-
-import omni
+import appier
 
 from . import base
 
-ATTRIBUTES = (
-    "name",
-    "tax_number",
-    "birth_date",
-    "physical_signature",
-    "primary_contact_information.email",
-    "primary_address.street_name",
-    "primary_address.city",
-    "primary_address.zip_code",
-    "primary_address.country",
-)
-
-NAMES = (
-    "name",
-    "nif",
-    "birth date",
-    "signature",
-    "email",
-    "address",
-    "city",
-    "zip code",
-    "country"
-)
-
-TYPE_M = dict(
-    birth_date = "date"
-)
-
-STEP = 32768
+def verify_documents(identifier_prefix = None, number_records = 600):
+    api = base.get_api()
+    kwargs = {}
+    if identifier_prefix: kwargs["filters[]"] = "identifier_prefix:equals:%s" % identifier_prefix
+    if number_records: kwargs["number_records"] = number_records
+    documents = api.list_signed_documents(**kwargs)
+    for document in documents:
+        object_id = document["object_id"]
+        result = api.verify_signed_document(object_id)
+        status = result.get("result", "failure")
+        appier.verify(status == "success", "Failure validating document '%d'" % object_id)
 
 if __name__ == "__main__":
-    api = base.get_api()
-    file = omni.open_export("customers.csv")
-    try:
-        omni.export_do(
-            file,
-            api.list_persons,
-            ATTRIBUTES,
-            names = NAMES,
-            type_m = TYPE_M,
-            step = STEP,
-            callback = lambda i, v: sys.stdout.write("Imported " + str(i + len(v)) + " items\n")
-        )
-    finally:
-        file.close()
+    verify_documents()
 else:
     __path__ = []
