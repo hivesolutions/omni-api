@@ -58,6 +58,7 @@ from . import sale_order
 from . import credit_note
 from . import sub_product
 from . import merchandise
+from . import identifiable
 from . import sale_snapshot
 from . import inventory_line
 from . import system_company
@@ -113,6 +114,7 @@ class API(
     credit_note.CreditNoteAPI,
     sub_product.SubProductAPI,
     merchandise.MerchandiseAPI,
+    identifiable.IdentifiableAPI,
     sale_snapshot.SaleSnapshotAPI,
     inventory_line.InventoryLineAPI,
     system_company.SystemCompanyAPI,
