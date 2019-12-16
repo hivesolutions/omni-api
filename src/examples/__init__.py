@@ -36,6 +36,8 @@ __license__ = "Apache License, Version 2.0"
 
 from . import base
 from . import customer
+from . import document
 from . import error
+from . import signed_document
 
 from .base import get_api

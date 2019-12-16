@@ -41,19 +41,30 @@ import appier
 
 from . import base
 
-def verify_signature(identifier_prefix = None, number_records = 600):
+def verify_sequence(identifier_prefix = "MSLDVD", number_records = 600):
     api = base.get_api()
     kwargs = {}
     if identifier_prefix: kwargs["filters[]"] = "identifier_prefix:equals:%s" % identifier_prefix
     if number_records: kwargs["number_records"] = number_records
-    documents = api.list_signed_documents(**kwargs)
+    documents = api.list_documents(**kwargs)
+    create_date = None
+    identifier_sequence = None
     for document in documents:
         object_id = document["object_id"]
-        result = api.verify_signed_document(object_id)
-        status = result.get("result", "failure")
-        appier.verify(status == "success", "Failure validating document '%d'" % object_id)
+        if create_date:
+            appier.verify(
+                create_date >= document["create_date"],
+                message = "Date is not on the past for the document '%d'" % object_id
+            )
+        if identifier_sequence:
+            appier.verify(
+                identifier_sequence == document["identifier_sequence"] + 1,
+                message = "Identifier sequence is not sequential for '%d'" % object_id
+            )
+        create_date = document["create_date"]
+        identifier_sequence = document["identifier_sequence"]
 
 if __name__ == "__main__":
-    verify_signature()
+    verify_sequence()
 else:
     __path__ = []
