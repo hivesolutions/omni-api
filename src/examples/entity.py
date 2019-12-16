@@ -41,30 +41,20 @@ import appier
 
 from . import base
 
-def verify_sequence(identifier_prefix = None, number_records = 10000):
+def verify_sequence(number_records = 10000):
     api = base.get_api()
     kwargs = {}
-    if identifier_prefix: kwargs["filters[]"] = "identifier_prefix:equals:%s" % identifier_prefix
     if number_records: kwargs["number_records"] = number_records
-    identifiables = api.list_identifiables(**kwargs)
+    entities = api.list_entities(**kwargs)
     current_id = None
-    identifier_sequence_m = dict()
-    for identifiable in identifiables:
-        object_id = identifiable["object_id"]
-        identifier_prefix = identifiable["identifier_prefix"]
+    for entity in entities:
+        object_id = entity["object_id"]
         if current_id:
             appier.verify(
                 current_id > object_id,
-                message = "Date is not on the past for the identifiable '%d'" % object_id
+                message = "No valid identifier sequence found for '%d'" % object_id
             )
-        if identifier_prefix in identifier_sequence_m and identifiable["identifier_sequence"]:
-            appier.verify(
-                identifier_sequence_m[identifier_prefix] == identifiable["identifier_sequence"] + 1,
-                message = "Identifier sequence is not sequential for '%d'" % object_id
-            )
-        current_id = object_id
-        if identifiable["identifier_sequence"]:
-            identifier_sequence_m[identifier_prefix] = identifiable["identifier_sequence"]
+        current_id = entity["object_id"]
 
 if __name__ == "__main__":
     verify_sequence()
