@@ -54,7 +54,7 @@ def verify_sequence(identifier_prefix = None, number_records = 10000):
         identifier_prefix = identifiable["identifier_prefix"]
         if create_date:
             appier.verify(
-                object_id >= identifiable["object_id"],
+                object_id > identifiable["object_id"],
                 message = "Date is not on the past for the identifiable '%d'" % object_id
             )
         if identifier_prefix in identifier_sequence_m and identifiable["identifier_sequence"]:
