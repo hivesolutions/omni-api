@@ -6,11 +6,14 @@ Simple REST API wrapper for the Omni infra-structure.
 
 | Name | Type | Description |
 | ----- | ----- | ----- |
-| **BUDY_BASE_URL** | `str` | The base URL that is going to be used for API connections (defaults to `None`). |
-| **BUDY_COUNTRY** | `str` | The country as an ISO 3166-1 to be used for API interactions (defaults to `US`). |
-| **BUDY_CURRENCY** | `str` | The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code that describes the currency to be used for API interactions (defaults to `USD`). |
-| **BUDY_USERNAME** | `str` | The username to be used for authentication (defaults to `None`). |
-| **BUDY_PASSWORD** | `str` | The password to be user for authentication (defaults to `None`). |
+| **OMNI_BASE_URL** | `str` | The base URL that is going to be used for API connections (defaults to `http://localhost:8080/mvc/`). |
+| **OMNI_OPEN_URL** | `str` | The open URL for the Omni connection (defaults to `OMNI_BASE_URL`). |
+| **OMNI_PREFIX** | `str` | The default prefix to be used for API requests (defaults to `adm/`). |
+| **OMNI_ID** | `str` | The client id to be used for API connections (defaults to `None`). |
+| **OMNI_SECRET** | `str` | The secret key to be used for API connections (defaults to `None`). |
+| **OMNI_REDIRECT_URL** | `str` | The URL to be used for redirection OAuth based workflow (defaults to `base,base.user,base.admin,foundation.store.list`). |
+| **OMNI_USERNAME** | `str` | The username to be used on direct workflow (defaults to `None`). |
+| **OMNI_PASSWORD** | `str` | The password to be used on direct workflow (defaults to `None`). |
 
 ## Usage
 
