@@ -152,3 +152,8 @@ class EntityAPI(object):
         url = self.base_url + "omni/entities/%d/media/set.json" % object_id
         contents = self.post(url, data_j = data_j)
         return contents
+
+    def clear_media_entity(self, object_id):
+        url = self.base_url + "omni/entities/%d/media/clear.json" % object_id
+        contents = self.post(url)
+        return contents
