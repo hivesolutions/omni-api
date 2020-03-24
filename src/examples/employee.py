@@ -19,6 +19,9 @@
 # You should have received a copy of the Apache License along with
 # Hive Omni ERP. If not, see <http://www.apache.org/licenses/>.
 
+__author__ = "João Magalhães <joamag@hive.pt>"
+""" The author(s) of the module """
+
 __version__ = "1.0.0"
 """ The version of the module """
 
@@ -34,13 +37,50 @@ __copyright__ = "Copyright (c) 2008-2020 Hive Solutions Lda."
 __license__ = "Apache License, Version 2.0"
 """ The license for the module """
 
-from . import base
-from . import customer
-from . import document
-from . import employee
-from . import entity
-from . import error
-from . import identifiable
-from . import signed_document
+import sys
 
-from .base import get_api
+import omni
+
+from . import base
+
+ATTRIBUTES = (
+    "short_name",
+    "working",
+    "employee_code",
+    "tax_number",
+    "birth_date",
+    "primary_contact_information.email"
+)
+
+NAMES = (
+    "name",
+    "working",
+    "employee code",
+    "nif",
+    "birth date",
+    "email"
+)
+
+TYPE_M = dict(
+    birth_date = "date"
+)
+
+STEP = 32768
+
+if __name__ == "__main__":
+    api = base.get_api()
+    file = omni.open_export("employees.csv")
+    try:
+        omni.export_do(
+            file,
+            api.list_employees,
+            ATTRIBUTES,
+            names = NAMES,
+            type_m = TYPE_M,
+            step = STEP,
+            callback = lambda i, v: sys.stdout.write("Imported " + str(i + len(v)) + " items\n")
+        )
+    finally:
+        file.close()
+else:
+    __path__ = []
