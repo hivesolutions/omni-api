@@ -1,6 +1,8 @@
 *.pyc
 *.csv
 
+.DS_Store
+
 /dist
 /build
 /src/omni_api.egg-info

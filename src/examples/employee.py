@@ -44,6 +44,9 @@ import omni
 from . import base
 
 ATTRIBUTES = (
+    "name",
+    "surname",
+    "full_name",
     "short_name",
     "working",
     "employee_code",
@@ -54,6 +57,9 @@ ATTRIBUTES = (
 
 NAMES = (
     "name",
+    "surname",
+    "full name",
+    "short name",
     "working",
     "employee code",
     "nif",
