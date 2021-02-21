@@ -24,12 +24,3 @@ install:
   - pip install coveralls
 script: coverage run --source=omni setup.py test
 after_success: coveralls
-deploy:
-  provider: pypi
-  user: joamag
-  password:
-    secure: Enh//EJy3I8lpC5uI4Vtua0dMgS478O5vLkXHWN+IfFGaFBGVFDcVzxQTjWxeqv6g5KAjucN2PB9vqN+9/oOQ3giNSf+7vPTo8Bk4GSUq924TK2gzJMOwEzQwx6M8MiLab+zyjgs9TQzzL9z1aCzTBI9bo3Ngbm2b9dh2fKMvo0=
-  distributions: sdist bdist_wheel
-  on:
-    tags: true
-    python: "2.7"
