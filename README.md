@@ -4,16 +4,16 @@ Simple REST API wrapper for the Omni infra-structure.
 
 ## Configuration
 
-| Name | Type | Description |
-| ----- | ----- | ----- |
-| **OMNI_BASE_URL** | `str` | The base URL that is going to be used for API connections (defaults to `http://localhost:8080/mvc/`). |
-| **OMNI_OPEN_URL** | `str` | The open URL for the Omni connection (defaults to `OMNI_BASE_URL`). |
-| **OMNI_PREFIX** | `str` | The default prefix to be used for API requests (defaults to `adm/`). |
-| **OMNI_ID** | `str` | The client id to be used for API connections (defaults to `None`). |
-| **OMNI_SECRET** | `str` | The secret key to be used for API connections (defaults to `None`). |
+| Name                  | Type  | Description                                                                                                              |
+| --------------------- | ----- | ------------------------------------------------------------------------------------------------------------------------ |
+| **OMNI_BASE_URL**     | `str` | The base URL that is going to be used for API connections (defaults to `http://localhost:8080/mvc/`).                    |
+| **OMNI_OPEN_URL**     | `str` | The open URL for the Omni connection (defaults to `OMNI_BASE_URL`).                                                      |
+| **OMNI_PREFIX**       | `str` | The default prefix to be used for API requests (defaults to `adm/`).                                                     |
+| **OMNI_ID**           | `str` | The client id to be used for API connections (defaults to `None`).                                                       |
+| **OMNI_SECRET**       | `str` | The secret key to be used for API connections (defaults to `None`).                                                      |
 | **OMNI_REDIRECT_URL** | `str` | The URL to be used for redirection OAuth based workflow (defaults to `base,base.user,base.admin,foundation.store.list`). |
-| **OMNI_USERNAME** | `str` | The username to be used on direct workflow (defaults to `None`). |
-| **OMNI_PASSWORD** | `str` | The password to be used on direct workflow (defaults to `None`). |
+| **OMNI_USERNAME**     | `str` | The username to be used on direct workflow (defaults to `None`).                                                         |
+| **OMNI_PASSWORD**     | `str` | The password to be used on direct workflow (defaults to `None`).                                                         |
 
 ## Usage
 
@@ -48,3 +48,15 @@ that should be used to redeem the `access_token` required for session authentica
 ## Examples
 
 Examples are located [here](src/examples).
+
+## License
+
+Omni API is currently licensed under the [Apache License, Version 2.0](http://www.apache.org/licenses/).
+
+## Build Automation
+
+[![Build Status](https://travis-ci.com/hivesolutions/omni_api.svg?branch=master)](https://travis-ci.com/hivesolutions/omni_api)
+[![Build Status GitHub](https://github.com/hivesolutions/omni_api/workflows/Main%20Workflow/badge.svg)](https://github.com/hivesolutions/omni_api/actions)
+[![Coverage Status](https://coveralls.io/repos/hivesolutions/omni_api/badge.svg?branch=master)](https://coveralls.io/r/hivesolutions/omni_api?branch=master)
+[![PyPi Status](https://img.shields.io/pypi/v/omni_api.svg)](https://pypi.python.org/pypi/omni_api)
+[![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](https://www.apache.org/licenses/)
