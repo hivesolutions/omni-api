@@ -59,9 +59,9 @@ class MediaAPI(object):
         contents = self.get(url)
         return contents
 
-    def update_media(self, id, payload):
+    def update_media(self, object_id, payload):
         self._wrap_data(payload)
-        url = self.base_url + "omni/media/%d/update.json" % id
+        url = self.base_url + "omni/media/%d/update.json" % object_id
         contents = self.post(url, data_j = payload)
         return contents
 

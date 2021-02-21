@@ -50,8 +50,8 @@ class MerchandiseAPI(object):
         )
         return contents
 
-    def update_merchandise(self, id, payload):
-        url = self.base_url + "omni/merchandise/%d/update.json" % id
+    def update_merchandise(self, object_id, payload):
+        url = self.base_url + "omni/merchandise/%d/update.json" % object_id
         contents = self.post(url, data_m = payload)
         return contents
 

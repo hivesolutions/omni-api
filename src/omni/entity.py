@@ -59,8 +59,8 @@ class EntityAPI(object):
         contents = self.get(url)
         return contents
 
-    def update_entity(self, id, payload):
-        url = self.base_url + "omni/entities/%d/update.json" % id
+    def update_entity(self, object_id, payload):
+        url = self.base_url + "omni/entities/%d/update.json" % object_id
         contents = self.post(url, data_j = payload)
         return contents
 

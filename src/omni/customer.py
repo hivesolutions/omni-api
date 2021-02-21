@@ -63,3 +63,8 @@ class CustomerAPI(object):
         url = self.base_url + "omni/customer_persons/%d.json" % object_id
         contents = self.get(url)
         return contents
+
+    def update_person(self, object_id, payload):
+        url = self.base_url + "omni/customer_persons/%d.json" % object_id
+        contents = self.post(url, data_j = payload)
+        return contents
