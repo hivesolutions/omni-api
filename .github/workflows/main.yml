@@ -24,4 +24,4 @@ jobs:
       - uses: actions/checkout@v1
       - run: pypy --version
       - run: pip install -r requirements.txt
-      - run: setup.py test
+      - run: python setup.py test
