@@ -23,5 +23,6 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - run: pypy --version
+      - run: pip install --upgrade pip setuptools
       - run: pip install -r requirements.txt
       - run: python setup.py test
