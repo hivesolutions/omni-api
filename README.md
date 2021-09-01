@@ -55,7 +55,7 @@ Omni API is currently licensed under the [Apache License, Version 2.0](http://ww
 
 ## Build Automation
 
-[![Build Status](https://travis-ci.com/hivesolutions/omni_api.svg?branch=master)](https://travis-ci.com/hivesolutions/omni_api)
+[![Build Status](https://app.travis-ci.com/hivesolutions/omni_api.svg?branch=master)](https://travis-ci.com/github/hivesolutions/omni_api)
 [![Build Status GitHub](https://github.com/hivesolutions/omni_api/workflows/Main%20Workflow/badge.svg)](https://github.com/hivesolutions/omni_api/actions)
 [![Coverage Status](https://coveralls.io/repos/hivesolutions/omni_api/badge.svg?branch=master)](https://coveralls.io/r/hivesolutions/omni_api?branch=master)
 [![PyPi Status](https://img.shields.io/pypi/v/omni_api.svg)](https://pypi.python.org/pypi/omni_api)
