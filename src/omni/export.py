@@ -105,6 +105,10 @@ def export(
     index = 0
 
     while True:
+        # runs a tick operation in the caller adjusting both the
+        # skip and the limit values according to the current iteration
+        # incase there are no object retrieves that indicates the
+        # end of the loop and a break happens
         object = dict(skip = index, limit = step)
         objects = caller(object = object)
         if not objects: break
