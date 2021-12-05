@@ -109,6 +109,10 @@ def export(
         objects = caller(object = object)
         if not objects: break
 
+        # iterates over all the objects that have been retrieved
+        # and obtains the target fields to write a new CSV row
+        # per each of the retrieved object and according to the
+        # requested set of attributes per object
         for object in objects:
             values = [get_field(object, key, type_m = type_m) for key in attributes]
             csv_f.writerow(values)
