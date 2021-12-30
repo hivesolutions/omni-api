@@ -50,6 +50,11 @@ class SignedDocumentAPI(object):
         )
         return contents
 
+    def qr_code_document(self, object_id):
+        url = self.base_url + "omni/signed_documents/%d/qr_code" % object_id
+        contents = self.get(url)
+        return contents
+
     def verify_signed_document(self, object_id):
         url = self.base_url + "omni/signed_documents/%d/verify.json" % object_id
         contents = self.get(url)
