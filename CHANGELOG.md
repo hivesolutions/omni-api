@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-* Support for QR Code route in `signed_document` entity
+*
 
 ### Changed
 
@@ -18,3 +18,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 *
+
+## [0.4.0] - 2021-12-30
+
+### Added
+
+* Support for QR Code route in `signed_document` entity
