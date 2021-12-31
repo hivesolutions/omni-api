@@ -267,8 +267,10 @@ class API(
 
     def _wrap_error(self, error):
         if not self.wrap_exception: raise
+        if not hasattr(error, "read_json"): raise
         data = error.read_json()
         if not data: raise
+        if not isinstance(data, dict): raise
         exception = data.get("exception", {})
         error = errors.OmniError(error, exception)
         raise error
