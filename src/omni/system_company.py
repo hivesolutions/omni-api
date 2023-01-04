@@ -48,6 +48,11 @@ class SystemCompanyAPI(object):
         contents = self.get(url)
         return contents
 
+    def update_self_system_company(self, payload):
+        url = self.base_url + "omni/system_companies/self/update.json"
+        contents = self.post(url, data_j = payload)
+        return contents
+
     def media_system_company(
         self,
         position = None,
