@@ -9,15 +9,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+*
+
+### Changed
+
+*
+
+### Fixed
+
+*
+
+## [0.4.2] - 2023-01-04
+
+### Added
+
 * Support for the update self on `SystemCompany`
 
 ### Changed
 
 * Renamed repository
-
-### Fixed
-
-*
 
 ## [0.4.1] - 2022-02-05
 
