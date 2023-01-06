@@ -55,6 +55,11 @@ class SignedDocumentAPI(object):
         contents = self.get(url)
         return contents
 
+    def digest_identifier_document(self, object_id):
+        url = self.base_url + "omni/signed_documents/%d/digest_identifier.json" % object_id
+        contents = self.get(url)
+        return contents
+
     def verify_signed_document(self, object_id):
         url = self.base_url + "omni/signed_documents/%d/verify.json" % object_id
         contents = self.get(url)
