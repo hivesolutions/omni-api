@@ -46,6 +46,7 @@ from . import store
 from . import media
 from . import errors
 from . import entity
+from . import status
 from . import return_
 from . import invoice
 from . import product
@@ -102,6 +103,7 @@ class API(
     store.StoreAPI,
     media.MediaAPI,
     entity.EntityAPI,
+    status.StatusAPI,
     return_.ReturnAPI,
     invoice.InvoiceAPI,
     product.ProductAPI,

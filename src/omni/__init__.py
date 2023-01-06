@@ -57,6 +57,7 @@ from . import sale_order
 from . import sale_snapshot
 from . import sale
 from . import signed_document
+from . import status
 from . import stock_adjustment
 from . import store
 from . import sub_product
@@ -89,6 +90,7 @@ from .sale_order import SaleOrderAPI
 from .sale_snapshot import SaleSnapshotAPI
 from .sale import SaleAPI
 from .signed_document import SignedDocumentAPI
+from .status import StatusAPI
 from .stock_adjustment import StockAdjustmentAPI
 from .store import StoreAPI
 from .sub_product import SubProductAPI
