@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 * Support for the `digest_identifier_document()` method
 * Support for the `ReceiptAPI`
+* Support for issue and ensure receipt operations for `SaleAPI`
 
 ### Changed
 

@@ -75,6 +75,16 @@ class SaleAPI(object):
         contents = self.post(url, data_j = dict(metadata = metadata))
         return contents
 
+    def issue_receipt_sale(self, object_id, metadata = None):
+        url = self.base_url + "omni/sales/%d/issue_receipt.json" % object_id
+        contents = self.post(url, data_j = dict(metadata = metadata))
+        return contents
+
+    def ensure_receipt_sale(self, object_id, metadata = None):
+        url = self.base_url + "omni/sales/%d/ensure_receipt.json" % object_id
+        contents = self.post(url, data_j = dict(metadata = metadata))
+        return contents
+
     def self_sales(self, *args, **kwargs):
         util.filter_args(kwargs)
         url = self.base_url + "omni/sales/self.json"
