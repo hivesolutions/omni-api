@@ -50,6 +50,7 @@ from . import status
 from . import return_
 from . import invoice
 from . import product
+from . import receipt
 from . import customer
 from . import supplier
 from . import transfer
@@ -107,6 +108,7 @@ class API(
     return_.ReturnAPI,
     invoice.InvoiceAPI,
     product.ProductAPI,
+    receipt.ReceiptAPI,
     customer.CustomerAPI,
     supplier.SupplierAPI,
     transfer.TransferAPI,

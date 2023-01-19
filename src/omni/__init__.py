@@ -52,6 +52,7 @@ from . import media
 from . import merchandise
 from . import money_sale_slip
 from . import product
+from . import receipt
 from . import return_
 from . import sale_order
 from . import sale_snapshot
@@ -85,6 +86,7 @@ from .media import MediaAPI
 from .merchandise import MerchandiseAPI
 from .money_sale_slip import MoneySaleSlipAPI
 from .product import ProductAPI
+from .receipt import ReceiptAPI
 from .return_ import ReturnAPI
 from .sale_order import SaleOrderAPI
 from .sale_snapshot import SaleSnapshotAPI
