@@ -9,9 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-* Support for the `digest_identifier_document()` method
-* Support for the `ReceiptAPI`
-* Support for issue and ensure receipt operations for `SaleAPI`
+*
 
 ### Changed
 
@@ -20,6 +18,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 *
+
+## [0.5.0] - 2023-01-19
+
+### Added
+
+* Support for the `digest_identifier_document()` method
+* Support for the `ReceiptAPI`
+* Support for issue and ensure receipt operations for `SaleAPI`
 
 ## [0.4.3] - 2023-01-06
 
