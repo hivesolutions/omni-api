@@ -22,15 +22,6 @@
 __author__ = "João Magalhães <joamag@hive.pt>"
 """ The author(s) of the module """
 
-__version__ = "1.0.0"
-""" The version of the module """
-
-__revision__ = "$LastChangedRevision$"
-""" The revision number of the module """
-
-__date__ = "$LastChangedDate$"
-""" The last change date of the module """
-
 __copyright__ = "Copyright (c) 2008-2020 Hive Solutions Lda."
 """ The copyright for the module """
 
@@ -41,10 +32,12 @@ import appier
 
 from . import base
 
-def verify_sequence(number_records = 10000):
+
+def verify_sequence(number_records=10000):
     api = base.get_api()
     kwargs = {}
-    if number_records: kwargs["number_records"] = number_records
+    if number_records:
+        kwargs["number_records"] = number_records
     entities = api.list_entities(**kwargs)
     current_id = None
     for entity in entities:
@@ -52,9 +45,10 @@ def verify_sequence(number_records = 10000):
         if current_id:
             appier.verify(
                 current_id > object_id,
-                message = "No valid identifier sequence found for '%d'" % object_id
+                message="No valid identifier sequence found for '%d'" % object_id,
             )
         current_id = entity["object_id"]
+
 
 if __name__ == "__main__":
     verify_sequence()

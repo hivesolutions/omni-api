@@ -22,15 +22,6 @@
 __author__ = "João Magalhães <joamag@hive.pt>"
 """ The author(s) of the module """
 
-__version__ = "1.0.0"
-""" The version of the module """
-
-__revision__ = "$LastChangedRevision$"
-""" The revision number of the module """
-
-__date__ = "$LastChangedDate$"
-""" The last change date of the module """
-
 __copyright__ = "Copyright (c) 2008-2020 Hive Solutions Lda."
 """ The copyright for the module """
 
@@ -39,15 +30,13 @@ __license__ = "Apache License, Version 2.0"
 
 from . import util
 
+
 class SignedDocumentAPI(object):
 
     def list_signed_documents(self, *args, **kwargs):
         util.filter_args(kwargs)
         url = self.base_url + "omni/signed_documents.json"
-        contents = self.get(
-            url,
-            **kwargs
-        )
+        contents = self.get(url, **kwargs)
         return contents
 
     def qr_code_document(self, object_id):
@@ -56,7 +45,10 @@ class SignedDocumentAPI(object):
         return contents
 
     def digest_identifier_document(self, object_id):
-        url = self.base_url + "omni/signed_documents/%d/digest_identifier.json" % object_id
+        url = (
+            self.base_url
+            + "omni/signed_documents/%d/digest_identifier.json" % object_id
+        )
         contents = self.get(url)
         return contents["digest_identifier"]
 
@@ -66,11 +58,17 @@ class SignedDocumentAPI(object):
         return contents
 
     def submit_invoice_at(self, object_id):
-        url = self.base_url + "omni/signed_documents/%d/submit_invoice_at.json" % object_id
+        url = (
+            self.base_url
+            + "omni/signed_documents/%d/submit_invoice_at.json" % object_id
+        )
         contents = self.get(url)
         return contents
 
     def submit_transport_at(self, object_id):
-        url = self.base_url + "omni/signed_documents/%d/submit_transport_at.json" % object_id
+        url = (
+            self.base_url
+            + "omni/signed_documents/%d/submit_transport_at.json" % object_id
+        )
         contents = self.get(url)
         return contents

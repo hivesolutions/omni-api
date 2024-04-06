@@ -22,15 +22,6 @@
 __author__ = "João Magalhães <joamag@hive.pt>"
 """ The author(s) of the module """
 
-__version__ = "1.0.0"
-""" The version of the module """
-
-__revision__ = "$LastChangedRevision$"
-""" The revision number of the module """
-
-__date__ = "$LastChangedDate$"
-""" The last change date of the module """
-
 __copyright__ = "Copyright (c) 2008-2020 Hive Solutions Lda."
 """ The copyright for the module """
 
@@ -39,36 +30,30 @@ __license__ = "Apache License, Version 2.0"
 
 from . import util
 
+
 class MerchandiseAPI(object):
 
     def list_merchandise(self, *args, **kwargs):
         util.filter_args(kwargs)
         url = self.base_url + "omni/merchandise.json"
-        contents = self.get(
-            url,
-            **kwargs
-        )
+        contents = self.get(url, **kwargs)
         return contents
 
     def update_merchandise(self, object_id, payload):
         url = self.base_url + "omni/merchandise/%d/update.json" % object_id
-        contents = self.post(url, data_m = payload)
+        contents = self.post(url, data_m=payload)
         return contents
 
-    def list_store_merchandise(self, store_id = None, *args, **kwargs):
+    def list_store_merchandise(self, store_id=None, *args, **kwargs):
         util.filter_args(kwargs)
         url = self.base_url + "omni/merchandise/store.json"
-        contents = self.get(
-            url,
-            store_id = store_id,
-            **kwargs
-        )
+        contents = self.get(url, store_id=store_id, **kwargs)
         return contents
 
     def prices_merchandise(self, items):
         url = self.base_url + "omni/merchandise/prices.json"
-        self.put(url, data_j = items)
+        self.put(url, data_j=items)
 
     def costs_merchandise(self, items):
         url = self.base_url + "omni/merchandise/costs.json"
-        self.put(url, data_j = items)
+        self.put(url, data_j=items)

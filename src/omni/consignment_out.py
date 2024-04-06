@@ -22,15 +22,6 @@
 __author__ = "João Magalhães <joamag@hive.pt>"
 """ The author(s) of the module """
 
-__version__ = "1.0.0"
-""" The version of the module """
-
-__revision__ = "$LastChangedRevision$"
-""" The revision number of the module """
-
-__date__ = "$LastChangedDate$"
-""" The last change date of the module """
-
 __copyright__ = "Copyright (c) 2008-2020 Hive Solutions Lda."
 """ The copyright for the module """
 
@@ -39,20 +30,18 @@ __license__ = "Apache License, Version 2.0"
 
 from . import util
 
+
 class ConsignmentOutAPI(object):
 
     def list_consignments_out(self, *args, **kwargs):
         util.filter_args(kwargs)
         url = self.base_url + "omni/consignments_out.json"
-        contents = self.get(
-            url,
-            **kwargs
-        )
+        contents = self.get(url, **kwargs)
         return contents
 
     def create_consignment_out(self, payload):
         url = self.base_url + "omni/consignments_out.json"
-        contents = self.post(url, data_j = payload)
+        contents = self.post(url, data_j=payload)
         return contents
 
     def get_consignment_out(self, object_id):
@@ -60,16 +49,16 @@ class ConsignmentOutAPI(object):
         contents = self.get(url)
         return contents
 
-    def issue_consignment_slip_consignment_out(self, object_id, metadata = {}):
-        url = self.base_url + "omni/consignments_out/%d/issue_consignment_slip.json" % object_id
-        contents = self.post(url, data_j = dict(metadata = metadata))
+    def issue_consignment_slip_consignment_out(self, object_id, metadata={}):
+        url = (
+            self.base_url
+            + "omni/consignments_out/%d/issue_consignment_slip.json" % object_id
+        )
+        contents = self.post(url, data_j=dict(metadata=metadata))
         return contents
 
     def self_consignments_out(self, *args, **kwargs):
         util.filter_args(kwargs)
         url = self.base_url + "omni/consignments_out/self.json"
-        contents = self.get(
-            url,
-            **kwargs
-        )
+        contents = self.get(url, **kwargs)
         return contents

@@ -22,15 +22,6 @@
 __author__ = "João Magalhães <joamag@hive.pt>"
 """ The author(s) of the module """
 
-__version__ = "1.0.0"
-""" The version of the module """
-
-__revision__ = "$LastChangedRevision$"
-""" The revision number of the module """
-
-__date__ = "$LastChangedDate$"
-""" The last change date of the module """
-
 __copyright__ = "Copyright (c) 2008-2020 Hive Solutions Lda."
 """ The copyright for the module """
 
@@ -41,11 +32,14 @@ import appier
 
 from . import base
 
-def verify_sequence(identifier_prefix = "MSLDVD", number_records = 600):
+
+def verify_sequence(identifier_prefix="MSLDVD", number_records=600):
     api = base.get_api()
     kwargs = {}
-    if identifier_prefix: kwargs["filters[]"] = "identifier_prefix:equals:%s" % identifier_prefix
-    if number_records: kwargs["number_records"] = number_records
+    if identifier_prefix:
+        kwargs["filters[]"] = "identifier_prefix:equals:%s" % identifier_prefix
+    if number_records:
+        kwargs["number_records"] = number_records
     documents = api.list_documents(**kwargs)
     create_date = None
     identifier_sequence = None
@@ -54,15 +48,16 @@ def verify_sequence(identifier_prefix = "MSLDVD", number_records = 600):
         if create_date:
             appier.verify(
                 create_date >= document["create_date"],
-                message = "Date is not on the past for the document '%d'" % object_id
+                message="Date is not on the past for the document '%d'" % object_id,
             )
         if identifier_sequence:
             appier.verify(
                 identifier_sequence == document["identifier_sequence"] + 1,
-                message = "Identifier sequence is not sequential for '%d'" % object_id
+                message="Identifier sequence is not sequential for '%d'" % object_id,
             )
         create_date = document["create_date"]
         identifier_sequence = document["identifier_sequence"]
+
 
 if __name__ == "__main__":
     verify_sequence()

@@ -22,15 +22,6 @@
 __author__ = "João Magalhães <joamag@hive.pt>"
 """ The author(s) of the module """
 
-__version__ = "1.0.0"
-""" The version of the module """
-
-__revision__ = "$LastChangedRevision$"
-""" The revision number of the module """
-
-__date__ = "$LastChangedDate$"
-""" The last change date of the module """
-
 __copyright__ = "Copyright (c) 2008-2020 Hive Solutions Lda."
 """ The copyright for the module """
 
@@ -41,17 +32,23 @@ import appier
 
 from . import base
 
-def verify_signature(identifier_prefix = None, number_records = 600):
+
+def verify_signature(identifier_prefix=None, number_records=600):
     api = base.get_api()
     kwargs = {}
-    if identifier_prefix: kwargs["filters[]"] = "identifier_prefix:equals:%s" % identifier_prefix
-    if number_records: kwargs["number_records"] = number_records
+    if identifier_prefix:
+        kwargs["filters[]"] = "identifier_prefix:equals:%s" % identifier_prefix
+    if number_records:
+        kwargs["number_records"] = number_records
     documents = api.list_signed_documents(**kwargs)
     for document in documents:
         object_id = document["object_id"]
         result = api.verify_signed_document(object_id)
         status = result.get("result", "failure")
-        appier.verify(status == "success", "Failure validating document '%d'" % object_id)
+        appier.verify(
+            status == "success", "Failure validating document '%d'" % object_id
+        )
+
 
 if __name__ == "__main__":
     verify_signature()

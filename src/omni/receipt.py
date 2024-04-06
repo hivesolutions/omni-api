@@ -22,15 +22,6 @@
 __author__ = "João Magalhães <joamag@hive.pt>"
 """ The author(s) of the module """
 
-__version__ = "1.0.0"
-""" The version of the module """
-
-__revision__ = "$LastChangedRevision$"
-""" The revision number of the module """
-
-__date__ = "$LastChangedDate$"
-""" The last change date of the module """
-
 __copyright__ = "Copyright (c) 2008-2020 Hive Solutions Lda."
 """ The copyright for the module """
 
@@ -38,6 +29,7 @@ __license__ = "Apache License, Version 2.0"
 """ The license for the module """
 
 from . import util
+
 
 class ReceiptAPI(object):
 
@@ -60,7 +52,9 @@ class ReceiptAPI(object):
             operation["discount_s"] = util.format_places(operation["discount"], 2)
 
         if "discount_vat" in operation and not operation["discount_vat"] == None:
-            operation["discount_vat_s"] = util.format_places(operation["discount_vat"], 2)
+            operation["discount_vat_s"] = util.format_places(
+                operation["discount_vat"], 2
+            )
 
         operation["price_vat_s"] = util.format_places(operation["price_vat"], 2)
 
@@ -79,7 +73,9 @@ class ReceiptAPI(object):
                 merchandise.get("quantity_places", 0) or 0,
             )
             line["unit_discount_s"] = util.format_places(line["unit_discount"], 2)
-            line["unit_discount_vat_s"] = util.format_places(line["unit_discount_vat"], 2)
+            line["unit_discount_vat_s"] = util.format_places(
+                line["unit_discount_vat"], 2
+            )
             line["unit_price_s"] = util.format_places(line["unit_price"]["value"], 2)
             line["unit_price_vat_s"] = util.format_places(line["unit_price_vat"], 2)
             line["price_s"] = util.format_places(line["price"], 2)
@@ -94,10 +90,7 @@ class ReceiptAPI(object):
     def list_receipts(self, *args, **kwargs):
         util.filter_args(kwargs)
         url = self.base_url + "omni/receipts.json"
-        contents = self.get(
-            url,
-            **kwargs
-        )
+        contents = self.get(url, **kwargs)
         return contents
 
     def get_receipt(self, object_id):

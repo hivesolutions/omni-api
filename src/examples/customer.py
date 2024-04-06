@@ -22,15 +22,6 @@
 __author__ = "João Magalhães <joamag@hive.pt>"
 """ The author(s) of the module """
 
-__version__ = "1.0.0"
-""" The version of the module """
-
-__revision__ = "$LastChangedRevision$"
-""" The revision number of the module """
-
-__date__ = "$LastChangedDate$"
-""" The last change date of the module """
-
 __copyright__ = "Copyright (c) 2008-2020 Hive Solutions Lda."
 """ The copyright for the module """
 
@@ -64,12 +55,10 @@ NAMES = (
     "address",
     "city",
     "zip code",
-    "country"
+    "country",
 )
 
-TYPE_M = dict(
-    birth_date = "date"
-)
+TYPE_M = dict(birth_date="date")
 
 STEP = 32768
 
@@ -81,10 +70,12 @@ if __name__ == "__main__":
             file,
             api.list_persons,
             ATTRIBUTES,
-            names = NAMES,
-            type_m = TYPE_M,
-            step = STEP,
-            callback = lambda i, v: sys.stdout.write("Imported " + str(i + len(v)) + " items\n")
+            names=NAMES,
+            type_m=TYPE_M,
+            step=STEP,
+            callback=lambda i, v: sys.stdout.write(
+                "Imported " + str(i + len(v)) + " items\n"
+            ),
         )
     finally:
         file.close()

@@ -22,15 +22,6 @@
 __author__ = "João Magalhães <joamag@hive.pt>"
 """ The author(s) of the module """
 
-__version__ = "1.0.0"
-""" The version of the module """
-
-__revision__ = "$LastChangedRevision$"
-""" The revision number of the module """
-
-__date__ = "$LastChangedDate$"
-""" The last change date of the module """
-
 __copyright__ = "Copyright (c) 2008-2020 Hive Solutions Lda."
 """ The copyright for the module """
 
@@ -39,20 +30,18 @@ __license__ = "Apache License, Version 2.0"
 
 from . import util
 
+
 class SaleAPI(object):
 
     def list_sales(self, *args, **kwargs):
         util.filter_args(kwargs)
         url = self.base_url + "omni/sales.json"
-        contents = self.get(
-            url,
-            **kwargs
-        )
+        contents = self.get(url, **kwargs)
         return contents
 
     def create_sale(self, payload):
         url = self.base_url + "omni/sales.json"
-        contents = self.post(url, data_j = payload)
+        contents = self.post(url, data_j=payload)
         return contents
 
     def get_sale(self, object_id):
@@ -65,52 +54,49 @@ class SaleAPI(object):
         contents = self.get(url)
         return contents
 
-    def issue_money_sale_slip_sale(self, object_id, metadata = {}):
+    def issue_money_sale_slip_sale(self, object_id, metadata={}):
         url = self.base_url + "omni/sales/%d/issue_money_sale_slip.json" % object_id
-        contents = self.post(url, data_j = dict(metadata = metadata))
+        contents = self.post(url, data_j=dict(metadata=metadata))
         return contents
 
-    def issue_invoice_sale(self, object_id, metadata = None):
+    def issue_invoice_sale(self, object_id, metadata=None):
         url = self.base_url + "omni/sales/%d/issue_invoice.json" % object_id
-        contents = self.post(url, data_j = dict(metadata = metadata))
+        contents = self.post(url, data_j=dict(metadata=metadata))
         return contents
 
-    def issue_receipt_sale(self, object_id, metadata = None):
+    def issue_receipt_sale(self, object_id, metadata=None):
         url = self.base_url + "omni/sales/%d/issue_receipt.json" % object_id
-        contents = self.post(url, data_j = dict(metadata = metadata))
+        contents = self.post(url, data_j=dict(metadata=metadata))
         return contents
 
-    def ensure_receipt_sale(self, object_id, metadata = None):
+    def ensure_receipt_sale(self, object_id, metadata=None):
         url = self.base_url + "omni/sales/%d/ensure_receipt.json" % object_id
-        contents = self.post(url, data_j = dict(metadata = metadata))
+        contents = self.post(url, data_j=dict(metadata=metadata))
         return contents
 
     def self_sales(self, *args, **kwargs):
         util.filter_args(kwargs)
         url = self.base_url + "omni/sales/self.json"
-        contents = self.get(
-            url,
-            **kwargs
-        )
+        contents = self.get(url, **kwargs)
         return contents
 
     def stats_sales(
         self,
-        date = None,
-        unit = "day",
-        span = 7,
-        store_id = None,
-        has_global = None,
-        output = "simple"
+        date=None,
+        unit="day",
+        span=7,
+        store_id=None,
+        has_global=None,
+        output="simple",
     ):
         url = self.base_url + "omni/sale_snapshots/stats.json"
         contents = self.get(
             url,
-            date = date,
-            unit = unit,
-            span = span,
-            store_id = store_id,
-            has_global = has_global,
-            output = output
+            date=date,
+            unit=unit,
+            span=span,
+            store_id=store_id,
+            has_global=has_global,
+            output=output,
         )
         return contents

@@ -22,20 +22,12 @@
 __author__ = "João Magalhães <joamag@hive.pt>"
 """ The author(s) of the module """
 
-__version__ = "1.0.0"
-""" The version of the module """
-
-__revision__ = "$LastChangedRevision$"
-""" The revision number of the module """
-
-__date__ = "$LastChangedDate$"
-""" The last change date of the module """
-
 __copyright__ = "Copyright (c) 2008-2020 Hive Solutions Lda."
 """ The copyright for the module """
 
 __license__ = "Apache License, Version 2.0"
 """ The license for the module """
+
 
 class SystemCompanyAPI(object):
 
@@ -50,35 +42,19 @@ class SystemCompanyAPI(object):
 
     def update_self_system_company(self, payload):
         url = self.base_url + "omni/system_companies/self/update.json"
-        contents = self.post(url, data_j = payload)
+        contents = self.post(url, data_j=payload)
         return contents
 
-    def media_system_company(
-        self,
-        position = None,
-        dimensions = None,
-        label = None
-    ):
+    def media_system_company(self, position=None, dimensions=None, label=None):
         system_company = self.self_system_company()
         object_id = system_company["object_id"]
         return self.media_entity(
-            object_id,
-            position = position,
-            dimensions = dimensions,
-            label = label
+            object_id, position=position, dimensions=dimensions, label=label
         )
 
-    def public_media_system_company(
-        self,
-        position = None,
-        dimensions = None,
-        label = None
-    ):
+    def public_media_system_company(self, position=None, dimensions=None, label=None):
         system_company = self.self_system_company()
         object_id = system_company["object_id"]
         return self.public_media_entity(
-            object_id,
-            position = position,
-            dimensions = dimensions,
-            label = label
+            object_id, position=position, dimensions=dimensions, label=label
         )

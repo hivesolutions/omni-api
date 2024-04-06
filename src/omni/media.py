@@ -22,15 +22,6 @@
 __author__ = "João Magalhães <joamag@hive.pt>"
 """ The author(s) of the module """
 
-__version__ = "1.0.0"
-""" The version of the module """
-
-__revision__ = "$LastChangedRevision$"
-""" The revision number of the module """
-
-__date__ = "$LastChangedDate$"
-""" The last change date of the module """
-
 __copyright__ = "Copyright (c) 2008-2020 Hive Solutions Lda."
 """ The copyright for the module """
 
@@ -43,15 +34,13 @@ import appier
 
 from . import util
 
+
 class MediaAPI(object):
 
     def list_media(self, *args, **kwargs):
         util.filter_args(kwargs)
         url = self.base_url + "omni/media.json"
-        contents = self.get(
-            url,
-            **kwargs
-        )
+        contents = self.get(url, **kwargs)
         return contents
 
     def info_media(self, object_id):
@@ -62,7 +51,7 @@ class MediaAPI(object):
     def update_media(self, object_id, payload):
         self._wrap_data(payload)
         url = self.base_url + "omni/media/%d/update.json" % object_id
-        contents = self.post(url, data_j = payload)
+        contents = self.post(url, data_j=payload)
         return contents
 
     def delete_media(self, object_id):
@@ -70,11 +59,12 @@ class MediaAPI(object):
         contents = self.post(url)
         return contents
 
-    def get_media_url(self, secret, size = "original"):
+    def get_media_url(self, secret, size="original"):
         return self.open_url + "omni/media/%s" % secret
 
     def _wrap_data(self, payload):
-        if not "data" in payload: return
+        if not "data" in payload:
+            return
         data = payload["data"]
         data_b64 = base64.b64encode(data)
         data_b64 = appier.legacy.str(data_b64)

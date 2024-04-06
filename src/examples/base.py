@@ -22,15 +22,6 @@
 __author__ = "João Magalhães <joamag@hive.pt>"
 """ The author(s) of the module """
 
-__version__ = "1.0.0"
-""" The version of the module """
-
-__revision__ = "$LastChangedRevision$"
-""" The revision number of the module """
-
-__date__ = "$LastChangedDate$"
-""" The last change date of the module """
-
 __copyright__ = "Copyright (c) 2008-2020 Hive Solutions Lda."
 """ The copyright for the module """
 
@@ -41,8 +32,8 @@ import appier
 
 import omni
 
+
 def get_api():
     return omni.API(
-        username = appier.conf("OMNI_USERNAME"),
-        password = appier.conf("OMNI_PASSWORD")
+        username=appier.conf("OMNI_USERNAME"), password=appier.conf("OMNI_PASSWORD")
     )

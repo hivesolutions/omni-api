@@ -22,15 +22,6 @@
 __author__ = "João Magalhães <joamag@hive.pt>"
 """ The author(s) of the module """
 
-__version__ = "1.0.0"
-""" The version of the module """
-
-__revision__ = "$LastChangedRevision$"
-""" The revision number of the module """
-
-__date__ = "$LastChangedDate$"
-""" The last change date of the module """
-
 __copyright__ = "Copyright (c) 2008-2020 Hive Solutions Lda."
 """ The copyright for the module """
 
@@ -91,10 +82,11 @@ SCOPE = (
     "base.user",
     "base.admin",
     "foundation.store.list",
-    "foundation.web.subscribe"
+    "foundation.web.subscribe",
 )
 """ The list of permissions to be used to create the
 scope string for the OAuth value """
+
 
 class API(
     appier.OAuth2API,
@@ -126,7 +118,7 @@ class API(
     signed_document.SignedDocumentAPI,
     consignment_out.ConsignmentOutAPI,
     consignment_slip.ConsignmentSlipAPI,
-    stock_adjustment.StockAdjustmentAPI
+    stock_adjustment.StockAdjustmentAPI,
 ):
 
     def __init__(self, *args, **kwargs):
@@ -162,18 +154,20 @@ class API(
         self,
         method,
         url,
-        data = None,
-        data_j = None,
-        data_m = None,
-        headers = None,
-        params = None,
-        mime = None,
-        kwargs = None
+        data=None,
+        data_j=None,
+        data_m=None,
+        headers=None,
+        params=None,
+        mime=None,
+        kwargs=None,
     ):
         auth = kwargs.pop("auth", True)
         token = kwargs.pop("token", False)
-        if auth: kwargs["session_id"] = self.get_session_id()
-        if token: kwargs["access_token"] = self.get_access_token()
+        if auth:
+            kwargs["session_id"] = self.get_session_id()
+        if token:
+            kwargs["access_token"] = self.get_access_token()
 
     def handle_error(self, error):
         if not error.code in appier.http.AUTH_ERRORS:
@@ -182,41 +176,45 @@ class API(
             self._wrap_error(error)
         elif self.is_oauth():
             raise appier.OAuthAccessError(
-                message = "Problems using access token found must re-authorize"
+                message="Problems using access token found must re-authorize"
             )
         raise
 
     def get_session_id(self):
-        if self.session_id: return self.session_id
-        if self.is_direct(): return self.login()
-        elif self.is_oauth(): return self.oauth_session()
+        if self.session_id:
+            return self.session_id
+        if self.is_direct():
+            return self.login()
+        elif self.is_oauth():
+            return self.oauth_session()
 
     def get_access_token(self):
-        if self.access_token: return self.access_token
-        if self.is_direct(): return None
-        raise appier.OAuthAccessError(
-            message = "No access token found must re-authorize"
-        )
+        if self.access_token:
+            return self.access_token
+        if self.is_direct():
+            return None
+        raise appier.OAuthAccessError(message="No access token found must re-authorize")
 
     def auth_callback(self, params, headers):
-        if not self._has_mode(): raise appier.APIAccessError(
-            message = "Session expired or authentication issues"
-        )
+        if not self._has_mode():
+            raise appier.APIAccessError(
+                message="Session expired or authentication issues"
+            )
         self.session_id = None
         session_id = self.get_session_id()
         params["session_id"] = session_id
 
-    def login(self, username = None, password = None):
+    def login(self, username=None, password=None):
         username = username or self.username
         password = password or self.password
         url = self.base_url + "omni/login.json"
         contents = self.get(
             url,
-            callback = False,
-            auth = False,
-            token = False,
-            username = username,
-            password = password
+            callback=False,
+            auth=False,
+            token=False,
+            username=username,
+            password=password,
         )
         self.username = contents.get("username", None)
         self.object_id = contents.get("object_id", None)
@@ -226,15 +224,16 @@ class API(
         self.trigger("auth", contents)
         return self.session_id
 
-    def oauth_authorize(self, state = None):
+    def oauth_authorize(self, state=None):
         url = self.base_url + self.prefix + "oauth/authorize"
         values = dict(
-            client_id = self.client_id,
-            redirect_uri = self.redirect_url,
-            response_type = "code",
-            scope = " ".join(self.scope)
+            client_id=self.client_id,
+            redirect_uri=self.redirect_url,
+            response_type="code",
+            scope=" ".join(self.scope),
         )
-        if state: values["state"] = state
+        if state:
+            values["state"] = state
         data = appier.legacy.urlencode(values)
         url = url + "?" + data
         return url
@@ -243,13 +242,13 @@ class API(
         url = self.base_url + "omni/oauth/access_token"
         contents = self.post(
             url,
-            auth = False,
-            token = False,
-            client_id = self.client_id,
-            client_secret = self.client_secret,
-            grant_type = "authorization_code",
-            redirect_uri = self.redirect_url,
-            code = code
+            auth=False,
+            token=False,
+            client_id=self.client_id,
+            client_secret=self.client_secret,
+            grant_type="authorization_code",
+            redirect_uri=self.redirect_url,
+            code=code,
         )
         self.access_token = contents["access_token"]
         self.trigger("access_token", self.access_token)
@@ -257,7 +256,7 @@ class API(
 
     def oauth_session(self):
         url = self.base_url + "omni/oauth/start_session"
-        contents = self.get(url, callback = False, auth = False, token = True)
+        contents = self.get(url, callback=False, auth=False, token=True)
         self.username = contents.get("username", None)
         self.object_id = contents.get("object_id", None)
         self.acl = contents.get("acl", None)
@@ -270,11 +269,15 @@ class API(
         return self.self_user()
 
     def _wrap_error(self, error):
-        if not self.wrap_exception: raise
-        if not hasattr(error, "read_json"): raise
+        if not self.wrap_exception:
+            raise
+        if not hasattr(error, "read_json"):
+            raise
         data = error.read_json()
-        if not data: raise
-        if not isinstance(data, dict): raise
+        if not data:
+            raise
+        if not isinstance(data, dict):
+            raise
         exception = data.get("exception", {})
         error = errors.OmniError(error, exception)
         raise error
@@ -283,6 +286,8 @@ class API(
         return self.is_direct() or self.is_oauth()
 
     def _get_mode(self):
-        if self.username and self.password: return appier.OAuthAPI.DIRECT_MODE
-        elif self.client_id and self.client_secret: return appier.OAuthAPI.OAUTH_MODE
+        if self.username and self.password:
+            return appier.OAuthAPI.DIRECT_MODE
+        elif self.client_id and self.client_secret:
+            return appier.OAuthAPI.OAUTH_MODE
         return appier.OAuthAPI.UNSET_MODE

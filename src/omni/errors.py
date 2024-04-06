@@ -22,15 +22,6 @@
 __author__ = "João Magalhães <joamag@hive.pt>"
 """ The author(s) of the module """
 
-__version__ = "1.0.0"
-""" The version of the module """
-
-__revision__ = "$LastChangedRevision$"
-""" The revision number of the module """
-
-__date__ = "$LastChangedDate$"
-""" The last change date of the module """
-
 __copyright__ = "Copyright (c) 2008-2020 Hive Solutions Lda."
 """ The copyright for the module """
 
@@ -39,9 +30,10 @@ __license__ = "Apache License, Version 2.0"
 
 import appier
 
+
 class OmniError(appier.APIError):
 
-    def __init__(self, error, exception = {}):
+    def __init__(self, error, exception={}):
         appier.APIError.__init__(self, "Omni internal error")
         self.error = error
         self.exception = exception

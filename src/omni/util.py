@@ -22,27 +22,21 @@
 __author__ = "João Magalhães <joamag@hive.pt>"
 """ The author(s) of the module """
 
-__version__ = "1.0.0"
-""" The version of the module """
-
-__revision__ = "$LastChangedRevision$"
-""" The revision number of the module """
-
-__date__ = "$LastChangedDate$"
-""" The last change date of the module """
-
 __copyright__ = "Copyright (c) 2008-2020 Hive Solutions Lda."
 """ The copyright for the module """
 
 __license__ = "Apache License, Version 2.0"
 """ The license for the module """
 
+
 def format_places(number, places):
     format_s = "%%0.0%df" % places
     return format_s % number
 
+
 def filter_args(kwargs):
-    if not "object" in kwargs: return
+    if not "object" in kwargs:
+        return
     object = kwargs["object"]
 
     filter_def = object.get("find_d", None)
@@ -52,10 +46,16 @@ def filter_args(kwargs):
 
     kwargs["start_record"] = start_record
     kwargs["number_records"] = number_records
-    if filter_def: kwargs["filters[]"] = [
-        "%s:%s" % (filter_part, filter_string) if filter_part.count(":") < 2 else\
-            filter_part for filter_part in filter_def
-    ]
-    else: kwargs["filter_string"] = filter_string
+    if filter_def:
+        kwargs["filters[]"] = [
+            (
+                "%s:%s" % (filter_part, filter_string)
+                if filter_part.count(":") < 2
+                else filter_part
+            )
+            for filter_part in filter_def
+        ]
+    else:
+        kwargs["filter_string"] = filter_string
 
     del kwargs["object"]

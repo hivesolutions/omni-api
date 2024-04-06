@@ -22,15 +22,6 @@
 __author__ = "João Magalhães <joamag@hive.pt>"
 """ The author(s) of the module """
 
-__version__ = "1.0.0"
-""" The version of the module """
-
-__revision__ = "$LastChangedRevision$"
-""" The revision number of the module """
-
-__date__ = "$LastChangedDate$"
-""" The last change date of the module """
-
 __copyright__ = "Copyright (c) 2008-2020 Hive Solutions Lda."
 """ The copyright for the module """
 
@@ -39,15 +30,13 @@ __license__ = "Apache License, Version 2.0"
 
 from . import util
 
+
 class EmployeeAPI(object):
 
     def list_employees(self, *args, **kwargs):
         util.filter_args(kwargs)
         url = self.base_url + "omni/employees.json"
-        contents = self.get(
-            url,
-            **kwargs
-        )
+        contents = self.get(url, **kwargs)
         return contents
 
     def get_employee(self, object_id):
@@ -62,23 +51,23 @@ class EmployeeAPI(object):
 
     def stats_employee(
         self,
-        date = None,
-        unit = "month",
-        span = 7,
-        store_id = None,
-        employee_id = None,
-        has_global = None,
-        output = "simple"
+        date=None,
+        unit="month",
+        span=7,
+        store_id=None,
+        employee_id=None,
+        has_global=None,
+        output="simple",
     ):
         url = self.base_url + "omni/employee_snapshots/stats.json"
         contents = self.get(
             url,
-            date = date,
-            unit = unit,
-            span = span,
-            store_id = store_id,
-            employee_id = employee_id,
-            has_global = has_global,
-            output = output
+            date=date,
+            unit=unit,
+            span=span,
+            store_id=store_id,
+            employee_id=employee_id,
+            has_global=has_global,
+            output=output,
         )
         return contents
