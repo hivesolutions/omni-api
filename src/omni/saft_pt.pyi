@@ -30,8 +30,6 @@ __license__ = "Apache License, Version 2.0"
 
 from typing import Sequence
 
-from . import util
-
 from .base import Base, BasePayload
 
 class SaftPtReport(Base):

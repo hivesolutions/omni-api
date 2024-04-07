@@ -3,6 +3,8 @@
 
 .DS_Store
 
+/.vscode/settings.json
+
 /.venv
 
 /dist
