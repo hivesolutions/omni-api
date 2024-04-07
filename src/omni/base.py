@@ -39,6 +39,7 @@ from . import errors
 from . import entity
 from . import status
 from . import return_
+from . import saft_pt
 from . import invoice
 from . import product
 from . import receipt
@@ -98,6 +99,7 @@ class API(
     entity.EntityAPI,
     status.StatusAPI,
     return_.ReturnAPI,
+    saft_pt.SaftPtAPI,
     invoice.InvoiceAPI,
     product.ProductAPI,
     receipt.ReceiptAPI,
