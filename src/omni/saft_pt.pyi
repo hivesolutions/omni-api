@@ -33,10 +33,16 @@ from typing import Sequence
 from .base import Base, BasePayload
 
 class SaftPtReport(Base):
-    pass
+    _version: str
+    fiscal_year: int
+    start_date: float
+    end_date: float
 
 class SaftPtReportPayload(BasePayload):
-    pass
+    _version: str
+    fiscal_year: int
+    start_date: float
+    end_date: float
 
 class SaftPtAPI(object):
     def list_saft_pt(self, *args, **kwargs) -> Sequence[SaftPtReport]: ...

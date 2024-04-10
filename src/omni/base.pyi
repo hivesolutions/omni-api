@@ -1,4 +1,4 @@
-from typing import Any, Mapping, Sequence, TypedDict
+from typing import Annotated, Any, Mapping, NotRequired, Optional, Sequence, TypedDict
 
 from appier import OAuth2API
 
@@ -19,11 +19,8 @@ class Base(TypedDict):
     meta: Mapping[str, Any]
 
 class BasePayload(TypedDict):
-    object_id: int
-    create_date: float
-    modify_date: float
-    description: str
-    meta: Mapping[str, Any]
+    description: NotRequired[Optional[str]]
+    meta: NotRequired[Optional[Mapping[str, Any]]]
 
 class API(OAuth2API, SaftPtAPI, CustomerAPI):
     pass
