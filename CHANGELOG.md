@@ -19,6 +19,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 *
 
+## [0.5.2] - 2023-04-10
+
+### Changed
+
+* Improved payload values for SAFT-PT API
+
 ## [0.5.1] - 2023-04-10
 
 ### Added
