@@ -9,16 +9,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+*
+
+### Changed
+
+*
+
+### Fixed
+
+*
+
+## [0.5.1] - 2023-04-10
+
+### Added
+
 * Support for `SaftPtAPI` API methods
 
 ### Changed
 
 * Made code `black` compliant
 * Removed extra elements of Python files header
-
-### Fixed
-
-*
 
 ## [0.5.0] - 2023-01-19
 
