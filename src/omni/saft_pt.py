@@ -58,3 +58,11 @@ class SaftPtAPI(object):
         url = self.base_url + "omni/saft_pt/%d/file_decompressed" % object_id
         contents = self.get(url)
         return contents
+
+
+class SaftPtReport(object):
+    pass
+
+
+class SaftPtReportPayload(object):
+    pass
