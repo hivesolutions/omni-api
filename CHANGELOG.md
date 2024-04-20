@@ -9,11 +9,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-* Definition of the `Task` class
+*
 
 ### Changed
 
 *
+
+### Fixed
+
+*
+
+## [0.5.3] - 2023-04-20
+
+### Added
+
+* Definition of the `Task` class
 
 ### Fixed
 
