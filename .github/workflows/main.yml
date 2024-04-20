@@ -5,23 +5,43 @@ jobs:
     name: Build
     strategy:
       matrix:
-        python-version: [2.7, 3.5, 3.6, 3.7, 3.8, 3.9, rc]
+        python-version: [
+          2.7,
+          3.5,
+          3.6,
+          3.7,
+          3.8,
+          3.9,
+          "3.10",
+          "3.11",
+          "3.12",
+          latest,
+          rc
+        ]
     runs-on: ubuntu-latest
     container: python:${{ matrix.python-version }}
     steps:
       - uses: actions/checkout@v1
       - run: python --version
       - run: pip install -r requirements.txt
+      - run: |
+          pip install black
+          black . --check
+        if: matrix.python-version == '3.12'
       - run: python setup.py test
   build-pypy:
     name: Build PyPy
     strategy:
       matrix:
-        python-version: [2.7, 3.6]
+        python-version: [2.7, 3.6, 3.9, "3.10"]
     runs-on: ubuntu-latest
     container: pypy:${{ matrix.python-version }}
     steps:
       - uses: actions/checkout@v1
       - run: pypy --version
       - run: pip install -r requirements.txt
+      - run: |
+          pip install black
+          black . --check
+        if: matrix.python-version == '3.12'
       - run: pypy setup.py test
