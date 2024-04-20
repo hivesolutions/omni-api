@@ -30,7 +30,7 @@ __license__ = "Apache License, Version 2.0"
 
 from typing import Sequence
 
-from .base import Base, BasePayload
+from .base import Base, BaseDelta
 
 class SaftPtReport(Base):
     _version: str
@@ -38,11 +38,14 @@ class SaftPtReport(Base):
     start_date: float
     end_date: float
 
-class SaftPtReportPayload(BasePayload):
+class SaftPtReportDelta(BaseDelta):
     _version: str
     fiscal_year: int
     start_date: float
     end_date: float
+
+class SaftPtReportPayload(BaseDelta):
+    saft_pt_report: SaftPtReportDelta
 
 class SaftPtAPI(object):
     def list_saft_pt(self, *args, **kwargs) -> Sequence[SaftPtReport]: ...

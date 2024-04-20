@@ -18,7 +18,7 @@ class Base(TypedDict):
     description: str
     meta: Mapping[str, Any]
 
-class BasePayload(TypedDict):
+class BaseDelta(TypedDict):
     description: NotRequired[Optional[str]]
     meta: NotRequired[Optional[Mapping[str, Any]]]
 

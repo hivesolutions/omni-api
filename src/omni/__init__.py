@@ -80,7 +80,7 @@ from .money_sale_slip import MoneySaleSlipAPI
 from .product import ProductAPI
 from .receipt import ReceiptAPI
 from .return_ import ReturnAPI
-from .saft_pt import SaftPtAPI, SaftPtReport, SaftPtReportPayload
+from .saft_pt import SaftPtAPI, SaftPtReport, SaftPtReportDelta, SaftPtReportPayload
 from .sale_order import SaleOrderAPI
 from .sale_snapshot import SaleSnapshotAPI
 from .sale import SaleAPI

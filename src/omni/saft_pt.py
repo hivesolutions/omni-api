@@ -60,9 +60,13 @@ class SaftPtAPI(object):
         return contents
 
 
-class SaftPtReport(object):
+class SaftPtReport(dict):
     pass
 
 
-class SaftPtReportPayload(object):
+class SaftPtReportDelta(dict):
+    pass
+
+
+class SaftPtReportPayload(dict):
     pass
