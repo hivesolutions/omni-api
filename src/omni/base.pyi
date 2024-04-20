@@ -28,7 +28,7 @@ __copyright__ = "Copyright (c) 2008-2024 Hive Solutions Lda."
 __license__ = "Apache License, Version 2.0"
 """ The license for the module """
 
-from typing import Any, Mapping, NotRequired, Optional, Sequence, TypedDict
+from typing import Any, Mapping, NotRequired, Sequence, TypedDict
 
 from appier import OAuth2API
 
@@ -49,8 +49,8 @@ class Base(TypedDict):
     meta: Mapping[str, Any]
 
 class BaseDelta(TypedDict):
-    description: NotRequired[Optional[str]]
-    meta: NotRequired[Optional[Mapping[str, Any]]]
+    description: NotRequired[str | None]
+    meta: NotRequired[Mapping[str, Any] | None]
 
 class API(OAuth2API, SaftPtAPI, CustomerAPI):
     pass
