@@ -28,15 +28,17 @@ __copyright__ = "Copyright (c) 2008-2024 Hive Solutions Lda."
 __license__ = "Apache License, Version 2.0"
 """ The license for the module """
 
-from typing import Sequence
+from typing import NotRequired, Sequence
 
 from .base import Base, BaseDelta
+from .task import Task
 
 class SaftPtReport(Base):
     _version: str
     fiscal_year: int
     start_date: float
     end_date: float
+    task: NotRequired[Task]
 
 class SaftPtReportDelta(BaseDelta):
     _version: str

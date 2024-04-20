@@ -91,6 +91,7 @@ from .store import StoreAPI
 from .sub_product import SubProductAPI
 from .supplier import SupplierAPI
 from .system_company import SystemCompanyAPI
+from .task import TaskState, Task, TaskDelta
 from .transfer import TransferAPI
 from .user import UserAPI
 from .util import format_places, filter_args
