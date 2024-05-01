@@ -43,6 +43,7 @@ setuptools.setup(
     zip_safe=False,
     packages=["omni", "omni.models"],
     package_dir={"": os.path.normpath("src")},
+    package_data={"omni": ["*.pyi"]},
     install_requires=["appier"],
     classifiers=[
         "Development Status :: 3 - Alpha",
