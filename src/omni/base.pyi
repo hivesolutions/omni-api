@@ -13,9 +13,14 @@ SCOPE: Sequence[str] = ...
 
 class Base(TypedDict):
     object_id: int
+    unique_id: str
+    instance_id: int | None
+    status: int
     create_date: float
     modify_date: float
-    description: str
+    description: str | None
+    description_long: str | None
+    representation: str | None
     meta: Mapping[str, Any]
 
 class BaseDelta(TypedDict):
