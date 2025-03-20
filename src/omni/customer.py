@@ -54,3 +54,9 @@ class CustomerAPI(object):
         url = self.base_url + "omni/customer_persons/%d/update.json" % object_id
         contents = self.post(url, data_j=payload)
         return contents
+
+    @classmethod
+    def customer_name(cls, person):
+        if not person.get("surname", None):
+            return person["name"]
+        return "%s %s " % (person["name"], person["surname"])
