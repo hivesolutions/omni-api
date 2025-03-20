@@ -29,6 +29,7 @@ from . import models
 from . import base
 from . import consignment_out
 from . import consignment_slip
+from . import contactable
 from . import credit_note
 from . import customer
 from . import document
@@ -42,6 +43,7 @@ from . import invoice
 from . import media
 from . import merchandise
 from . import money_sale_slip
+from . import named
 from . import product
 from . import receipt
 from . import return_
@@ -61,11 +63,13 @@ from . import user
 from . import util
 from . import web
 
-from .base import BASE_URL, API
+from .models import *
+from .base import BASE_URL, API, Base, BaseDelta
 from .consignment_out import ConsignmentOutAPI
 from .consignment_slip import ConsignmentSlipAPI
+from .contactable import Contactable
 from .credit_note import CreditNoteAPI
-from .customer import CustomerAPI
+from .customer import CustomerAPI, Customer, CustomerPerson
 from .document import DocumentAPI
 from .employee import EmployeeAPI
 from .entity import EntityAPI
@@ -77,6 +81,7 @@ from .invoice import InvoiceAPI
 from .media import MediaAPI
 from .merchandise import MerchandiseAPI
 from .money_sale_slip import MoneySaleSlipAPI
+from .named import Named
 from .product import ProductAPI
 from .receipt import ReceiptAPI
 from .return_ import ReturnAPI

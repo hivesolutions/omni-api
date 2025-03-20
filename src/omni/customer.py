@@ -60,3 +60,11 @@ class CustomerAPI(object):
         if not person.get("surname", None):
             return person["name"]
         return "%s %s " % (person["name"], person["surname"])
+
+
+class Customer(dict):
+    pass
+
+
+class CustomerPerson(dict):
+    pass

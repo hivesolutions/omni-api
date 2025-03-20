@@ -293,3 +293,11 @@ class API(
         elif self.client_id and self.client_secret:
             return appier.OAuthAPI.OAUTH_MODE
         return appier.OAuthAPI.UNSET_MODE
+
+
+class Base(dict):
+    pass
+
+
+class BaseDelta(dict):
+    pass
