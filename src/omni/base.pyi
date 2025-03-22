@@ -4,6 +4,7 @@ from appier import OAuth2API
 
 from .customer import CustomerAPI
 from .saft_pt import SaftPtAPI
+from .sale import SaleAPI
 
 BASE_URL: str = ...
 CLIENT_ID: str = ...
@@ -27,5 +28,5 @@ class BaseDelta(TypedDict):
     description: NotRequired[str | None]
     meta: NotRequired[Mapping[str, Any] | None]
 
-class API(OAuth2API, SaftPtAPI, CustomerAPI):
+class API(OAuth2API, SaleAPI, SaftPtAPI, CustomerAPI):
     pass
