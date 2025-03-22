@@ -1,5 +1,5 @@
 from .base import Base
-from .merchandise import Merchandise
+from .merchandise import TransactionalMerchandise
 
 class SaleLine(Base):
     quantity: float
@@ -13,4 +13,4 @@ class SaleLine(Base):
     unit_price_vat: float
     price_vat: float
     price: float
-    merchandise: Merchandise
+    merchandise: TransactionalMerchandise

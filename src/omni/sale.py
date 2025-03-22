@@ -100,3 +100,7 @@ class SaleAPI(object):
             output=output,
         )
         return contents
+
+
+class Sale(dict):
+    pass

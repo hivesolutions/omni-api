@@ -88,7 +88,7 @@ from .return_ import ReturnAPI
 from .saft_pt import SaftPtAPI, SaftPtReport, SaftPtReportDelta, SaftPtReportPayload
 from .sale_order import SaleOrderAPI
 from .sale_snapshot import SaleSnapshotAPI
-from .sale import SaleAPI
+from .sale import SaleAPI, Sale
 from .signed_document import SignedDocumentAPI
 from .status import StatusAPI
 from .stock_adjustment import StockAdjustmentAPI
