@@ -28,8 +28,21 @@ __copyright__ = "Copyright (c) 2008-2024 Hive Solutions Lda."
 __license__ = "Apache License, Version 2.0"
 """ The license for the module """
 
+from . import util
+
 
 class UserAPI(object):
+
+    def list_users(self, *args, **kwargs):
+        util.filter_args(kwargs)
+        url = self.base_url + "omni/users.json"
+        contents = self.get(url, **kwargs)
+        return contents
+
+    def get_user(self, object_id):
+        url = self.base_url + "omni/users/%d.json" % object_id
+        contents = self.get(url)
+        return contents
 
     def self_user(self):
         url = self.base_url + "omni/users/self.json"
