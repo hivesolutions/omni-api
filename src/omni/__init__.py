@@ -38,6 +38,7 @@ from . import entity
 from . import errors
 from . import export
 from . import identifiable
+from . import inventory_check
 from . import inventory_line
 from . import invoice
 from . import media
@@ -76,6 +77,7 @@ from .entity import EntityAPI
 from .errors import OmniError
 from .export import FUNCS, get_field, open_export
 from .identifiable import IdentifiableAPI
+from .inventory_check import InventoryCheckAPI
 from .inventory_line import InventoryLineAPI
 from .invoice import InvoiceAPI
 from .media import MediaAPI

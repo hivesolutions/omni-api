@@ -31,15 +31,15 @@ __license__ = "Apache License, Version 2.0"
 from . import util
 
 
-class InventoryLineAPI(object):
+class InventoryCheckAPI(object):
 
-    def list_inventory_lines(self, *args, **kwargs):
+    def list_inventory_checks(self, *args, **kwargs):
         util.filter_args(kwargs)
-        url = self.base_url + "omni/inventory_lines.json"
+        url = self.base_url + "omni/inventory_checks.json"
         contents = self.get(url, **kwargs)
         return contents
 
-    def get_inventory_line(self, object_id):
-        url = self.base_url + "omni/inventory_lines/%d.json" % object_id
+    def get_inventory_check(self, object_id):
+        url = self.base_url + "omni/inventory_checks/%d.json" % object_id
         contents = self.get(url)
         return contents

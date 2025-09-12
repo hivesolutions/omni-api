@@ -57,6 +57,7 @@ from . import sale_snapshot
 from . import inventory_line
 from . import system_company
 from . import money_sale_slip
+from . import inventory_check
 from . import signed_document
 from . import consignment_out
 from . import consignment_slip
@@ -117,6 +118,7 @@ class API(
     inventory_line.InventoryLineAPI,
     system_company.SystemCompanyAPI,
     money_sale_slip.MoneySaleSlipAPI,
+    inventory_check.InventoryCheckAPI,
     signed_document.SignedDocumentAPI,
     consignment_out.ConsignmentOutAPI,
     consignment_slip.ConsignmentSlipAPI,
