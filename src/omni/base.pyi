@@ -3,6 +3,7 @@ from typing import Any, Mapping, NotRequired, Sequence, TypedDict
 from appier import OAuth2API
 
 from .customer import CustomerAPI
+from .inventory_check import InventoryCheckAPI
 from .saft_pt import SaftPtAPI
 from .sale import SaleAPI
 from .store import StoreAPI
@@ -30,5 +31,13 @@ class BaseDelta(TypedDict):
     description: NotRequired[str | None]
     meta: NotRequired[Mapping[str, Any] | None]
 
-class API(OAuth2API, SaleAPI, UserAPI, StoreAPI, SaftPtAPI, CustomerAPI, UserAPI):
+class API(
+    OAuth2API,
+    SaleAPI,
+    UserAPI,
+    StoreAPI,
+    SaftPtAPI,
+    CustomerAPI,
+    InventoryCheckAPI,
+):
     pass
