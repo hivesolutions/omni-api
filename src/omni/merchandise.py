@@ -39,6 +39,11 @@ class MerchandiseAPI(object):
         contents = self.get(url, **kwargs)
         return contents
 
+    def get_merchandise(self, object_id):
+        url = self.base_url + "omni/merchandise/%d.json" % object_id
+        contents = self.get(url)
+        return contents
+
     def update_merchandise(self, object_id, payload):
         url = self.base_url + "omni/merchandise/%d/update.json" % object_id
         contents = self.post(url, data_m=payload)
