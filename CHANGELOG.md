@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-* Support for `InventoryCheck` entity and model
+*
 
 ### Changed
 
@@ -18,6 +18,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 *
+
+## [0.5.4] - 2024-09-13
+
+### Added
+
+* Support for `InventoryCheck` entity and model
+* More types for known operations
 
 ## [0.5.3] - 2024-04-20
 
