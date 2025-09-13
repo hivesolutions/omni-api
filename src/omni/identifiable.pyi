@@ -1,4 +1,4 @@
-from typing import TypedDict
+from typing import Sequence, TypedDict
 
 class Identifiable(TypedDict):
     identifier: str
@@ -7,3 +7,6 @@ class Identifiable(TypedDict):
     identifier_number_digits: int | None
     generated_identifier: int
     validation_code: str | None
+
+class IdentifiableAPI(object):
+    def list_identifiables(self, *args, **kwargs) -> Sequence[Identifiable]: ...
