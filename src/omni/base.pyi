@@ -3,6 +3,7 @@ from typing import Any, Mapping, NotRequired, Sequence, TypedDict
 from appier import OAuth2API
 
 from .customer import CustomerAPI
+from .employee import EmployeeAPI
 from .identifiable import IdentifiableAPI
 from .inventory_check import InventoryCheckAPI
 from .merchandise import MerchandiseAPI
@@ -40,6 +41,7 @@ class API(
     StoreAPI,
     SaftPtAPI,
     CustomerAPI,
+    EmployeeAPI,
     MerchandiseAPI,
     IdentifiableAPI,
     InventoryCheckAPI,
