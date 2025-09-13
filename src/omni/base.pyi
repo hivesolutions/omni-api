@@ -4,6 +4,7 @@ from appier import OAuth2API
 
 from .customer import CustomerAPI
 from .inventory_check import InventoryCheckAPI
+from .merchandise import MerchandiseAPI
 from .saft_pt import SaftPtAPI
 from .sale import SaleAPI
 from .store import StoreAPI
@@ -38,6 +39,7 @@ class API(
     StoreAPI,
     SaftPtAPI,
     CustomerAPI,
+    MerchandiseAPI,
     InventoryCheckAPI,
 ):
     pass
