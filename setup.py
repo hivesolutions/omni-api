@@ -42,6 +42,7 @@ setuptools.setup(
     url="http://omni-api.hive.pt",
     zip_safe=False,
     packages=["omni", "omni.models"],
+    test_suite="omni.test",
     package_dir={"": os.path.normpath("src")},
     package_data={"omni": ["*.pyi"]},
     install_requires=["appier"],
