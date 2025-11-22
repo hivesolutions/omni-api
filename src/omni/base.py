@@ -166,6 +166,8 @@ class API(
         mime=None,
         kwargs=None,
     ):
+        if kwargs == None:
+            raise ValueError("Authentication kwargs not provided")
         auth = kwargs.pop("auth", True)
         token = kwargs.pop("token", False)
         if auth:
@@ -174,7 +176,7 @@ class API(
             kwargs["access_token"] = self.get_access_token()
 
     def handle_error(self, error):
-        if not error.code in appier.http.AUTH_ERRORS:
+        if not getattr(error, "code", None) in appier.http.AUTH_ERRORS:
             self._wrap_error(error)
         if self.is_direct():
             self._wrap_error(error)
@@ -192,7 +194,7 @@ class API(
         elif self.is_oauth():
             return self.oauth_session()
 
-    def get_access_token(self):
+    def get_access_token(self):  # pyright: ignore[reportIncompatibleMethodOverride]
         if self.access_token:
             return self.access_token
         if self.is_direct():
