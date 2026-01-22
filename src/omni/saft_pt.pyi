@@ -15,6 +15,9 @@ class SaftPtReportDelta(BaseDelta):
     fiscal_year: int
     start_date: float
     end_date: float
+    obfuscated: NotRequired[int]
+    minified: NotRequired[int]
+    beautified: NotRequired[int]
     validated: NotRequired[int]
     payload_customers: NotRequired[int]
 
