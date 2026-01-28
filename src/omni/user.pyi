@@ -3,8 +3,8 @@ from typing import Sequence
 from .base import Base
 
 class User(Base):
-    username: str
     email: str
+    username: str | None
     last_login_date: float | None
 
 class UserAPI(object):
