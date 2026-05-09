@@ -13,3 +13,13 @@ class EmployeeAPI(object):
     def list_employees(self, *args, **kwargs) -> Sequence[Employee]: ...
     def get_employee(self, object_id: int) -> Employee: ...
     def self_employee(self) -> Employee: ...
+    def stats_employee(
+        self,
+        date: float | None = ...,
+        unit: str = ...,
+        span: int = ...,
+        store_id: int | None = ...,
+        employee_id: int | None = ...,
+        has_global: bool | None = ...,
+        output: str = ...,
+    ) -> dict: ...
