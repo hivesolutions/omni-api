@@ -9,8 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-* Type stub for `stats_employee` method in `EmployeeAPI`
-* Support for the create employee operation in `EmployeeAPI`
+*
 
 ### Changed
 
@@ -19,6 +18,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 *
+
+## [0.6.0] - 2026-06-25
+
+### Added
+
+* Type stub for `stats_employee` method in `EmployeeAPI`
+* Support for the create employee operation in `EmployeeAPI`
 
 ## [0.5.5] - 2024-09-15
 
