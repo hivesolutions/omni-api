@@ -6,7 +6,7 @@ The Python virtual environment for this repository is typically located in `.ven
 
 ## Formatting
 
-Always format the code before commiting using, making sure that the Python code is properly formatted using:
+Always format the code before committing using, making sure that the Python code is properly formatted using:
 
 ```bash
 pip install black
@@ -33,7 +33,7 @@ python setup.py test
 - Never bump the internal package version in `setup.py`. This is handled automatically by the release process.
 - Python files use CRLF as the line ending.
 - The implementation should be done in Python 2.7+ and compatible with Python 3.13.
-- No type annotations should exist in the `.py` files and if the exist they should isolated in th `.pyi` files.
+- No type annotations should exist in the `.py` files and if the exist they should isolated in the `.pyi` files.
 - The style should respect the black formatting.
 - The implementation should be done in a way that is compatible with the existing codebase.
 - Prefer `item not in list` over `not item in list`.
@@ -106,7 +106,7 @@ To create a new release follow the following steps:
 - Move all the `CHANGELOG.md` Unreleased items that have at least one non empty item the into a new section with the new version number and date, and then create new empty sub-sections (Added, Changed and Fixed) for the Unreleased section with a single empty item.
 - Create a commit with the following message `version: $VERSION_NUMBER`.
 - Push the commit.
-- Create a new tag with the value fo the new version number `$VERSION_NUMBER`.
+- Create a new tag with the value of the new version number `$VERSION_NUMBER`.
 - Create a new release on the GitHub repo using the Markdown from the corresponding version entry in `CHANGELOG.md` as the description of the release and the version number as the title. Do not include the title of the release (version and date) in the description.
 
 ## License
