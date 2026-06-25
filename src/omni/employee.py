@@ -39,6 +39,11 @@ class EmployeeAPI(object):
         contents = self.get(url, **kwargs)
         return contents
 
+    def create_employee(self, payload):
+        url = self.base_url + "omni/employees.json"
+        contents = self.post(url, data_j=payload)
+        return contents
+
     def get_employee(self, object_id):
         url = self.base_url + "omni/employees/%d.json" % object_id
         contents = self.get(url)
