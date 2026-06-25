@@ -49,6 +49,11 @@ class EmployeeAPI(object):
         contents = self.get(url)
         return contents
 
+    def update_employee(self, object_id, payload):
+        url = self.base_url + "omni/employees/%d/update.json" % object_id
+        contents = self.post(url, data_j=payload)
+        return contents
+
     def self_employee(self):
         url = self.base_url + "omni/employees/self.json"
         contents = self.get(url)
