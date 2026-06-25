@@ -13,13 +13,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-* Bumped `actions/checkout` from `v4` to `v7` in CI workflows
-* Switched CI test execution to `pytest` and packaging to `python -m build`
-* Updated deploy workflow to build under Python 3.12
+*
 
 ### Fixed
 
 *
+
+## [0.7.0] - 2026-06-25
+
+### Changed
+
+* Bumped `actions/checkout` from `v4` to `v7` in CI workflows
+* Switched CI test execution to `pytest` and packaging to `python -m build`
+* Updated deploy workflow to build under Python 3.12
 
 ## [0.6.0] - 2026-06-25
 
