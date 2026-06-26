@@ -2,15 +2,14 @@ from typing import Sequence
 
 from .price import Price
 from .employee import Employee
-from .operation import Operation
+from .workflow_operation import WorkflowOperation
 
-class Consignment(Operation):
-    workflow_state: int
+class Consignment(WorkflowOperation):
     start_date: float
     end_date: float | None
     vat: float
     discount: float
-    discount_vat: float
+    discount_vat: float | None
     communication_frequency: float | None
     price: Price
     primary_buyer: Employee

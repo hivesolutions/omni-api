@@ -5,11 +5,11 @@ from .employee import Employee
 from .operation import Operation
 
 class Purchase(Operation):
-    financial_discount: float
-    financial_discount_vat: float
+    financial_discount: float | None
+    financial_discount_vat: float | None
     vat: float
     discount: float
-    discount_vat: float
+    discount_vat: float | None
     price: Price
     primary_buyer: Employee
 
