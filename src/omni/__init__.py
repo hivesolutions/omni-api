@@ -27,6 +27,7 @@ __license__ = "Apache License, Version 2.0"
 
 from . import models
 from . import base
+from . import consignment
 from . import consignment_out
 from . import consignment_slip
 from . import contactable
@@ -46,6 +47,7 @@ from . import merchandise
 from . import money_sale_slip
 from . import named
 from . import product
+from . import purchase
 from . import receipt
 from . import return_
 from . import saft_pt
@@ -66,6 +68,7 @@ from . import web
 
 from .models import *
 from .base import BASE_URL, API, Base, BaseDelta
+from .consignment import ConsignmentAPI
 from .consignment_out import ConsignmentOutAPI
 from .consignment_slip import ConsignmentSlipAPI
 from .contactable import Contactable
@@ -85,6 +88,7 @@ from .merchandise import MerchandiseAPI
 from .money_sale_slip import MoneySaleSlipAPI
 from .named import Named
 from .product import ProductAPI
+from .purchase import PurchaseAPI
 from .receipt import ReceiptAPI
 from .return_ import ReturnAPI
 from .saft_pt import SaftPtAPI, SaftPtReport, SaftPtReportDelta, SaftPtReportPayload

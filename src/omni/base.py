@@ -43,6 +43,7 @@ from . import saft_pt
 from . import invoice
 from . import product
 from . import receipt
+from . import purchase
 from . import customer
 from . import supplier
 from . import transfer
@@ -52,6 +53,7 @@ from . import sale_order
 from . import credit_note
 from . import sub_product
 from . import merchandise
+from . import consignment
 from . import identifiable
 from . import sale_snapshot
 from . import inventory_line
@@ -104,6 +106,7 @@ class API(
     invoice.InvoiceAPI,
     product.ProductAPI,
     receipt.ReceiptAPI,
+    purchase.PurchaseAPI,
     customer.CustomerAPI,
     supplier.SupplierAPI,
     transfer.TransferAPI,
@@ -113,6 +116,7 @@ class API(
     credit_note.CreditNoteAPI,
     sub_product.SubProductAPI,
     merchandise.MerchandiseAPI,
+    consignment.ConsignmentAPI,
     identifiable.IdentifiableAPI,
     sale_snapshot.SaleSnapshotAPI,
     inventory_line.InventoryLineAPI,
