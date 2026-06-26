@@ -2,11 +2,13 @@ from typing import Any, Mapping, NotRequired, Sequence, TypedDict
 
 from appier import OAuth2API
 
+from .consignment import ConsignmentAPI
 from .customer import CustomerAPI
 from .employee import EmployeeAPI
 from .identifiable import IdentifiableAPI
 from .inventory_check import InventoryCheckAPI
 from .merchandise import MerchandiseAPI
+from .purchase import PurchaseAPI
 from .saft_pt import SaftPtAPI
 from .sale import SaleAPI
 from .store import StoreAPI
@@ -40,9 +42,11 @@ class API(
     UserAPI,
     StoreAPI,
     SaftPtAPI,
+    PurchaseAPI,
     CustomerAPI,
     EmployeeAPI,
     MerchandiseAPI,
+    ConsignmentAPI,
     IdentifiableAPI,
     InventoryCheckAPI,
 ):
