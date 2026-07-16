@@ -48,3 +48,13 @@ class TransferAPI(object):
         url = self.base_url + "omni/transfers/%d.json" % object_id
         contents = self.get(url)
         return contents
+
+
+class TransferState(object):
+    UNSET = 1
+    CREATED = 2
+    RESERVED = 3
+    SENT = 4
+    RECEIVED = 5
+    CLOSED = 6
+    CANCELED = 7

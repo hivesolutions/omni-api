@@ -17,9 +17,12 @@ from .saft_pt import SaftPtAPI
 from .sale import SaleAPI
 from .sale_snapshot import SaleSnapshotAPI
 from .signed_document import SignedDocumentAPI
+from .status import StatusAPI
 from .store import StoreAPI
 from .system_company import SystemCompanyAPI
+from .transfer import TransferAPI
 from .user import UserAPI
+from .web import WebAPI
 
 BASE_URL: str = ...
 CLIENT_ID: str = ...
@@ -60,14 +63,17 @@ class BaseReference(TypedDict):
 
 class API(
     OAuth2API,
+    WebAPI,
     SaleAPI,
     UserAPI,
     StoreAPI,
+    StatusAPI,
     SaftPtAPI,
     InvoiceAPI,
     ReceiptAPI,
     PurchaseAPI,
     CustomerAPI,
+    TransferAPI,
     DocumentAPI,
     EmployeeAPI,
     MerchandiseAPI,

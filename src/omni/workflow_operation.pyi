@@ -1,4 +1,7 @@
-from .operation import Operation
+from .operation import Operation, OperationDelta
 
 class WorkflowOperation(Operation):
-    workflow_state: int | None
+    pass
+
+class WorkflowOperationDelta(OperationDelta):
+    pass

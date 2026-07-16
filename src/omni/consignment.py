@@ -48,3 +48,9 @@ class ConsignmentAPI(object):
         url = self.base_url + "omni/consignments/%d.json" % object_id
         contents = self.get(url)
         return contents
+
+
+class ConsignmentState(object):
+    OPEN = 1
+    CLOSED = 2
+    EXPIRED = 3

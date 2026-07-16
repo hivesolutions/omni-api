@@ -71,7 +71,7 @@ from . import web
 
 from .models import *
 from .base import BASE_URL, API, Base, BaseDelta, Status, Flag
-from .consignment import ConsignmentAPI
+from .consignment import ConsignmentAPI, ConsignmentState
 from .consignment_out import ConsignmentOutAPI
 from .consignment_slip import ConsignmentSlipAPI
 from .contactable import Contactable
@@ -116,7 +116,7 @@ from .sub_product import SubProductAPI
 from .supplier import SupplierAPI
 from .system_company import SystemCompanyAPI
 from .task import TaskState, Task, TaskDelta
-from .transfer import TransferAPI
+from .transfer import TransferAPI, TransferState
 from .user import UserAPI
 from .util import format_places, filter_args
 from .web import WebAPI
