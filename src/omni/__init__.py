@@ -46,6 +46,9 @@ from . import media
 from . import merchandise
 from . import money_sale_slip
 from . import named
+from . import operation
+from . import payment
+from . import person
 from . import product
 from . import purchase
 from . import receipt
@@ -67,14 +70,14 @@ from . import util
 from . import web
 
 from .models import *
-from .base import BASE_URL, API, Base, BaseDelta
+from .base import BASE_URL, API, Base, BaseDelta, Status, Flag
 from .consignment import ConsignmentAPI
 from .consignment_out import ConsignmentOutAPI
 from .consignment_slip import ConsignmentSlipAPI
 from .contactable import Contactable
 from .credit_note import CreditNoteAPI
 from .customer import CustomerAPI, Customer, CustomerPerson
-from .document import DocumentAPI
+from .document import DocumentAPI, DocumentStatus, DocumentType
 from .employee import EmployeeAPI
 from .entity import EntityAPI
 from .errors import OmniError
@@ -87,6 +90,9 @@ from .media import MediaAPI
 from .merchandise import MerchandiseAPI
 from .money_sale_slip import MoneySaleSlipAPI
 from .named import Named
+from .operation import OperationType
+from .payment import PaymentType, PaymentArea, PaymentState
+from .person import Gender
 from .product import ProductAPI
 from .purchase import PurchaseAPI
 from .receipt import ReceiptAPI
@@ -94,7 +100,14 @@ from .return_ import ReturnAPI
 from .saft_pt import SaftPtAPI, SaftPtReport, SaftPtReportDelta, SaftPtReportPayload
 from .sale_order import SaleOrderAPI
 from .sale_snapshot import SaleSnapshotAPI
-from .sale import SaleAPI, Sale
+from .sale import (
+    SaleAPI,
+    Sale,
+    StockDeductionType,
+    VatExemption,
+    ReturnState,
+    SaleCustomerType,
+)
 from .signed_document import SignedDocumentAPI
 from .status import StatusAPI
 from .stock_adjustment import StockAdjustmentAPI

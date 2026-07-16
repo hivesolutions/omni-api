@@ -104,3 +104,26 @@ class SaleAPI(object):
 
 class Sale(dict):
     pass
+
+
+class StockDeductionType(object):
+    NO_DEDUCTION = 1
+    STOCK_ON_HAND = 2
+    RESERVED_STOCK = 3
+
+
+class VatExemption(object):
+    NO_EXEMPTION = 1
+    NORMAL_EXEMPTION = 2
+    UNKNOWN = 3
+
+
+class ReturnState(object):
+    RETURNABLE = 1
+    NON_RETURNABLE = 2
+
+
+class SaleCustomerType(object):
+    NEW = "new"
+    EXISTING = "existing"
+    ANONYMOUS = "anonymous"

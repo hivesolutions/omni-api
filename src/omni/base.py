@@ -309,3 +309,13 @@ class Base(dict):
 
 class BaseDelta(dict):
     pass
+
+
+class Status(object):
+    ENABLED = 1
+    DISABLED = 2
+
+
+class Flag(object):
+    YES = 1
+    NO = 2
