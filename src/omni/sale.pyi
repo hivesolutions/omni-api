@@ -3,13 +3,18 @@ from typing import Any, Literal, Mapping, NotRequired, Sequence, TypedDict
 from .base import BaseDelta, BaseReference
 from .price import Price
 from .invoice import Invoice
-from .payment import PaymentDelta
+from .payment import PaymentStateT, PaymentDelta
 from .receipt import Receipt
 from .customer import Customer, CustomerPersonDelta
 from .operation import Operation, OperationDelta, VatItem
 from .sale_line import SaleLine, SaleLineDelta
 from .sale_snapshot import SaleStats
 from .money_sale_slip import MoneySaleSlip
+
+StockDeductionTypeT = Literal[1, 2, 3]
+VatExemptionT = Literal[1, 2, 3]
+ReturnStateT = Literal[1, 2]
+SaleCustomerTypeT = Literal["new", "existing", "anonymous"]
 
 class StockDeductionType:
     NO_DEDUCTION: Literal[1] = ...
@@ -31,7 +36,7 @@ class SaleCustomerType:
     ANONYMOUS: Literal["anonymous"] = ...
 
 class Sale(Operation):
-    stock_deduction_type: Literal[1, 2, 3]
+    stock_deduction_type: StockDeductionTypeT
     financial_discount: float | None
     financial_discount_vat: float | None
     exemption: float
@@ -41,10 +46,10 @@ class Sale(Operation):
     discount_vat: float
     global_discount_vat: float
     voucher_discount_vat: float
-    vat_exemption: Literal[1, 2, 3]
+    vat_exemption: VatExemptionT
     vat_exemption_code: str | None
-    payment_state: Literal[1, 2, 3, 4, 5]
-    return_state: Literal[1, 2]
+    payment_state: PaymentStateT
+    return_state: ReturnStateT
     price: Price
     price_vat: float
     no_discount_price_vat: float
@@ -55,14 +60,14 @@ class SaleVat(TypedDict):
     vat_list: Sequence[VatItem] | None
 
 class SaleCustomerParameters(TypedDict):
-    type: Literal["new", "existing", "anonymous"]
+    type: SaleCustomerTypeT
 
 class SaleCustomer(CustomerPersonDelta):
     _parameters: SaleCustomerParameters
     object_id: NotRequired[int]
 
 class SaleDelta(OperationDelta):
-    stock_deduction_type: NotRequired[Literal[1, 2, 3]]
+    stock_deduction_type: NotRequired[StockDeductionTypeT]
     owner: NotRequired[BaseReference]
     primary_seller: NotRequired[BaseReference]
     sale_lines: Sequence[SaleLineDelta]

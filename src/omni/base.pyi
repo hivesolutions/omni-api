@@ -27,6 +27,9 @@ CLIENT_SECRET: str = ...
 REDIRECT_URL: str = ...
 SCOPE: Sequence[str] = ...
 
+StatusT = Literal[1, 2]
+FlagT = Literal[1, 2]
+
 class Status:
     ENABLED: Literal[1] = ...
     DISABLED: Literal[2] = ...
@@ -40,7 +43,7 @@ class Base(TypedDict):
     object_id: int
     unique_id: str
     instance_id: int | None
-    status: Literal[1, 2]
+    status: StatusT
     create_date: float
     modify_date: float
     description: str | None

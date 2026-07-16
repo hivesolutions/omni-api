@@ -9,6 +9,9 @@ from .sale_line import SaleLine
 from .identifiable import Identifiable, IdentifiableDelta
 from .system_company import SystemCompany
 
+DocumentStatusT = Literal[1, 2, 3]
+DocumentTypeT = Literal[1, 2, 3]
+
 class DocumentStatus:
     DRAFT: Literal[1] = ...
     PRINTED: Literal[2] = ...
@@ -38,8 +41,8 @@ class DocumentPayload(TypedDict):
 
 class Document(Base, Identifiable):
     issue_date: float
-    document_status: Literal[1, 2, 3]
-    document_type: Literal[1, 2, 3]
+    document_status: DocumentStatusT
+    document_type: DocumentTypeT
     title: str | None
     observations: str | None
     payload: DocumentPayload | None

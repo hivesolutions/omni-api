@@ -1,9 +1,10 @@
-from typing import Any, Literal, Mapping, NotRequired, Sequence, TypedDict
+from typing import Any, Mapping, NotRequired, Sequence, TypedDict
 
+from .base import FlagT
 from .document import Document
 
 class SignedDocument(Document):
-    submitted_at: Literal[1, 2]
+    submitted_at: FlagT
     submitted_at_version: int | None
     submitted_at_date: float | None
     submitted_at_server: str | None
@@ -13,7 +14,7 @@ class SignedDocument(Document):
     username_at: str | None
     at_document_identifier: str | None
     atcud: str | None
-    signed: Literal[1, 2]
+    signed: FlagT
     system_entry_date: float
     price: float
     digest_document_type: str

@@ -2,7 +2,7 @@ from typing import Literal, NotRequired, Sequence, TypedDict
 
 from .base import BaseDelta
 
-StatsDirection = Literal["up", "down", "equal"]
+StatsDirectionT = Literal["up", "down", "equal"]
 """ The direction of an aggregated stats value
 when compared against its target value """
 
@@ -10,7 +10,7 @@ class SaleStatsValue(TypedDict):
     value: float
     target: float
     percentage: float
-    direction: StatsDirection
+    direction: StatsDirectionT
 
 class SaleStatsTotals(TypedDict):
     number_sales: SaleStatsValue
