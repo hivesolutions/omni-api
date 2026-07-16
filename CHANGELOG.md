@@ -13,7 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Type stubs for documents, signed documents, invoices, receipts, money sale slips, payments, companies and sale statistics
 * Typed creation and update payloads validated against a live demo instance
 * Agent skill describing how to author type stubs for API operations
-* Enumerated integer fields typed as literal value sets
+* Enumerated fields typed as literal value sets with semantic enumeration classes
 
 ### Changed
 

@@ -48,7 +48,7 @@ Read entities model the list/get contract - in a list or get operation every fie
 - Calculated attributes (`_attr_*` methods, eg: `price_vat`, `digest_chunk`) serialize only in `map=True` flows but are still typed required per the list/get contract.
 - Create/update/issue responses go through `get_map(recursive=False)`: reduced maps without relations or calculated attributes. The list/get contract still wins - do not degrade the read entity because of them.
 - Every serialized entity carries `_class` and `metadata` (not `meta`) - both live on `Base`.
-- Enumerated integers get `Literal` type aliases with the exact values of the Omni model constants (`DocumentStatus = Literal[1, 2, 3]` from `STATUS_DRAFT`/`STATUS_PRINTED`/`STATUS_COMPLETED`), defined in the module that owns the entity; the shared `Status` and `Flag` (the 1 - yes, 2 - no pattern) aliases live in `base.pyi`. Never a runtime `IntEnum` - the wire values are plain ints and the client has no enum objects to import.
+- Enumerated fields carry their semantics twice, following the `TaskState` precedent: the field annotation is the inline `Literal` value set (`document_status: Literal[1, 2, 3]`) and a runtime namespace class in the `.py` module holds the named constants (`class DocumentStatus(object): DRAFT = 1; PRINTED = 2; COMPLETED = 3`), declared in the stub with `Literal[N]`-typed attributes so `doc["document_status"] == DocumentStatus.COMPLETED` narrows. Values come from the Omni model constants; the shared `Status` and `Flag` (the 1 - yes, 2 - no pattern) classes live in `base`; export the classes from `__init__.py` like `TaskState`. Never an `IntEnum` - the wire values are plain ints.
 
 Deltas are partial by definition:
 

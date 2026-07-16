@@ -28,37 +28,8 @@ __copyright__ = "Copyright (c) 2008-2024 Hive Solutions Lda."
 __license__ = "Apache License, Version 2.0"
 """ The license for the module """
 
-from . import util
 
-
-class DocumentAPI(object):
-
-    def list_documents(self, *args, **kwargs):
-        util.filter_args(kwargs)
-        url = self.base_url + "omni/documents.json"
-        contents = self.get(url, **kwargs)
-        return contents
-
-    @classmethod
-    def default_customers(cls, documents):
-        for document in documents:
-            cls.default_customer(document)
-
-    @classmethod
-    def default_customer(cls, document):
-        payload = document["payload"]
-        operation = payload.get("operation", {})
-        customer = operation.get("customer", None)
-        operation["customer"] = customer or dict(short_name="Anonymous")
-
-
-class DocumentStatus(object):
-    DRAFT = 1
-    PRINTED = 2
-    COMPLETED = 3
-
-
-class DocumentType(object):
-    INTERNAL = 1
-    INBOUND = 2
-    OUTBOUND = 3
+class OperationType(object):
+    BUSINESS_TO_CONSUMER = 1
+    BUSINESS_TO_BUSINESS = 2
+    INTERNAL = 3

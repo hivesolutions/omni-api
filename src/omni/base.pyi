@@ -27,15 +27,20 @@ CLIENT_SECRET: str = ...
 REDIRECT_URL: str = ...
 SCOPE: Sequence[str] = ...
 
-Status = Literal[1, 2]
-Flag = Literal[1, 2]
+class Status:
+    ENABLED: Literal[1] = ...
+    DISABLED: Literal[2] = ...
+
+class Flag:
+    YES: Literal[1] = ...
+    NO: Literal[2] = ...
 
 class Base(TypedDict):
     _class: str
     object_id: int
     unique_id: str
     instance_id: int | None
-    status: Status
+    status: Literal[1, 2]
     create_date: float
     modify_date: float
     description: str | None

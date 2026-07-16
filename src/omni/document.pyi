@@ -9,8 +9,15 @@ from .sale_line import SaleLine
 from .identifiable import Identifiable, IdentifiableDelta
 from .system_company import SystemCompany
 
-DocumentStatus = Literal[1, 2, 3]
-DocumentType = Literal[1, 2, 3]
+class DocumentStatus:
+    DRAFT: Literal[1] = ...
+    PRINTED: Literal[2] = ...
+    COMPLETED: Literal[3] = ...
+
+class DocumentType:
+    INTERNAL: Literal[1] = ...
+    INBOUND: Literal[2] = ...
+    OUTBOUND: Literal[3] = ...
 
 class DocumentOperation(Operation):
     vat: float
@@ -31,8 +38,8 @@ class DocumentPayload(TypedDict):
 
 class Document(Base, Identifiable):
     issue_date: float
-    document_status: DocumentStatus
-    document_type: DocumentType
+    document_status: Literal[1, 2, 3]
+    document_type: Literal[1, 2, 3]
     title: str | None
     observations: str | None
     payload: DocumentPayload | None
