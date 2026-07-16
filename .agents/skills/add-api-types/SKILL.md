@@ -12,7 +12,8 @@ Type an API operation end-to-end: the read entity, the write `Delta`/`Payload` t
 
 - `src/omni/<module>.pyi` - mirrors `src/omni/<module>.py`; a stub file replaces the module for type checkers, so every public class and method of the `.py` must be stubbed or it disappears from the API type
 - Type-only modules (no `.py` counterpart) are an established pattern (`price.pyi`, `person.pyi`, `operation.pyi`, `purchase_line.pyi`)
-- `src/omni/base.pyi` - `Base` (the Omni `RootEntity`), `BaseDelta`, `BaseReference` and the `API` class that registers every stubbed API mixin
+- `src/omni/base.pyi` - `Base` (the Omni `RootEntity`), `BaseDelta`, `BaseReference`, the shared `StatusT`/`Status` and `FlagT`/`Flag` enumerations and the `API` class that registers every stubbed API mixin
+- `src/omni/<module>.py` - only touched when an enumeration needs its runtime namespace class; constants-only runtime modules are fine when none exists (`person.py`, `payment.py`, `operation.py`)
 - The Omni server repo (sibling checkout, eg: `../omni`) - controllers and models are the source of truth for shapes
 - `CHANGELOG.md` - entry under `## [Unreleased]` per the house style
 
@@ -23,11 +24,12 @@ Type an API operation end-to-end: the read entity, the write `Delta`/`Payload` t
 3. **Write the read entity** per the Field Typing Rules below, anchored at the right level of the hierarchy (`Base` = `RootEntity`, `Operation(Base, Identifiable)`, `SignedDocument(Document(Base, Identifiable))`, `Contactable(Named(Base))`). If an intermediate class in the chain does not exist in the stubs yet, create it - never short-circuit to `Base`.
 4. **Write the `Delta`** mirroring the entity chain at the same level (`Sale(Operation)` -> `SaleDelta(OperationDelta)`). Exclude `secure=True` and `immutable` fields - colony's apply silently skips secure attributes, so typing them would promise something the server ignores. Reference relations with `BaseReference` (`{object_id}`); polymorphic relations take a `_class` key (see `PaymentMethodDelta`).
 5. **Write the `Payload` wrapper** per the Payload Wire Format section - the wrapper is the actual request body, the `Delta` is the value under the model-name key.
-6. **Place each type in the module** mirroring the Omni model layout: line types live in their own `<x>_line.pyi` (like `sale_line.pyi`), documents under `document.pyi`/`signed_document.pyi`, and so on.
-7. **Register any new API mixin** in `base.pyi`: imports in alphabetical order, class bases in the same relative order as `base.py`.
-8. **Format and check**: `black` formatting, `pyright --pythonversion 3.13` with zero errors, CRLF line endings preserved (the whole repo uses CRLF).
-9. **Verify against a live instance** whenever the operation writes or the serialization is uncertain - see Live Testing below. A payload type is only proven when the same body both passes the type checker and succeeds on the wire.
-10. **Update `CHANGELOG.md`** under `## [Unreleased]` (one short high-level bullet, no code identifiers).
+6. **Type the enumerations**: for every enumerated field add the `T`-suffixed `Literal` alias used in annotations plus the runtime namespace class with the named constants (see Field Typing Rules); the class goes at the bottom of the `.py` module (after the API and marker classes) and is exported from `__init__.py` like `TaskState`.
+7. **Place each type in the module** mirroring the Omni model layout: line types live in their own `<x>_line.pyi` (like `sale_line.pyi`), documents under `document.pyi`/`signed_document.pyi`, and so on.
+8. **Register any new API mixin** in `base.pyi`: imports in alphabetical order, class bases in the same relative order as `base.py`.
+9. **Format and check**: `black` formatting, `pyright --pythonversion 3.13` with zero errors, CRLF line endings preserved (the whole repo uses CRLF).
+10. **Verify against a live instance** whenever the operation writes or the serialization is uncertain - see Live Testing below. A payload type is only proven when the same body both passes the type checker and succeeds on the wire.
+11. **Update `CHANGELOG.md`** under `## [Unreleased]` (one short high-level bullet, no code identifiers).
 
 ## Type Kinds
 
@@ -38,6 +40,7 @@ Type an API operation end-to-end: the read entity, the write `Delta`/`Payload` t
 | Payload     | `<Entity>Payload`                        | `BaseDelta`                         | the request body wrapper actually sent on the wire        |
 | Result map  | descriptive (`SaleVat`, `SubmitAtResult`) | `TypedDict`                         | ad-hoc endpoint returns that are not entity serializations |
 | Reference   | `BaseReference`                          | `TypedDict`                         | `{object_id}` relation references inside deltas           |
+| Enumeration | `<Name>T` alias + `<Name>` class          | `Literal` alias / plain class       | value sets for annotations, named constants for use sites |
 
 ## Field Typing Rules
 
@@ -104,5 +107,6 @@ The instance is disposable: demo data can be reloaded at will with `RESET_DB=1`,
 - `.pyi` files use CRLF like the rest of the repo; write them byte-exact, editors and scripts may silently convert.
 - `NotRequired` is imported from `typing`, which requires the checker to target Python 3.11+ (`--pythonversion 3.13`).
 - A TypedDict subclass cannot re-declare an inherited key with a different type - declare shared keys once at the right level (eg: `payload` on `Document`, not per document subclass).
+- A stub-only name cannot be imported at runtime: anything users import in real code (the enumeration namespace classes) needs a runtime counterpart in the `.py`; pure type names (`Delta`s, `Payload`s, aliases) are imported by consumers under `if TYPE_CHECKING`.
 - Stats endpoints return the `simple` shape by default: a mapping keyed by object id string with `"-1"` for the global aggregate; `output="extended"` is a different envelope entirely.
 - Never point a local test run at the Omni repo `.env` as-is - its `DB_URL` targets a live database; always override with an isolated sqlite `DB_FILE`.

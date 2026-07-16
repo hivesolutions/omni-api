@@ -16,7 +16,7 @@ The sale create controller reads `transaction`, `customer` and `lines` fields, s
 
 ```python
 class SaleDelta(OperationDelta):
-    stock_deduction_type: NotRequired[int]
+    stock_deduction_type: NotRequired[StockDeductionTypeT]
     owner: NotRequired[BaseReference]
     primary_seller: NotRequired[BaseReference]
     sale_lines: Sequence[SaleLineDelta]
@@ -77,6 +77,33 @@ class PurchaseLineDelta(BaseDelta):
 ```
 
 Purchase line `unit_price` is writable (not `secure`), unlike the sale line one - always check the field flags before including a field in a delta.
+
+## Enumeration - `StockDeductionTypeT` / `StockDeductionType` (`sale.pyi`, `sale.py`)
+
+Enumerated fields carry their semantics twice, following the `TaskState` precedent. The stub holds the `T`-suffixed alias for annotations and the `Literal[N]`-typed constant declarations:
+
+```python
+StockDeductionTypeT = Literal[1, 2, 3]
+
+class StockDeductionType:
+    NO_DEDUCTION: Literal[1] = ...
+    STOCK_ON_HAND: Literal[2] = ...
+    RESERVED_STOCK: Literal[3] = ...
+
+class Sale(Operation):
+    stock_deduction_type: StockDeductionTypeT
+```
+
+The runtime module holds the plain namespace class at the bottom of the file (after the API and marker classes), and `__init__.py` exports it:
+
+```python
+class StockDeductionType(object):
+    NO_DEDUCTION = 1
+    STOCK_ON_HAND = 2
+    RESERVED_STOCK = 3
+```
+
+Use site: `sale["stock_deduction_type"] == omni.StockDeductionType.STOCK_ON_HAND` - the comparison narrows because the constant is typed `Literal[2]`. Values always come from the Omni model constants (`Sale.STOCK_DEDUCTION_TYPE_*`); the shared `FlagT`/`Flag` pair in `base` covers the recurring 1 - yes, 2 - no fields (`signed`, `retail`, `sellable`), and string enumerations follow the same shape (`SaleCustomerTypeT` with `SaleCustomerType.ANONYMOUS`).
 
 ## Result maps - `SaleVat`, `VatItem`, `SaleStats` (`sale.pyi`, `operation.pyi`, `sale_snapshot.pyi`)
 

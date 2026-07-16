@@ -3,14 +3,22 @@
 Skeleton for `src/omni/<module>.pyi`, mirroring the structure of `sale.pyi`. Save with CRLF line endings, run `black .` after filling it in and register the API mixin in `base.pyi`. No license header - stub files start directly at the imports. Relative imports are ordered by module name length (ties alphabetical), matching the codebase style.
 
 ```python
-from typing import Any, Mapping, NotRequired, Sequence, TypedDict
+from typing import Any, Literal, Mapping, NotRequired, Sequence, TypedDict
 
 from .base import BaseDelta, BaseReference
 from .operation import Operation, OperationDelta
 
+EntityStateT = Literal[1, 2]
+
+class EntityState:
+    # runtime counterpart lives at the BOTTOM of the .py module and is
+    # exported from __init__.py; values come from the Omni model constants
+    ENABLED: Literal[1] = ...
+    DISABLED: Literal[2] = ...
+
 class EntityName(Operation):
     # scalars: required keys; mandatory=True -> bare type, otherwise -> X | None
-    some_flag: int
+    entity_state: EntityStateT
     some_code: str | None
     # relations: required when eager in both list and show, otherwise NotRequired
     some_relation: NotRequired[Sequence[EntityLine]]
@@ -43,6 +51,7 @@ Checklist after filling in:
 
 - [ ] Every public class and method of the `.py` module is stubbed (a `.pyi` replaces the module)
 - [ ] New intermediate hierarchy classes created where missing (entity and `Delta` sides)
+- [ ] Enumerated fields have a `T`-suffixed alias plus a runtime namespace class (bottom of the `.py`, exported from `__init__.py`)
 - [ ] API mixin imported and registered in `base.pyi` (alphabetical imports, `base.py` bases order)
 - [ ] `black --check` clean, `pyright --pythonversion 3.13` clean, CRLF endings preserved
 - [ ] Wire format verified against the Omni controller (or a live demo instance for writes)
