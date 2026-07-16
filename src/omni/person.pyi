@@ -1,3 +1,5 @@
+from typing import NotRequired
+
 from .contactable import Contactable, ContactableDelta
 
 class Person(Contactable):
@@ -8,8 +10,8 @@ class Person(Contactable):
     birth_day: str | None
 
 class PersonDelta(ContactableDelta):
-    surname: str | None
-    gender: int | None
-    national_id_number: str | None
-    birth_date: float | None
-    birth_day: str | None
+    surname: NotRequired[str | None]
+    gender: NotRequired[int | None]
+    national_id_number: NotRequired[str | None]
+    birth_date: NotRequired[float | None]
+    birth_day: NotRequired[str | None]

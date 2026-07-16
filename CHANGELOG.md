@@ -9,7 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-*
+* Completed type stubs for the remaining sale operations
+* Type stubs for documents, signed documents, invoices, receipts, money sale slips, payments, companies and sale statistics
+* Typed creation and update payloads validated against a live demo instance
+* Agent skill describing how to author type stubs for API operations
 
 ### Changed
 
@@ -17,7 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-*
+* Update and create payload types now reflect the wrapped wire format expected by the server
 
 ## [0.9.0] - 2026-06-26
 

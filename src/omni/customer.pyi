@@ -1,5 +1,6 @@
 from typing import NotRequired, Sequence
 
+from .base import BaseDelta
 from .person import Person, PersonDelta
 from .contactable import Contactable, ContactableDelta
 
@@ -17,12 +18,15 @@ class CustomerPerson(Person, Customer):
 class CustomerPersonDelta(PersonDelta, CustomerDelta):
     pass
 
+class CustomerPersonPayload(BaseDelta):
+    customer_person: CustomerPersonDelta
+
 class CustomerAPI(object):
     def list_customers(self, *args, **kwargs) -> Sequence[Customer]: ...
     def list_persons(self, *args, **kwargs) -> Sequence[CustomerPerson]: ...
     def get_person(self, object_id: int) -> CustomerPerson: ...
     def update_person(
-        self, object_id: int, payload: CustomerPersonDelta
+        self, object_id: int, payload: CustomerPersonPayload
     ) -> CustomerPerson: ...
     @classmethod
     def customer_name(cls, person: CustomerPerson) -> str: ...

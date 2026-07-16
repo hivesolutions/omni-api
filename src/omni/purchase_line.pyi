@@ -1,10 +1,10 @@
 from typing import NotRequired
 
 from .base import Base, BaseDelta, BaseReference
-from .price import Price
+from .price import Price, PriceDelta
 from .merchandise import TransactionalMerchandise
 
-class SaleLine(Base):
+class PurchaseLine(Base):
     quantity: float
     returned_quantity: float
     unit_vat: float
@@ -13,12 +13,9 @@ class SaleLine(Base):
     unit_discount: float
     unit_discount_vat: float
     unit_price: Price
-    unit_price_vat: float
-    price_vat: float
-    price: float
     merchandise: TransactionalMerchandise
 
-class SaleLineDelta(BaseDelta):
+class PurchaseLineDelta(BaseDelta):
     merchandise: BaseReference
     quantity: float
-    unit_discount_vat: NotRequired[float]
+    unit_price: NotRequired[PriceDelta]
