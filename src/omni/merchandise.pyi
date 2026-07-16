@@ -1,6 +1,6 @@
 from typing import NotRequired, Sequence, TypedDict
 
-from .base import BaseDelta
+from .base import Flag, BaseDelta
 from .named import Named, NamedDelta
 
 class Merchandise(Named):
@@ -16,8 +16,8 @@ class TransactionalMerchandise(Merchandise):
     upc: str | None
     weight: float | None
     quantity_places: int | None
-    sellable: int
-    stockable: int
+    sellable: Flag
+    stockable: Flag
 
 class TransactionalMerchandiseDelta(MerchandiseDelta):
     company_product_code: NotRequired[str]
@@ -26,8 +26,8 @@ class TransactionalMerchandiseDelta(MerchandiseDelta):
     upc: NotRequired[str | None]
     weight: NotRequired[float | None]
     quantity_places: NotRequired[int | None]
-    sellable: NotRequired[int]
-    stockable: NotRequired[int]
+    sellable: NotRequired[Flag]
+    stockable: NotRequired[Flag]
 
 class StoreMerchandise(TransactionalMerchandise):
     retail_price: float | None

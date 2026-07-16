@@ -1,4 +1,4 @@
-from typing import Any, Mapping, NotRequired, Sequence, TypedDict
+from typing import Any, Literal, Mapping, NotRequired, Sequence, TypedDict
 
 from appier import OAuth2API
 
@@ -27,12 +27,15 @@ CLIENT_SECRET: str = ...
 REDIRECT_URL: str = ...
 SCOPE: Sequence[str] = ...
 
+Status = Literal[1, 2]
+Flag = Literal[1, 2]
+
 class Base(TypedDict):
     _class: str
     object_id: int
     unique_id: str
     instance_id: int | None
-    status: int
+    status: Status
     create_date: float
     modify_date: float
     description: str | None

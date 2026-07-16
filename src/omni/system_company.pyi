@@ -1,6 +1,6 @@
 from typing import NotRequired
 
-from .base import BaseDelta
+from .base import Flag, BaseDelta
 from .company import Company, CompanyDelta
 
 class SystemCompany(Company):
@@ -9,14 +9,14 @@ class SystemCompany(Company):
     phone_note: str | None
     fiscal_year_start: int
     fiscal_year_end: int
-    retail: int | None
+    retail: Flag | None
 
 class SystemCompanyDelta(CompanyDelta):
     slogan: NotRequired[str | None]
     phone_note: NotRequired[str | None]
     fiscal_year_start: NotRequired[int]
     fiscal_year_end: NotRequired[int]
-    retail: NotRequired[int | None]
+    retail: NotRequired[Flag | None]
 
 class SystemCompanyPayload(BaseDelta):
     system_company: SystemCompanyDelta

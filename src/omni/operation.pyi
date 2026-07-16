@@ -1,16 +1,18 @@
-from typing import NotRequired, TypedDict
+from typing import Literal, NotRequired, TypedDict
 
 from .base import Base, BaseDelta
 from .identifiable import Identifiable, IdentifiableDelta
 
+OperationType = Literal[1, 2, 3]
+
 class Operation(Base, Identifiable):
     date: float
-    type: int
+    type: OperationType
     document_code: str | None
 
 class OperationDelta(BaseDelta, IdentifiableDelta):
     date: NotRequired[float]
-    type: NotRequired[int]
+    type: NotRequired[OperationType]
 
 class VatItem(TypedDict):
     vat_rate: float

@@ -1,4 +1,4 @@
-from typing import NotRequired, Sequence, TypedDict
+from typing import Literal, NotRequired, Sequence, TypedDict
 
 from .base import Base, BaseDelta
 from .price import Price
@@ -8,6 +8,9 @@ from .operation import Operation, VatItem
 from .sale_line import SaleLine
 from .identifiable import Identifiable, IdentifiableDelta
 from .system_company import SystemCompany
+
+DocumentStatus = Literal[1, 2, 3]
+DocumentType = Literal[1, 2, 3]
 
 class DocumentOperation(Operation):
     vat: float
@@ -28,8 +31,8 @@ class DocumentPayload(TypedDict):
 
 class Document(Base, Identifiable):
     issue_date: float
-    document_status: int
-    document_type: int
+    document_status: DocumentStatus
+    document_type: DocumentType
     title: str | None
     observations: str | None
     payload: DocumentPayload | None

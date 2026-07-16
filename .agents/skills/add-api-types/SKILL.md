@@ -48,6 +48,7 @@ Read entities model the list/get contract - in a list or get operation every fie
 - Calculated attributes (`_attr_*` methods, eg: `price_vat`, `digest_chunk`) serialize only in `map=True` flows but are still typed required per the list/get contract.
 - Create/update/issue responses go through `get_map(recursive=False)`: reduced maps without relations or calculated attributes. The list/get contract still wins - do not degrade the read entity because of them.
 - Every serialized entity carries `_class` and `metadata` (not `meta`) - both live on `Base`.
+- Enumerated integers get `Literal` type aliases with the exact values of the Omni model constants (`DocumentStatus = Literal[1, 2, 3]` from `STATUS_DRAFT`/`STATUS_PRINTED`/`STATUS_COMPLETED`), defined in the module that owns the entity; the shared `Status` and `Flag` (the 1 - yes, 2 - no pattern) aliases live in `base.pyi`. Never a runtime `IntEnum` - the wire values are plain ints and the client has no enum objects to import.
 
 Deltas are partial by definition:
 

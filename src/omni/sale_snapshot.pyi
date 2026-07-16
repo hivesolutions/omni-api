@@ -1,12 +1,14 @@
-from typing import NotRequired, Sequence, TypedDict
+from typing import Literal, NotRequired, Sequence, TypedDict
 
 from .base import BaseDelta
+
+StatsDirection = Literal["up", "down", "equal"]
 
 class SaleStatsValue(TypedDict):
     value: float
     target: float
     percentage: float
-    direction: str
+    direction: StatsDirection
 
 class SaleStatsTotals(TypedDict):
     number_sales: SaleStatsValue
