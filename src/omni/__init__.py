@@ -70,6 +70,7 @@ from . import transfer
 from . import user
 from . import util
 from . import web
+from . import workflow_message
 
 from .models import *
 from .base import BASE_URL, API, Base, BaseDelta, Status, Flag
@@ -129,5 +130,6 @@ from .transfer import TransferAPI, TransferState
 from .user import UserAPI, UserType
 from .util import format_places, filter_args
 from .web import WebAPI
+from .workflow_message import WorkflowMessage, WorkflowMessagePayload
 
 from .export import export as export_do
