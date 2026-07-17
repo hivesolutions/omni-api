@@ -60,8 +60,13 @@ class StatusLiveTest(TestCase):
 
     def test_status(self) -> None:
         status = self.api.get_status()
-        self.assertNotEqual(status["hostname"], None)
-        self.assertNotEqual(status["system"]["version"], None)
-        self.assertNotEqual(status["database"]["engine"], None)
+        self.assertNotEqual(status["hostname"], "")
+        self.assertEqual("." in status["system"]["version"], True)
+        self.assertNotEqual(status["system"]["run_mode"], "")
+        self.assertEqual(status["database"]["engine"] in ("sqlite", "mysql"), True)
+        self.assertEqual(status["database"]["database_size"] > 0, True)
+        self.assertNotEqual(status["database"]["database_size_string"], "")
+        self.assertEqual("." in status["info"]["version"], True)
         self.assertNotEqual(len(status["libraries"]), 0)
-        self.assertNotEqual(status["info"]["version"], None)
+        for library in status["libraries"]:
+            self.assertNotEqual(library["name"], "")

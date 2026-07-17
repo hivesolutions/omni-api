@@ -32,7 +32,8 @@ from os import environ
 from unittest import TestCase
 from typing import TYPE_CHECKING
 
-from omni import API, Flag, PaymentState
+from omni import API, DocumentStatus, DocumentType, Flag, OperationType
+from omni import PaymentState, Status, StockDeductionType
 
 from .base import build_mock
 
@@ -133,19 +134,46 @@ class SaleLiveTest(TestCase):
         }
         sale = self.api.create_sale(payload)
         self.assertEqual(sale["payment_state"], PaymentState.PAID)
+        self.assertEqual(sale["type"], OperationType.BUSINESS_TO_CONSUMER)
+        self.assertEqual(sale["stock_deduction_type"], StockDeductionType.STOCK_ON_HAND)
+        self.assertEqual(sale["status"], Status.ENABLED)
         self.assertNotEqual(sale["object_id"], None)
+        self.assertNotEqual(sale["extended_identifier"], None)
+
+        full = self.api.get_sale(sale["object_id"])
+        self.assertEqual(full["customer"], None)
+        self.assertAlmostEqual(full["price_vat"], retail_price, places=2)
+        lines = full.get("sale_lines") or []
+        self.assertEqual(len(lines), 1)
+        self.assertEqual(lines[0]["merchandise"]["object_id"], item["object_id"])
+        self.assertEqual(lines[0]["quantity"], 1.0)
+        self.assertAlmostEqual(lines[0]["unit_price_vat"], retail_price, places=2)
 
         invoice = self.api.issue_invoice_sale(sale["object_id"])
         self.assertEqual(invoice["signed"], Flag.YES)
+        self.assertEqual(invoice["document_status"], DocumentStatus.COMPLETED)
+        self.assertEqual(invoice["document_type"], DocumentType.OUTBOUND)
+        self.assertEqual(invoice["digest_document_type"], "FT")
         self.assertEqual(invoice["operation_code"], sale["extended_identifier"])
+        self.assertAlmostEqual(invoice["price"], retail_price, places=2)
 
         receipt = self.api.ensure_receipt_sale(sale["object_id"])
+        self.assertEqual(receipt["signed"], Flag.YES)
         self.assertNotEqual(receipt["extended_identifier"], None)
 
         vat = self.api.vat_sale(sale["object_id"])
-        self.assertNotEqual(vat["vat_list"], None)
+        vat_items = vat["vat_list"] or []
+        self.assertNotEqual(len(vat_items), 0)
+        for vat_item in vat_items:
+            self.assertAlmostEqual(
+                vat_item["price"] + vat_item["vat"],
+                vat_item["retail_price"],
+                places=2,
+            )
 
         stats = self.api.stats_sales(has_global=True)
         self.assertEqual("-1" in stats, True)
+        totals = stats["-1"]["totals"]
+        self.assertEqual(totals["number_sales"]["value"] >= 1, True)
         for _store_id, store_stats in stats.items():
-            self.assertEqual("totals" in store_stats, True)
+            self.assertEqual(len(store_stats["number_sales"]), 7)

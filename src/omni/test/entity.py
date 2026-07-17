@@ -103,13 +103,22 @@ class EntityLiveTest(TestCase):
             object_id, PNG_DATA, position=1, label="logo", mime_type="image/png"
         )
         self.assertEqual(media["mime_type"], "image/png")
+        self.assertEqual(media["label"], "logo")
+        self.assertEqual(media["position"], 1)
+        self.assertEqual(media["size"], len(PNG_DATA))
         self.assertEqual(media["visibility"], MediaVisibility.CONSTRAINED)
+        self.assertNotEqual(media["secret"], None)
 
         info = self.api.info_media_entity(object_id)
-        self.assertNotEqual(len(info), 0)
+        self.assertEqual(len(info), 1)
+        self.assertEqual(info[0]["object_id"], media["object_id"])
+        self.assertEqual(info[0]["mime_type"], "image/png")
 
         contents = self.api.media_entity(object_id)
         self.assertEqual(contents, PNG_DATA)
 
         result = self.api.clear_media_entity(object_id)
         self.assertEqual(result["result"], "success")
+
+        cleared = self.api.info_media_entity(object_id)
+        self.assertEqual(len(cleared), 0)

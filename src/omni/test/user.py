@@ -33,7 +33,7 @@ from unittest import TestCase
 from typing import TYPE_CHECKING
 from uuid import uuid4
 
-from omni import API, UserType
+from omni import API, Status, UserType
 
 from .base import build_mock
 
@@ -103,14 +103,16 @@ class UserLiveTest(TestCase):
         if not employees:
             self.skipTest("no employees available")
         username = "typed_%s" % uuid4().hex[:8]
+        email = "%s@acmecorp.com" % username
+        password = "Typed@12345"
 
         payload: UserPayload = {
             "system_user": {
                 "username": username,
-                "email": "%s@acmecorp.com" % username,
+                "email": email,
                 "_parameters": {
-                    "password": "Typed@12345",
-                    "confirm_password": "Typed@12345",
+                    "password": password,
+                    "confirm_password": password,
                     "type": UserType.USER,
                     "employee": {"object_id": employees[0]["object_id"]},
                 },
@@ -118,9 +120,19 @@ class UserLiveTest(TestCase):
         }
         user = self.api.create_user(payload)
         self.assertEqual(user["username"], username)
+        self.assertEqual(user["email"], email)
         self.assertEqual(user["type"], UserType.USER)
+        self.assertEqual(user["status"], Status.ENABLED)
         self.assertNotEqual(user["object_id"], None)
+        self.assertNotEqual(user["password_hash"], None)
+        self.assertNotEqual(user["password_hash"], password)
 
-        created = API(username=username, password="Typed@12345")
+        created = API(username=username, password=password)
         logged = created.self_user()
         self.assertEqual(logged["username"], username)
+        self.assertEqual(logged["email"], email)
+        self.assertEqual(logged["object_id"], user["object_id"])
+        self.assertEqual(logged["type"], UserType.USER)
+
+        employee = created.self_employee()
+        self.assertEqual(employee["object_id"], employees[0]["object_id"])

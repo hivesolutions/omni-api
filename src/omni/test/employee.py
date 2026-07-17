@@ -32,7 +32,7 @@ from os import environ
 from unittest import TestCase
 from typing import TYPE_CHECKING
 
-from omni import API
+from omni import API, Status
 
 from .base import build_mock
 
@@ -96,6 +96,12 @@ class EmployeeLiveTest(TestCase):
         self.assertNotEqual(employee["object_id"], None)
         self.assertNotEqual(employee["name"], None)
 
+        full = self.api.get_employee(employee["object_id"])
+        self.assertEqual(full["object_id"], employee["object_id"])
+        self.assertEqual(full["name"], employee["name"])
+        self.assertEqual(full["surname"], employee["surname"])
+        self.assertEqual(full["status"], Status.ENABLED)
+
     def test_update(self) -> None:
         employee = self.api.list_employees(number_records=1)[0]
         previous = employee["observations"]
@@ -105,9 +111,16 @@ class EmployeeLiveTest(TestCase):
         }
         updated = self.api.update_employee(employee["object_id"], payload)
         self.assertEqual(updated["observations"], "updated")
+        self.assertEqual(updated["name"], employee["name"])
+
+        full = self.api.get_employee(employee["object_id"])
+        self.assertEqual(full["observations"], "updated")
 
         restore: EmployeePayload = {
             "employee": {"name": employee["name"], "observations": previous}
         }
         restored = self.api.update_employee(employee["object_id"], restore)
         self.assertEqual(restored["observations"], previous)
+
+        full = self.api.get_employee(employee["object_id"])
+        self.assertEqual(full["observations"], previous)

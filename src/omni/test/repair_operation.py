@@ -32,7 +32,8 @@ from os import environ
 from unittest import TestCase
 from typing import TYPE_CHECKING
 
-from omni import API, Flag, RepairOperationState, RepairType
+from omni import API, Flag, RepairOperationState, RepairPriority, RepairType
+from omni import Status
 
 from .base import build_mock
 
@@ -130,13 +131,21 @@ class RepairOperationLiveTest(TestCase):
             "repair_operation": {
                 "title": "Lifecycle repair",
                 "repair_type": RepairType.QUOTATION,
+                "priority": RepairPriority.HIGH,
                 "customer": {"object_id": customers[0]["object_id"]},
                 "item_reference": "SN-LIFECYCLE",
+                "problem_description": "does not start",
             }
         }
         operation = self.api.create_repair_operation(payload)
         object_id = operation["object_id"]
         self.assertEqual(operation["workflow_state"], RepairOperationState.OPENED)
+        self.assertEqual(operation["title"], "Lifecycle repair")
+        self.assertEqual(operation["repair_type"], RepairType.QUOTATION)
+        self.assertEqual(operation["priority"], RepairPriority.HIGH)
+        self.assertEqual(operation["item_reference"], "SN-LIFECYCLE")
+        self.assertEqual(operation["problem_description"], "does not start")
+        self.assertEqual(operation["status"], Status.ENABLED)
 
         operation = self.api.approve_repair_operation(object_id)
         self.assertEqual(operation["workflow_state"], RepairOperationState.APPROVED)
@@ -151,15 +160,27 @@ class RepairOperationLiveTest(TestCase):
 
         slip = self.api.issue_repair_slip_repair_operation(object_id)
         self.assertEqual(slip["signed"], Flag.YES)
+        self.assertEqual(slip["operation_code"], operation["extended_identifier"])
 
         message = self.api.create_message_repair_operation(
             object_id, {"body": "lifecycle message"}
         )
         self.assertEqual(message["body"], "lifecycle message")
+        self.assertEqual(message["edited_date"], None)
+
+        edited = self.api.update_message_repair_operation(
+            object_id, message["object_id"], {"body": "lifecycle message edited"}
+        )
+        self.assertEqual(edited["body"], "lifecycle message edited")
+        self.assertNotEqual(edited["edited_date"], None)
+
         events = self.api.list_messages_repair_operation(object_id)
         kinds = set(event["kind"] for event in events)
         self.assertEqual("state_change" in kinds, True)
         self.assertEqual("message" in kinds, True)
+        bodies = [event.get("body") for event in events if event["kind"] == "message"]
+        self.assertEqual("lifecycle message edited" in bodies, True)
+
         result = self.api.delete_message_repair_operation(
             object_id, message["object_id"]
         )

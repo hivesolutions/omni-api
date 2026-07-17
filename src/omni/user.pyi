@@ -15,6 +15,7 @@ class UserType:
 class BaseUser(Base):
     email: str
     username: str | None
+    password_hash: str | None
     last_login_date: float | None
 
 class User(BaseUser):

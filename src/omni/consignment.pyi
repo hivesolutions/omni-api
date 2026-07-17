@@ -6,6 +6,7 @@ from .document import DocumentDelta
 from .store import Store
 from .employee import Employee
 from .consignment_line import ConsignmentLine, ConsignmentLineDelta
+from .supplier import Supplier
 from .workflow_operation import WorkflowOperation, WorkflowOperationDelta
 
 ConsignmentStateT = Literal[1, 2, 3]
@@ -24,6 +25,7 @@ class Consignment(WorkflowOperation[ConsignmentStateT]):
     communication_frequency: float | None
     price: Price
     primary_buyer: Employee
+    supplier: NotRequired[Supplier | None]
     delivery_site: NotRequired[Store]
     consignment_lines: NotRequired[Sequence[ConsignmentLine]]
 

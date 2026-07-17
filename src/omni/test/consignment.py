@@ -29,10 +29,12 @@ __license__ = "Apache License, Version 2.0"
 """ The license for the module """
 
 from os import environ
+from time import time
 from unittest import TestCase
+from uuid import uuid4
 from typing import TYPE_CHECKING
 
-from omni import API, ConsignmentState
+from omni import API, ConsignmentState, Status
 
 from .base import build_mock
 
@@ -88,16 +90,68 @@ class ConsignmentLiveTest(TestCase):
             self.skipTest("no live omni instance configured")
         self.api = API()
 
-    def test_list(self) -> None:
-        consignments = self.api.list_consignments(number_records=3)
-        for consignment in consignments:
-            self.assertNotEqual(consignment["object_id"], None)
-            self.assertEqual(
-                consignment["workflow_state"]
-                in (
-                    ConsignmentState.OPEN,
-                    ConsignmentState.CLOSED,
-                    ConsignmentState.EXPIRED,
-                ),
-                True,
-            )
+    def test_create_consignment(self) -> None:
+        purchases = self.api.list_purchases(number_records=5)
+        suppliers = [
+            supplier for purchase in purchases if (supplier := purchase.get("supplier"))
+        ]
+        if not suppliers:
+            self.skipTest("no supplier available")
+        supplier = suppliers[0]
+        store = self.api.list_stores(number_records=1)[0]
+        merchandise = self.api.list_store_merchandise(number_records=30)
+        stocked = [
+            item
+            for item in merchandise
+            if (item.get("stock_on_hand") or 0) > 0 and item.get("retail_price")
+        ]
+        if not stocked:
+            self.skipTest("no stocked merchandise available")
+        item = stocked[0]
+        item_price = item["price"] or 0.0
+        vat_rate = item["vat_rate"] or 0.0
+        start_date = int(time())
+        identifier = "CS-%s" % uuid4().hex[:8].upper()
+
+        payload: ConsignmentPayload = {
+            "consignment": {
+                "start_date": start_date,
+                "supplier": {"object_id": supplier["object_id"]},
+                "delivery_site": {"object_id": store["object_id"]},
+                "consignment_lines": [
+                    {
+                        "merchandise": {"object_id": item["object_id"]},
+                        "consigned_quantity": 2,
+                        "vat_rate": vat_rate,
+                        "unit_discount": 0.0,
+                        "unit_price": {"value": item_price},
+                    }
+                ],
+            },
+            "document": {"_class": "ConsignmentSlip", "identifier": identifier},
+        }
+        consignment = self.api.create_consignment(payload)
+        self.assertEqual(consignment["workflow_state"], ConsignmentState.OPEN)
+        self.assertEqual(consignment["start_date"], start_date)
+        self.assertEqual(consignment["status"], Status.ENABLED)
+        self.assertEqual(consignment["discount"], 0.0)
+        self.assertNotEqual(consignment["extended_identifier"], None)
+
+        full = self.api.get_consignment(consignment["object_id"])
+        supplier_full = full.get("supplier")
+        self.assertNotEqual(supplier_full, None)
+        if supplier_full:
+            self.assertEqual(supplier_full["object_id"], supplier["object_id"])
+        delivery_site = full.get("delivery_site")
+        self.assertNotEqual(delivery_site, None)
+        if delivery_site:
+            self.assertEqual(delivery_site["object_id"], store["object_id"])
+        lines = full.get("consignment_lines") or []
+        self.assertEqual(len(lines), 1)
+        self.assertEqual(lines[0]["merchandise"]["object_id"], item["object_id"])
+        self.assertEqual(lines[0]["consigned_quantity"], 2.0)
+        self.assertEqual(lines[0]["vat_rate"], vat_rate)
+        self.assertAlmostEqual(lines[0]["unit_price"]["value"], item_price, places=2)
+        self.assertAlmostEqual(
+            full["vat"], 2 * item_price * vat_rate / 100.0, delta=0.05
+        )

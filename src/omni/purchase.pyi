@@ -5,6 +5,7 @@ from .price import Price
 from .document import DocumentDelta
 from .employee import Employee
 from .operation import Operation, OperationDelta
+from .supplier import Supplier
 from .purchase_line import PurchaseLine, PurchaseLineDelta
 
 class Purchase(Operation):
@@ -14,6 +15,7 @@ class Purchase(Operation):
     discount: float
     discount_vat: float | None
     price: Price
+    supplier: NotRequired[Supplier | None]
     primary_buyer: NotRequired[Employee]
     purchase_lines: NotRequired[Sequence[PurchaseLine]]
 

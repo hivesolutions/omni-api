@@ -32,7 +32,7 @@ from os import environ
 from unittest import TestCase
 from typing import TYPE_CHECKING
 
-from omni import API, Physical, TransferState
+from omni import API, OperationType, Physical, Status, TransferState
 
 from .base import build_mock
 
@@ -111,7 +111,17 @@ class TransferLiveTest(TestCase):
         }
         transfer = self.api.create_transfer(payload)
         self.assertEqual(transfer["workflow_state"], TransferState.CREATED)
+        self.assertEqual(transfer["type"], OperationType.INTERNAL)
+        self.assertEqual(transfer["status"], Status.ENABLED)
+        self.assertEqual(transfer["vat"] >= 0.0, True)
         self.assertNotEqual(transfer["extended_identifier"], None)
 
         full = self.api.get_transfer(transfer["object_id"])
         self.assertEqual(full["destination"]["object_id"], physical[1]["object_id"])
+        lines = full.get("transfer_lines") or []
+        self.assertEqual(len(lines), 1)
+        self.assertEqual(lines[0]["merchandise"]["object_id"], item["object_id"])
+        self.assertEqual(lines[0]["quantity"], 1.0)
+        self.assertAlmostEqual(
+            lines[0]["unit_price"]["value"], item["price"] or 0.0, places=2
+        )

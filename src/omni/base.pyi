@@ -23,6 +23,7 @@ from .sale_snapshot import SaleSnapshotAPI
 from .signed_document import SignedDocumentAPI
 from .status import StatusAPI
 from .store import StoreAPI
+from .supplier import SupplierAPI
 from .system_company import SystemCompany, SystemCompanyAPI
 from .transfer import TransferAPI
 from .user import BaseUser, UserAPI
@@ -84,6 +85,7 @@ class API(
     ReceiptAPI,
     PurchaseAPI,
     CustomerAPI,
+    SupplierAPI,
     TransferAPI,
     DocumentAPI,
     EmployeeAPI,
