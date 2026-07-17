@@ -88,7 +88,7 @@ from .identifiable import IdentifiableAPI
 from .inventory_check import InventoryCheckAPI
 from .inventory_line import InventoryLineAPI
 from .invoice import InvoiceAPI
-from .media import MediaAPI
+from .media import MediaAPI, MediaVisibility
 from .merchandise import MerchandiseAPI, Sellable, Stockable, PricingType
 from .money_sale_slip import MoneySaleSlipAPI
 from .named import Named

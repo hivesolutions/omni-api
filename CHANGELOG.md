@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Completed the enumeration coverage across tasks, users, merchandise, customers and stores
 * Typed package marker so type checkers consume the stubs from installed packages
 * Support for the repairs API covering the full workflow, messages and slip issuing
+* Type stubs for the generic entity and media operations
 
 ### Changed
 

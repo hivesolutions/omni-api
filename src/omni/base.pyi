@@ -6,9 +6,11 @@ from .consignment import ConsignmentAPI
 from .customer import CustomerAPI
 from .document import DocumentAPI
 from .employee import EmployeeAPI
+from .entity import EntityAPI
 from .identifiable import IdentifiableAPI
 from .inventory_check import InventoryCheckAPI
 from .invoice import InvoiceAPI
+from .media import MediaAPI
 from .merchandise import MerchandiseAPI
 from .money_sale_slip import MoneySaleSlipAPI
 from .purchase import PurchaseAPI
@@ -72,6 +74,8 @@ class API(
     SaleAPI,
     UserAPI,
     StoreAPI,
+    MediaAPI,
+    EntityAPI,
     StatusAPI,
     RepairAPI,
     SaftPtAPI,
