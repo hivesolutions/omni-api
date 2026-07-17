@@ -21,6 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Type stubs for the generic entity and media operations
 * Typed consignment creation with the document class discriminator
 * API usage example and typed test suite with live checks and type checker enforcement
+* Support for the create user operation with typed protected parameters
 
 ### Changed
 

@@ -39,6 +39,11 @@ class UserAPI(object):
         contents = self.get(url, **kwargs)
         return contents
 
+    def create_user(self, payload):
+        url = self.base_url + "omni/users.json"
+        contents = self.post(url, data_j=payload)
+        return contents
+
     def get_user(self, object_id):
         url = self.base_url + "omni/users/%d.json" % object_id
         contents = self.get(url)
