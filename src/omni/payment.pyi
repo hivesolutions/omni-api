@@ -46,7 +46,7 @@ class Payment(Base):
     return_payment_lines: NotRequired[Sequence[PaymentLine]]
 
 class PaymentMethodDelta(BaseDelta):
-    _class: str
+    pass
 
 class PaymentLineDelta(BaseDelta):
     amount: CurrencyValueDelta

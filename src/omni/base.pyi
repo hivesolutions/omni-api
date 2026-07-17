@@ -59,6 +59,7 @@ class Base(TypedDict):
     metadata: Mapping[str, Any] | None
 
 class BaseDelta(TypedDict):
+    _class: NotRequired[str]
     description: NotRequired[str | None]
     metadata: NotRequired[Mapping[str, Any] | None]
 
