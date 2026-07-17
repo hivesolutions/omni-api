@@ -32,8 +32,6 @@ jobs:
           pip install pytest
           pytest
         if: ${{ contains(fromJson('["3.10", "3.11", "3.12", "latest", "rc"]'), matrix.python-version) }}
-      - run: python setup.py test
-        if: ${{ !contains(fromJson('["3.9", "3.10", "3.11", "3.12", "latest", "rc"]'), matrix.python-version) }}
   build-pypy:
     name: Build PyPy
     strategy:
@@ -53,8 +51,6 @@ jobs:
           pip install pytest
           pytest
         if: ${{ contains(fromJson('["3.10", "3.11", "3.12", "latest", "rc"]'), matrix.python-version) }}
-      - run: pypy setup.py test
-        if: ${{ !contains(fromJson('["3.9", "3.10", "3.11", "3.12", "latest", "rc"]'), matrix.python-version) }}
   typecheck:
     name: Typecheck
     runs-on: ubuntu-latest
