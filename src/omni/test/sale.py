@@ -36,7 +36,6 @@ from omni import API, Flag, PaymentState
 
 from .base import build_mock
 
-
 if TYPE_CHECKING:
     from omni.sale import SalePayload
 

@@ -36,7 +36,6 @@ from omni import API, MediaVisibility
 
 from .base import build_mock
 
-
 PNG_DATA = b64decode(
     b"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJ"
     b"AAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg=="

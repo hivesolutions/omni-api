@@ -36,7 +36,6 @@ from omni import API, Flag, RepairOperationState, RepairType
 
 from .base import build_mock
 
-
 if TYPE_CHECKING:
     from omni.repair_operation import RepairOperationPayload
     from omni.workflow_message import WorkflowMessagePayload

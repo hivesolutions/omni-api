@@ -36,7 +36,6 @@ from omni import API, Physical, TransferState
 
 from .base import build_mock
 
-
 if TYPE_CHECKING:
     from omni.transfer import TransferPayload
 

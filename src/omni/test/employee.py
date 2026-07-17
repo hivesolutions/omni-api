@@ -36,7 +36,6 @@ from omni import API
 
 from .base import build_mock
 
-
 if TYPE_CHECKING:
     from omni.employee import EmployeePayload
 

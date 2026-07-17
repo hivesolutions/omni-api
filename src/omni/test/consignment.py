@@ -36,7 +36,6 @@ from omni import API, ConsignmentState
 
 from .base import build_mock
 
-
 if TYPE_CHECKING:
     from omni.consignment import ConsignmentPayload
 
