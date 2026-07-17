@@ -1,7 +1,23 @@
-from typing import NotRequired, Sequence, TypedDict
+from typing import Literal, NotRequired, Sequence, TypedDict
 
-from .base import FlagT, BaseDelta
+from .base import BaseDelta
 from .named import Named, NamedDelta
+
+SellableT = Literal[1, 2]
+StockableT = Literal[1, 2]
+PricingTypeT = Literal[1, 2]
+
+class Sellable:
+    NOT_SELLABLE: Literal[1] = ...
+    SELLABLE: Literal[2] = ...
+
+class Stockable:
+    NOT_STOCKABLE: Literal[1] = ...
+    STOCKABLE: Literal[2] = ...
+
+class PricingType:
+    UNIT: Literal[1] = ...
+    WEIGHT: Literal[2] = ...
 
 class Merchandise(Named):
     pass
@@ -16,8 +32,9 @@ class TransactionalMerchandise(Merchandise):
     upc: str | None
     weight: float | None
     quantity_places: int | None
-    sellable: FlagT
-    stockable: FlagT
+    pricing_type: PricingTypeT | None
+    sellable: SellableT
+    stockable: StockableT
 
 class TransactionalMerchandiseDelta(MerchandiseDelta):
     company_product_code: NotRequired[str]
@@ -26,8 +43,9 @@ class TransactionalMerchandiseDelta(MerchandiseDelta):
     upc: NotRequired[str | None]
     weight: NotRequired[float | None]
     quantity_places: NotRequired[int | None]
-    sellable: NotRequired[FlagT]
-    stockable: NotRequired[FlagT]
+    pricing_type: NotRequired[PricingTypeT | None]
+    sellable: NotRequired[SellableT]
+    stockable: NotRequired[StockableT]
 
 class StoreMerchandise(TransactionalMerchandise):
     retail_price: float | None

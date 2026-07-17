@@ -5,7 +5,7 @@ from .price import Price
 from .invoice import Invoice
 from .payment import PaymentStateT, PaymentDelta
 from .receipt import Receipt
-from .customer import Customer, CustomerPersonDelta
+from .customer import Customer
 from .operation import Operation, OperationDelta, VatItem
 from .sale_line import SaleLine, SaleLineDelta
 from .sale_snapshot import SaleStats
@@ -62,9 +62,12 @@ class SaleVat(TypedDict):
 class SaleCustomerParameters(TypedDict):
     type: SaleCustomerTypeT
 
-class SaleCustomer(CustomerPersonDelta):
+class SaleCustomer(BaseDelta):
     _parameters: SaleCustomerParameters
     object_id: NotRequired[int]
+    name: NotRequired[str]
+    surname: NotRequired[str | None]
+    tax_number: NotRequired[str | None]
 
 class SaleDelta(OperationDelta):
     stock_deduction_type: NotRequired[StockDeductionTypeT]

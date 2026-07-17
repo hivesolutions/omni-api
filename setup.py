@@ -44,7 +44,7 @@ setuptools.setup(
     packages=["omni", "omni.models"],
     test_suite="omni.test",
     package_dir={"": os.path.normpath("src")},
-    package_data={"omni": ["*.pyi"]},
+    package_data={"omni": ["*.pyi", "py.typed"]},
     install_requires=["appier"],
     classifiers=[
         "Development Status :: 3 - Alpha",

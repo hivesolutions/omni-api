@@ -48,3 +48,12 @@ class UserAPI(object):
         url = self.base_url + "omni/users/self.json"
         contents = self.get(url)
         return contents
+
+
+class UserType(object):
+    OWNER = 1
+    ADMIN = 2
+    USER = 3
+    ADVANCED = 4
+    OBSERVER = 5
+    UNDEFINED = 6

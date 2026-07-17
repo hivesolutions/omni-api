@@ -76,7 +76,7 @@ from .consignment_out import ConsignmentOutAPI
 from .consignment_slip import ConsignmentSlipAPI
 from .contactable import Contactable
 from .credit_note import CreditNoteAPI
-from .customer import CustomerAPI, Customer, CustomerPerson
+from .customer import CustomerAPI, Customer, CustomerPerson, PhysicalSignature
 from .document import DocumentAPI, DocumentStatus, DocumentType
 from .employee import EmployeeAPI
 from .entity import EntityAPI
@@ -87,7 +87,7 @@ from .inventory_check import InventoryCheckAPI
 from .inventory_line import InventoryLineAPI
 from .invoice import InvoiceAPI
 from .media import MediaAPI
-from .merchandise import MerchandiseAPI
+from .merchandise import MerchandiseAPI, Sellable, Stockable, PricingType
 from .money_sale_slip import MoneySaleSlipAPI
 from .named import Named
 from .operation import OperationType
@@ -111,13 +111,13 @@ from .sale import (
 from .signed_document import SignedDocumentAPI
 from .status import StatusAPI
 from .stock_adjustment import StockAdjustmentAPI
-from .store import StoreAPI
+from .store import StoreAPI, Physical
 from .sub_product import SubProductAPI
 from .supplier import SupplierAPI
 from .system_company import SystemCompanyAPI
 from .task import TaskState, Task, TaskDelta
 from .transfer import TransferAPI, TransferState
-from .user import UserAPI
+from .user import UserAPI, UserType
 from .util import format_places, filter_args
 from .web import WebAPI
 

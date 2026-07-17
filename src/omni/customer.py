@@ -68,3 +68,9 @@ class Customer(dict):
 
 class CustomerPerson(dict):
     pass
+
+
+class PhysicalSignature(object):
+    SIGNED = 1
+    NOT_SIGNED = 2
+    UNKNOWN = 3

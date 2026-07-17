@@ -62,3 +62,18 @@ class MerchandiseAPI(object):
     def costs_merchandise(self, items):
         url = self.base_url + "omni/merchandise/costs.json"
         self.put(url, data_j=items)
+
+
+class Sellable(object):
+    NOT_SELLABLE = 1
+    SELLABLE = 2
+
+
+class Stockable(object):
+    NOT_STOCKABLE = 1
+    STOCKABLE = 2
+
+
+class PricingType(object):
+    UNIT = 1
+    WEIGHT = 2

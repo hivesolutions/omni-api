@@ -19,7 +19,7 @@ Type an API operation end-to-end: the read entity, the write `Delta`/`Payload` t
 
 ## Instructions
 
-1. **Locate the server-side truth** in the Omni repo: the route tuple in `<module>/src/omni_<module>/system.py` maps the URL to a controller action; the controller shows the wire contract (which request fields it reads, what it serializes); the model shows the fields (`mandatory`, `secure`, `immutable` flags), `set_validation()` and the calculated attributes (`_attr_*` methods).
+1. **Locate the server-side truth** in the Omni repo: the route tuple in `<module>/src/omni_<module>/system.py` maps the URL to a controller action; the controller shows the wire contract (which request fields it reads, what it serializes); the model shows the fields (`mandatory`, `secure`, `immutable` flags), `set_validation()` and the calculated attributes (`_attr_*` methods). `set_validation()` is one of the most important places to check whether a value is effectively mandatory (`not_none`, `not_empty`, `in_enumeration` rules go beyond the field flags) - but it can always be overridden by internal logic: `pre_save` defaults and calculators (`calculate_financials`) may populate a validation-required field the client never sends, so validation-required does not automatically mean client-must-send.
 2. **Pick the type kinds** needed from the Type Kinds table below and read the matching worked example in [examples.md](examples.md).
 3. **Write the read entity** per the Field Typing Rules below, anchored at the right level of the hierarchy (`Base` = `RootEntity`, `Operation(Base, Identifiable)`, `SignedDocument(Document(Base, Identifiable))`, `Contactable(Named(Base))`). If an intermediate class in the chain does not exist in the stubs yet, create it - never short-circuit to `Base`.
 4. **Write the `Delta`** mirroring the entity chain at the same level (`Sale(Operation)` -> `SaleDelta(OperationDelta)`). Exclude `secure=True` and `immutable` fields - colony's apply silently skips secure attributes, so typing them would promise something the server ignores. Reference relations with `BaseReference` (`{object_id}`); polymorphic relations take a `_class` key (see `PaymentMethodDelta`).
@@ -56,7 +56,7 @@ Read entities model the list/get contract - in a list or get operation every fie
 
 Deltas are partial by definition:
 
-- All fields `NotRequired` except the ones the operation functionally requires (`SaleDelta` keeps `sale_lines` and `primary_payment` required; `SaftPtReportDelta` keeps `fiscal_year` required).
+- All fields `NotRequired` except the ones the operation functionally requires (`SaleDelta` keeps `sale_lines` and `primary_payment` required; `SaftPtReportDelta` keeps `fiscal_year` required; `NamedDelta` keeps `name` required). When a required inherited key must become optional for a specific flow, detach from the chain - requiredness cannot be relaxed by a TypedDict subclass (`SaleCustomer(BaseDelta)` instead of `(CustomerPersonDelta)` so the anonymous customer needs no `name`).
 - Financial totals are computed server-side for sales (`calculate_financials` from the inventory line prices) - the client sends only lines and payments, never `vat`/`price` (they are `secure` anyway).
 
 ## Payload Wire Format

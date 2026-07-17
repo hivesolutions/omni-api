@@ -15,6 +15,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Agent skill describing how to author type stubs for API operations
 * Enumerated fields typed as literal value sets with semantic enumeration classes
 * Type stubs for the status, web subscription, transfer and store operations
+* Completed the enumeration coverage across tasks, users, merchandise, customers and stores
+* Typed package marker so type checkers consume the stubs from installed packages
 
 ### Changed
 

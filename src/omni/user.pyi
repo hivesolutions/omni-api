@@ -1,6 +1,16 @@
-from typing import Sequence
+from typing import Literal, Sequence
 
 from .base import Base
+
+UserTypeT = Literal[1, 2, 3, 4, 5, 6]
+
+class UserType:
+    OWNER: Literal[1] = ...
+    ADMIN: Literal[2] = ...
+    USER: Literal[3] = ...
+    ADVANCED: Literal[4] = ...
+    OBSERVER: Literal[5] = ...
+    UNDEFINED: Literal[6] = ...
 
 class BaseUser(Base):
     email: str
@@ -8,7 +18,7 @@ class BaseUser(Base):
     last_login_date: float | None
 
 class User(BaseUser):
-    pass
+    type: UserTypeT
 
 class UserAPI(object):
     def list_users(self, *args, **kwargs) -> Sequence[User]: ...
