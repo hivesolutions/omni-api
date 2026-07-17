@@ -22,6 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Typed consignment creation with the document class discriminator
 * API usage example and typed test suite with live checks and type checker enforcement
 * Support for the create user operation with typed protected parameters
+* OAuth scope typed as the literal set of the available permission names
 
 ### Changed
 
