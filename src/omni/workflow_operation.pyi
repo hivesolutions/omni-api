@@ -1,7 +1,7 @@
 from .operation import Operation, OperationDelta
 
 class WorkflowOperation(Operation):
-    pass
+    workflow_state: int
 
 class WorkflowOperationDelta(OperationDelta):
     pass

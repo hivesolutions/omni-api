@@ -12,7 +12,6 @@ class ConsignmentState:
     EXPIRED: Literal[3] = ...
 
 class Consignment(WorkflowOperation):
-    workflow_state: ConsignmentStateT
     start_date: float
     end_date: float | None
     vat: float

@@ -20,7 +20,6 @@ class TransferState:
     CANCELED: Literal[7] = ...
 
 class Transfer(WorkflowOperation):
-    workflow_state: TransferStateT
     vat: float
     price: NotRequired[Price]
     price_vat: NotRequired[float]
