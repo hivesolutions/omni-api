@@ -3,12 +3,13 @@ from typing import NotRequired, Sequence
 from .base import BaseDelta
 from .person import Person, PersonDelta
 from .contactable import Contactable, ContactableDelta
+from .identifiable import Identifiable, IdentifiableDelta
 
-class Customer(Contactable):
+class Customer(Contactable, Identifiable):
     customer_code: str
     physical_signature: int | None
 
-class CustomerDelta(ContactableDelta):
+class CustomerDelta(ContactableDelta, IdentifiableDelta):
     customer_code: NotRequired[str]
     physical_signature: NotRequired[int | None]
 

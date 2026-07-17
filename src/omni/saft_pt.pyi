@@ -2,15 +2,16 @@ from typing import NotRequired, Sequence
 
 from .base import Base, BaseDelta
 from .task import Task
+from .identifiable import Identifiable, IdentifiableDelta
 
-class SaftPtReport(Base):
+class SaftPtReport(Base, Identifiable):
     _version: str
     fiscal_year: int
     start_date: float
     end_date: float
     task: NotRequired[Task]
 
-class SaftPtReportDelta(BaseDelta):
+class SaftPtReportDelta(BaseDelta, IdentifiableDelta):
     _version: str
     fiscal_year: int
     start_date: float

@@ -5,6 +5,7 @@ class Identifiable(TypedDict):
     extended_identifier: str
     identifier_prefix: str | None
     identifier_number_digits: int | None
+    identifier_sequence: int
     generated_identifier: int
     validation_code: str | None
 
