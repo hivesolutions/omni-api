@@ -19,7 +19,7 @@ class TransferState:
     CLOSED: Literal[6] = ...
     CANCELED: Literal[7] = ...
 
-class Transfer(WorkflowOperation):
+class Transfer(WorkflowOperation[TransferStateT]):
     vat: float
     price: NotRequired[Price]
     price_vat: NotRequired[float]

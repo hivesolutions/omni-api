@@ -11,7 +11,7 @@ class ConsignmentState:
     CLOSED: Literal[2] = ...
     EXPIRED: Literal[3] = ...
 
-class Consignment(WorkflowOperation):
+class Consignment(WorkflowOperation[ConsignmentStateT]):
     start_date: float
     end_date: float | None
     vat: float
