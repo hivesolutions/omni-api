@@ -265,7 +265,28 @@ class API(
     wrap_exception: bool
     mode: int
 
-    def __init__(self, *args, **kwargs) -> None: ...
+    def __init__(
+        self,
+        *args,
+        base_url: str = ...,
+        open_url: str = ...,
+        prefix: str = ...,
+        client_id: str | None = ...,
+        client_secret: str | None = ...,
+        redirect_url: str = ...,
+        scope: Sequence[OAuthScopeT] = ...,
+        access_token: str | None = ...,
+        session_id: str | None = ...,
+        username: str | None = ...,
+        password: str | None = ...,
+        object_id: int | None = ...,
+        acl: Mapping[str, int] | None = ...,
+        tokens: Sequence[str] | None = ...,
+        company: SystemCompany | None = ...,
+        wrap_exception: bool = ...,
+        mode: int = ...,
+        **kwargs,
+    ) -> None: ...
     def login(self, username: str | None = ..., password: str | None = ...) -> str: ...
     def get_session_id(self) -> str | None: ...
     def handle_error(self, error: Exception) -> NoReturn: ...
