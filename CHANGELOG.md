@@ -20,6 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Support for the repairs API covering the full workflow, messages and slip issuing
 * Type stubs for the generic entity and media operations
 * Typed consignment creation with the document class discriminator
+* API usage example and typed test suite with live checks and type checker enforcement
 
 ### Changed
 
@@ -28,6 +29,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 * Update and create payload types now reflect the wrapped wire format expected by the server
+* Open URL now follows a programmatically provided base URL
 
 ## [0.9.0] - 2026-06-26
 

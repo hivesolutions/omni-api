@@ -145,7 +145,9 @@ class API(
         self.username = appier.conf("OMNI_USERNAME", None)
         self.password = appier.conf("OMNI_PASSWORD", None)
         self.base_url = kwargs.get("base_url", self.base_url)
-        self.open_url = kwargs.get("open_url", self.open_url)
+        self.open_url = kwargs.get(
+            "open_url", appier.conf("OMNI_OPEN_URL", self.base_url)
+        )
         self.prefix = kwargs.get("prefix", self.prefix)
         self.client_id = kwargs.get("client_id", self.client_id)
         self.client_secret = kwargs.get("client_secret", self.client_secret)
