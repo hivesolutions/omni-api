@@ -58,3 +58,15 @@ class SystemCompanyAPI(object):
         return self.public_media_entity(
             object_id, position=position, dimensions=dimensions, label=label
         )
+
+
+class SystemCompany(dict):
+    pass
+
+
+class SystemCompanyDelta(dict):
+    pass
+
+
+class SystemCompanyPayload(dict):
+    pass

@@ -31,3 +31,7 @@ __license__ = "Apache License, Version 2.0"
 
 class Named(dict):
     pass
+
+
+class NamedDelta(dict):
+    pass

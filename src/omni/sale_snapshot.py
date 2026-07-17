@@ -35,3 +35,23 @@ class SaleSnapshotAPI(object):
         url = self.base_url + "omni/sale_snapshots/apply/entries.json"
         contents = self.post(url, data_j=payload)
         return contents
+
+
+class SaleStatsValue(dict):
+    pass
+
+
+class SaleStatsTotals(dict):
+    pass
+
+
+class SaleStats(dict):
+    pass
+
+
+class EntryChunkDelta(dict):
+    pass
+
+
+class EntryChunkPayload(dict):
+    pass

@@ -127,3 +127,23 @@ class SaleCustomerType(object):
     NEW = "new"
     EXISTING = "existing"
     ANONYMOUS = "anonymous"
+
+
+class SaleVat(dict):
+    pass
+
+
+class SaleCustomerParameters(dict):
+    pass
+
+
+class SaleCustomer(dict):
+    pass
+
+
+class SaleDelta(dict):
+    pass
+
+
+class SalePayload(dict):
+    pass

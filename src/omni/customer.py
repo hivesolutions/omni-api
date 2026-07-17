@@ -74,3 +74,15 @@ class PhysicalSignature(object):
     SIGNED = 1
     NOT_SIGNED = 2
     UNKNOWN = 3
+
+
+class CustomerDelta(dict):
+    pass
+
+
+class CustomerPersonDelta(dict):
+    pass
+
+
+class CustomerPersonPayload(dict):
+    pass

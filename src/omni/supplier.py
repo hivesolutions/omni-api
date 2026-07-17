@@ -49,3 +49,11 @@ class SupplierAPI(object):
         url = self.base_url + "omni/supplier_companies/%d.json" % object_id
         contents = self.get(url)
         return contents
+
+
+class Supplier(dict):
+    pass
+
+
+class SupplierCompany(dict):
+    pass

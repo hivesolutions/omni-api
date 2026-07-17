@@ -38,3 +38,11 @@ class IdentifiableAPI(object):
         url = self.base_url + "omni/identifiables.json"
         contents = self.get(url, **kwargs)
         return contents
+
+
+class Identifiable(dict):
+    pass
+
+
+class IdentifiableDelta(dict):
+    pass

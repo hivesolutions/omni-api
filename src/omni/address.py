@@ -28,35 +28,6 @@ __copyright__ = "Copyright (c) 2008-2024 Hive Solutions Lda."
 __license__ = "Apache License, Version 2.0"
 """ The license for the module """
 
-from . import util
 
-
-class PurchaseAPI(object):
-
-    def list_purchases(self, *args, **kwargs):
-        util.filter_args(kwargs)
-        url = self.base_url + "omni/purchases.json"
-        contents = self.get(url, **kwargs)
-        return contents
-
-    def create_purchase(self, payload):
-        url = self.base_url + "omni/purchases.json"
-        contents = self.post(url, data_j=payload)
-        return contents
-
-    def get_purchase(self, object_id):
-        url = self.base_url + "omni/purchases/%d.json" % object_id
-        contents = self.get(url)
-        return contents
-
-
-class Purchase(dict):
-    pass
-
-
-class PurchaseDelta(dict):
-    pass
-
-
-class PurchasePayload(dict):
+class Address(dict):
     pass

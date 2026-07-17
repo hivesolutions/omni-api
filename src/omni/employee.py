@@ -81,3 +81,15 @@ class EmployeeAPI(object):
             output=output,
         )
         return contents
+
+
+class Employee(dict):
+    pass
+
+
+class EmployeeDelta(dict):
+    pass
+
+
+class EmployeePayload(dict):
+    pass

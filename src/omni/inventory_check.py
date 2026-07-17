@@ -43,3 +43,7 @@ class InventoryCheckAPI(object):
         url = self.base_url + "omni/inventory_checks/%d.json" % object_id
         contents = self.get(url)
         return contents
+
+
+class InventoryCheck(dict):
+    pass

@@ -48,3 +48,11 @@ class StoreAPI(object):
 class Physical(object):
     PHYSICAL = 1
     NON_PHYSICAL = 2
+
+
+class FunctionalUnit(dict):
+    pass
+
+
+class Store(dict):
+    pass

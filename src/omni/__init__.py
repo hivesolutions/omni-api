@@ -25,13 +25,17 @@ __copyright__ = "Copyright (c) 2008-2024 Hive Solutions Lda."
 __license__ = "Apache License, Version 2.0"
 """ The license for the module """
 
-from . import models
+from . import address
 from . import base
+from . import company
 from . import consignment
+from . import consignment_line
 from . import consignment_out
 from . import consignment_slip
+from . import contact_information
 from . import contactable
 from . import credit_note
+from . import currency_value
 from . import customer
 from . import document
 from . import employee
@@ -44,21 +48,27 @@ from . import inventory_line
 from . import invoice
 from . import media
 from . import merchandise
+from . import models
 from . import money_sale_slip
 from . import named
 from . import operation
 from . import payment
 from . import person
+from . import price
 from . import product
 from . import purchase
+from . import purchase_line
 from . import receipt
 from . import repair
 from . import repair_operation
+from . import repair_slip
 from . import return_
 from . import saft_pt
+from . import sale
+from . import sale_line
 from . import sale_order
 from . import sale_snapshot
-from . import sale
+from . import service
 from . import signed_document
 from . import status
 from . import stock_adjustment
@@ -67,10 +77,13 @@ from . import sub_product
 from . import supplier
 from . import system_company
 from . import transfer
+from . import transfer_line
 from . import user
 from . import util
+from . import value
 from . import web
 from . import workflow_message
+from . import workflow_operation
 
 from .models import *
 from .base import BASE_URL, API, Base, BaseDelta, Status, Flag

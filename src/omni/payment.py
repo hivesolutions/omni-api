@@ -45,3 +45,27 @@ class PaymentState(object):
     REFUNDING = 3
     REFUNDED = 4
     CANCELED = 5
+
+
+class PaymentMethod(dict):
+    pass
+
+
+class PaymentLine(dict):
+    pass
+
+
+class Payment(dict):
+    pass
+
+
+class PaymentMethodDelta(dict):
+    pass
+
+
+class PaymentLineDelta(dict):
+    pass
+
+
+class PaymentDelta(dict):
+    pass

@@ -62,3 +62,27 @@ class UserType(object):
     ADVANCED = 4
     OBSERVER = 5
     UNDEFINED = 6
+
+
+class BaseUser(dict):
+    pass
+
+
+class User(dict):
+    pass
+
+
+class UserParameters(dict):
+    pass
+
+
+class BaseUserDelta(dict):
+    pass
+
+
+class UserDelta(dict):
+    pass
+
+
+class UserPayload(dict):
+    pass

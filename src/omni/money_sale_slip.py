@@ -47,3 +47,7 @@ class MoneySaleSlipAPI(object):
         url = self.base_url + "omni/money_sale_slips/%d.json" % object_id
         contents = self.get(url)
         return contents
+
+
+class MoneySaleSlip(dict):
+    pass

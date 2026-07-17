@@ -97,3 +97,7 @@ class InvoiceAPI(object):
         url = self.base_url + "omni/invoices/%d.json" % object_id
         contents = self.get(url)
         return contents
+
+
+class Invoice(dict):
+    pass

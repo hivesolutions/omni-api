@@ -97,3 +97,7 @@ class ReceiptAPI(object):
         url = self.base_url + "omni/receipts/%d.json" % object_id
         contents = self.get(url)
         return contents
+
+
+class Receipt(dict):
+    pass

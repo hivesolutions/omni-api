@@ -53,3 +53,15 @@ class RepairAPI(object):
         url = self.base_url + "omni/repairs/%d/update.json" % object_id
         contents = self.post(url, data_j=payload)
         return contents
+
+
+class Repair(dict):
+    pass
+
+
+class RepairDelta(dict):
+    pass
+
+
+class RepairPayload(dict):
+    pass

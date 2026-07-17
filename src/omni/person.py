@@ -32,3 +32,11 @@ __license__ = "Apache License, Version 2.0"
 class Gender(object):
     MALE = 1
     FEMALE = 2
+
+
+class Person(dict):
+    pass
+
+
+class PersonDelta(dict):
+    pass

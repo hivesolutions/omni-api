@@ -35,3 +35,7 @@ class WorkflowMessage(dict):
 
 class WorkflowMessagePayload(dict):
     pass
+
+
+class WorkflowMessageFile(dict):
+    pass

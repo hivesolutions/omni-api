@@ -35,3 +35,7 @@ class WebAPI(object):
         url = self.base_url + "omni/web/subscribe.json"
         contents = self.post(url, params=dict(url=callback_url))
         return contents
+
+
+class WebSubscription(dict):
+    pass

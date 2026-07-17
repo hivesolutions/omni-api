@@ -58,3 +58,15 @@ class TransferState(object):
     RECEIVED = 5
     CLOSED = 6
     CANCELED = 7
+
+
+class Transfer(dict):
+    pass
+
+
+class TransferDelta(dict):
+    pass
+
+
+class TransferPayload(dict):
+    pass

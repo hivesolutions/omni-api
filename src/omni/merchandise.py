@@ -77,3 +77,35 @@ class Stockable(object):
 class PricingType(object):
     UNIT = 1
     WEIGHT = 2
+
+
+class Merchandise(dict):
+    pass
+
+
+class MerchandiseDelta(dict):
+    pass
+
+
+class TransactionalMerchandise(dict):
+    pass
+
+
+class TransactionalMerchandiseDelta(dict):
+    pass
+
+
+class StoreMerchandise(dict):
+    pass
+
+
+class MerchandisePayload(dict):
+    pass
+
+
+class MerchandisePrice(dict):
+    pass
+
+
+class MerchandiseCost(dict):
+    pass

@@ -62,3 +62,19 @@ class DocumentType(object):
     INTERNAL = 1
     INBOUND = 2
     OUTBOUND = 3
+
+
+class DocumentOperation(dict):
+    pass
+
+
+class DocumentPayload(dict):
+    pass
+
+
+class Document(dict):
+    pass
+
+
+class DocumentDelta(dict):
+    pass

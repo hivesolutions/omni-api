@@ -35,3 +35,31 @@ class StatusAPI(object):
         url = self.base_url + "omni/status.json"
         contents = self.get(url)
         return contents
+
+
+class StatusInfo(dict):
+    pass
+
+
+class StatusSystem(dict):
+    pass
+
+
+class StatusDatabase(dict):
+    pass
+
+
+class StatusKafka(dict):
+    pass
+
+
+class StatusPushi(dict):
+    pass
+
+
+class StatusLibrary(dict):
+    pass
+
+
+class SystemStatus(dict):
+    pass

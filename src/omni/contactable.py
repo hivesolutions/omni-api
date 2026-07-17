@@ -31,3 +31,7 @@ __license__ = "Apache License, Version 2.0"
 
 class Contactable(dict):
     pass
+
+
+class ContactableDelta(dict):
+    pass

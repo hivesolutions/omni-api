@@ -54,3 +54,15 @@ class ConsignmentState(object):
     OPEN = 1
     CLOSED = 2
     EXPIRED = 3
+
+
+class Consignment(dict):
+    pass
+
+
+class ConsignmentDelta(dict):
+    pass
+
+
+class ConsignmentPayload(dict):
+    pass

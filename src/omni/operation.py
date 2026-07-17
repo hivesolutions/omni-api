@@ -33,3 +33,15 @@ class OperationType(object):
     BUSINESS_TO_CONSUMER = 1
     BUSINESS_TO_BUSINESS = 2
     INTERNAL = 3
+
+
+class Operation(dict):
+    pass
+
+
+class OperationDelta(dict):
+    pass
+
+
+class VatItem(dict):
+    pass

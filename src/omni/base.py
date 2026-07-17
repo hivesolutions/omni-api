@@ -325,3 +325,11 @@ class Status(object):
 class Flag(object):
     YES = 1
     NO = 2
+
+
+class BaseReference(dict):
+    pass
+
+
+class Result(dict):
+    pass

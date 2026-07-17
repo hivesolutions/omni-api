@@ -139,3 +139,15 @@ class RepairPriority(object):
     LOW = 1
     MEDIUM = 2
     HIGH = 3
+
+
+class RepairOperation(dict):
+    pass
+
+
+class RepairOperationDelta(dict):
+    pass
+
+
+class RepairOperationPayload(dict):
+    pass

@@ -77,3 +77,15 @@ class MediaVisibility(object):
     GLOBAL = 2
     CONSTRAINED = 3
     PRIVATE = 4
+
+
+class Media(dict):
+    pass
+
+
+class MediaDelta(dict):
+    pass
+
+
+class MediaPayload(dict):
+    pass

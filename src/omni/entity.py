@@ -118,3 +118,11 @@ class EntityAPI(object):
         url = self.base_url + "omni/entities/%d/media/clear.json" % object_id
         contents = self.post(url)
         return contents
+
+
+class EntitySequence(dict):
+    pass
+
+
+class EntityPayload(dict):
+    pass

@@ -72,3 +72,11 @@ class SignedDocumentAPI(object):
         )
         contents = self.get(url)
         return contents
+
+
+class SignedDocument(dict):
+    pass
+
+
+class SubmitAtResult(dict):
+    pass
