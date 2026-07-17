@@ -9,6 +9,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+*
+
+### Changed
+
+*
+
+### Fixed
+
+*
+
+## [0.10.0] - 2026-07-17
+
+### Added
+
 * Completed type stubs for the remaining sale operations
 * Type stubs for documents, signed documents, invoices, receipts, money sale slips, payments, companies and sale statistics
 * Typed creation and update payloads validated against a live demo instance
@@ -23,10 +37,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * API usage example and typed test suite with live checks and type checker enforcement
 * Support for the create user operation with typed protected parameters
 * OAuth scope typed as the literal set of the available permission names
-
-### Changed
-
-*
 
 ### Fixed
 
