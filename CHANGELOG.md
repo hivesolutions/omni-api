@@ -17,7 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-*
+* Widened the `stats_sales` and `stats_employee` `store_id` stub type and the API `scope` stub type so plain string values are accepted
 
 ## [0.10.0] - 2026-07-17
 

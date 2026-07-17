@@ -24,7 +24,7 @@ class EmployeeAPI(object):
         date: float | None = ...,
         unit: str = ...,
         span: int = ...,
-        store_id: int | None = ...,
+        store_id: int | str | None = ...,
         employee_id: int | None = ...,
         has_global: bool | None = ...,
         output: str = ...,

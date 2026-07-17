@@ -253,7 +253,7 @@ class API(
     client_id: str | None
     client_secret: str | None
     redirect_url: str
-    scope: Sequence[OAuthScopeT]
+    scope: Sequence[OAuthScopeT | str]
     access_token: str | None
     session_id: str | None
     username: str | None
@@ -274,7 +274,7 @@ class API(
         client_id: str | None = ...,
         client_secret: str | None = ...,
         redirect_url: str = ...,
-        scope: Sequence[OAuthScopeT] = ...,
+        scope: Sequence[OAuthScopeT | str] = ...,
         access_token: str | None = ...,
         session_id: str | None = ...,
         username: str | None = ...,
