@@ -52,6 +52,8 @@ from . import person
 from . import product
 from . import purchase
 from . import receipt
+from . import repair
+from . import repair_operation
 from . import return_
 from . import saft_pt
 from . import sale_order
@@ -96,6 +98,13 @@ from .person import Gender
 from .product import ProductAPI
 from .purchase import PurchaseAPI
 from .receipt import ReceiptAPI
+from .repair import RepairAPI
+from .repair_operation import (
+    RepairOperationAPI,
+    RepairOperationState,
+    RepairType,
+    RepairPriority,
+)
 from .return_ import ReturnAPI
 from .saft_pt import SaftPtAPI, SaftPtReport, SaftPtReportDelta, SaftPtReportPayload
 from .sale_order import SaleOrderAPI

@@ -1,6 +1,6 @@
 from typing import Literal, NotRequired, Sequence, TypedDict
 
-from .base import BaseDelta
+from .base import BaseDelta, BaseReference
 from .named import Named, NamedDelta
 
 SellableT = Literal[1, 2]
@@ -46,6 +46,7 @@ class TransactionalMerchandiseDelta(MerchandiseDelta):
     pricing_type: NotRequired[PricingTypeT | None]
     sellable: NotRequired[SellableT]
     stockable: NotRequired[StockableT]
+    vat_class: NotRequired[BaseReference]
 
 class StoreMerchandise(TransactionalMerchandise):
     retail_price: float | None

@@ -13,6 +13,8 @@ from .merchandise import MerchandiseAPI
 from .money_sale_slip import MoneySaleSlipAPI
 from .purchase import PurchaseAPI
 from .receipt import ReceiptAPI
+from .repair import RepairAPI
+from .repair_operation import RepairOperationAPI
 from .saft_pt import SaftPtAPI
 from .sale import SaleAPI
 from .sale_snapshot import SaleSnapshotAPI
@@ -61,6 +63,9 @@ class BaseDelta(TypedDict):
 class BaseReference(TypedDict):
     object_id: int
 
+class Result(TypedDict):
+    result: str
+
 class API(
     OAuth2API,
     WebAPI,
@@ -68,6 +73,7 @@ class API(
     UserAPI,
     StoreAPI,
     StatusAPI,
+    RepairAPI,
     SaftPtAPI,
     InvoiceAPI,
     ReceiptAPI,
@@ -84,5 +90,6 @@ class API(
     MoneySaleSlipAPI,
     InventoryCheckAPI,
     SignedDocumentAPI,
+    RepairOperationAPI,
 ):
     pass

@@ -38,6 +38,7 @@ from . import media
 from . import errors
 from . import entity
 from . import status
+from . import repair
 from . import return_
 from . import saft_pt
 from . import invoice
@@ -64,6 +65,7 @@ from . import signed_document
 from . import consignment_out
 from . import consignment_slip
 from . import stock_adjustment
+from . import repair_operation
 
 BASE_URL = "http://localhost:8080/mvc/"
 """ The default base URL to be used when no other
@@ -101,6 +103,7 @@ class API(
     media.MediaAPI,
     entity.EntityAPI,
     status.StatusAPI,
+    repair.RepairAPI,
     return_.ReturnAPI,
     saft_pt.SaftPtAPI,
     invoice.InvoiceAPI,
@@ -127,6 +130,7 @@ class API(
     consignment_out.ConsignmentOutAPI,
     consignment_slip.ConsignmentSlipAPI,
     stock_adjustment.StockAdjustmentAPI,
+    repair_operation.RepairOperationAPI,
 ):
 
     def __init__(self, *args, **kwargs):

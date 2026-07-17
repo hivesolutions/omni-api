@@ -1,6 +1,6 @@
-from typing import Any, Mapping, NotRequired, Sequence, TypedDict
+from typing import Any, Mapping, NotRequired, Sequence
 
-from .base import FlagT
+from .base import FlagT, Result
 from .document import Document
 
 class SignedDocument(Document):
@@ -22,16 +22,13 @@ class SignedDocument(Document):
     digest_chunk: str | None
     key_version: int | None
 
-class SignedDocumentResult(TypedDict):
-    result: str
-
-class SubmitAtResult(SignedDocumentResult):
+class SubmitAtResult(Result):
     payload: Mapping[str, Any]
 
 class SignedDocumentAPI(object):
     def list_signed_documents(self, *args, **kwargs) -> Sequence[SignedDocument]: ...
     def qr_code_document(self, object_id: int) -> bytes: ...
     def digest_identifier_document(self, object_id: int) -> str: ...
-    def verify_signed_document(self, object_id: int) -> SignedDocumentResult: ...
+    def verify_signed_document(self, object_id: int) -> Result: ...
     def submit_invoice_at(self, object_id: int) -> SubmitAtResult: ...
     def submit_transport_at(self, object_id: int) -> SubmitAtResult: ...
