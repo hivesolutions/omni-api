@@ -70,3 +70,10 @@ class MediaAPI(object):
         data_b64 = appier.legacy.str(data_b64)
         payload["data_b64"] = data_b64
         del payload["data"]
+
+
+class MediaVisibility(object):
+    PUBLIC = 1
+    GLOBAL = 2
+    CONSTRAINED = 3
+    PRIVATE = 4

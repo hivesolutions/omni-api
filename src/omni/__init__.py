@@ -52,6 +52,8 @@ from . import person
 from . import product
 from . import purchase
 from . import receipt
+from . import repair
+from . import repair_operation
 from . import return_
 from . import saft_pt
 from . import sale_order
@@ -68,15 +70,16 @@ from . import transfer
 from . import user
 from . import util
 from . import web
+from . import workflow_message
 
 from .models import *
 from .base import BASE_URL, API, Base, BaseDelta, Status, Flag
-from .consignment import ConsignmentAPI
+from .consignment import ConsignmentAPI, ConsignmentState
 from .consignment_out import ConsignmentOutAPI
 from .consignment_slip import ConsignmentSlipAPI
 from .contactable import Contactable
 from .credit_note import CreditNoteAPI
-from .customer import CustomerAPI, Customer, CustomerPerson
+from .customer import CustomerAPI, Customer, CustomerPerson, PhysicalSignature
 from .document import DocumentAPI, DocumentStatus, DocumentType
 from .employee import EmployeeAPI
 from .entity import EntityAPI
@@ -86,8 +89,8 @@ from .identifiable import IdentifiableAPI
 from .inventory_check import InventoryCheckAPI
 from .inventory_line import InventoryLineAPI
 from .invoice import InvoiceAPI
-from .media import MediaAPI
-from .merchandise import MerchandiseAPI
+from .media import MediaAPI, MediaVisibility
+from .merchandise import MerchandiseAPI, Sellable, Stockable, PricingType
 from .money_sale_slip import MoneySaleSlipAPI
 from .named import Named
 from .operation import OperationType
@@ -96,6 +99,13 @@ from .person import Gender
 from .product import ProductAPI
 from .purchase import PurchaseAPI
 from .receipt import ReceiptAPI
+from .repair import RepairAPI
+from .repair_operation import (
+    RepairOperationAPI,
+    RepairOperationState,
+    RepairType,
+    RepairPriority,
+)
 from .return_ import ReturnAPI
 from .saft_pt import SaftPtAPI, SaftPtReport, SaftPtReportDelta, SaftPtReportPayload
 from .sale_order import SaleOrderAPI
@@ -111,14 +121,15 @@ from .sale import (
 from .signed_document import SignedDocumentAPI
 from .status import StatusAPI
 from .stock_adjustment import StockAdjustmentAPI
-from .store import StoreAPI
+from .store import StoreAPI, Physical
 from .sub_product import SubProductAPI
 from .supplier import SupplierAPI
 from .system_company import SystemCompanyAPI
 from .task import TaskState, Task, TaskDelta
-from .transfer import TransferAPI
-from .user import UserAPI
+from .transfer import TransferAPI, TransferState
+from .user import UserAPI, UserType
 from .util import format_places, filter_args
 from .web import WebAPI
+from .workflow_message import WorkflowMessage, WorkflowMessagePayload
 
 from .export import export as export_do

@@ -38,6 +38,7 @@ from . import media
 from . import errors
 from . import entity
 from . import status
+from . import repair
 from . import return_
 from . import saft_pt
 from . import invoice
@@ -64,6 +65,7 @@ from . import signed_document
 from . import consignment_out
 from . import consignment_slip
 from . import stock_adjustment
+from . import repair_operation
 
 BASE_URL = "http://localhost:8080/mvc/"
 """ The default base URL to be used when no other
@@ -101,6 +103,7 @@ class API(
     media.MediaAPI,
     entity.EntityAPI,
     status.StatusAPI,
+    repair.RepairAPI,
     return_.ReturnAPI,
     saft_pt.SaftPtAPI,
     invoice.InvoiceAPI,
@@ -127,6 +130,7 @@ class API(
     consignment_out.ConsignmentOutAPI,
     consignment_slip.ConsignmentSlipAPI,
     stock_adjustment.StockAdjustmentAPI,
+    repair_operation.RepairOperationAPI,
 ):
 
     def __init__(self, *args, **kwargs):
@@ -141,7 +145,9 @@ class API(
         self.username = appier.conf("OMNI_USERNAME", None)
         self.password = appier.conf("OMNI_PASSWORD", None)
         self.base_url = kwargs.get("base_url", self.base_url)
-        self.open_url = kwargs.get("open_url", self.open_url)
+        self.open_url = kwargs.get(
+            "open_url", appier.conf("OMNI_OPEN_URL", self.base_url)
+        )
         self.prefix = kwargs.get("prefix", self.prefix)
         self.client_id = kwargs.get("client_id", self.client_id)
         self.client_secret = kwargs.get("client_secret", self.client_secret)

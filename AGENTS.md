@@ -22,9 +22,11 @@ Try to run the unit tests whenever making changes to the codebase, before commit
 
 ```bash
 pip install -r requirements.txt
-pip install -r extra.txt
-python setup.py test
+pip install pytest
+pytest
 ```
+
+Note that the test suite requires Python 3.10+ (the tests make full use of the type stubs), unlike the library implementation that remains Python 2.7+ compatible.
 
 ## Style Guide
 
@@ -91,7 +93,7 @@ version: 1.8.0
 Before committing, ensure that the following operations items check:
 
 - [ ] Code is formatted with `black .`
-- [ ] Tests pass: `python setup.py test`
+- [ ] Tests pass: `pytest`
 - [ ] CHANGELOG.md is updated in [Unreleased] section
 - [ ] No debugging print statements or commented-out code
 - [ ] CRLF line endings are preserved

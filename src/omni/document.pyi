@@ -51,7 +51,6 @@ class Document(Base, Identifiable):
     redeem_operation: NotRequired[Operation | None]
 
 class DocumentDelta(BaseDelta, IdentifiableDelta):
-    _class: NotRequired[str]
     issue_date: NotRequired[float]
     title: NotRequired[str | None]
     observations: NotRequired[str | None]

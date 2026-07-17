@@ -1,10 +1,14 @@
 from typing import NotRequired, Sequence, TypedDict
 
 class Identifiable(TypedDict):
+    object_id: int
+    instance_id: int | None
+    representation: str | None
     identifier: str
     extended_identifier: str
     identifier_prefix: str | None
     identifier_number_digits: int | None
+    identifier_sequence: int
     generated_identifier: int
     validation_code: str | None
 

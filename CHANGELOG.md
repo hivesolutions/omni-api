@@ -14,6 +14,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Typed creation and update payloads validated against a live demo instance
 * Agent skill describing how to author type stubs for API operations
 * Enumerated fields typed as literal value sets with semantic enumeration classes
+* Type stubs for the status, web subscription, transfer and store operations
+* Completed the enumeration coverage across tasks, users, merchandise, customers and stores
+* Typed package marker so type checkers consume the stubs from installed packages
+* Support for the repairs API covering the full workflow, messages and slip issuing
+* Type stubs for the generic entity and media operations
+* Typed consignment creation with the document class discriminator
+* API usage example and typed test suite with live checks and type checker enforcement
+* Support for the create user operation with typed protected parameters
+* OAuth scope typed as the literal set of the available permission names
 
 ### Changed
 
@@ -22,6 +31,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 * Update and create payload types now reflect the wrapped wire format expected by the server
+* Open URL now follows a programmatically provided base URL
 
 ## [0.9.0] - 2026-06-26
 

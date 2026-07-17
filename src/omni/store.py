@@ -43,3 +43,8 @@ class StoreAPI(object):
         url = self.base_url + "omni/stores/%d.json" % object_id
         contents = self.get(url)
         return contents
+
+
+class Physical(object):
+    PHYSICAL = 1
+    NON_PHYSICAL = 2

@@ -28,33 +28,10 @@ __copyright__ = "Copyright (c) 2008-2024 Hive Solutions Lda."
 __license__ = "Apache License, Version 2.0"
 """ The license for the module """
 
-from . import util
+
+class WorkflowMessage(dict):
+    pass
 
 
-class TransferAPI(object):
-
-    def list_transfers(self, *args, **kwargs):
-        util.filter_args(kwargs)
-        url = self.base_url + "omni/transfers.json"
-        contents = self.get(url, **kwargs)
-        return contents
-
-    def create_transfer(self, payload):
-        url = self.base_url + "omni/transfers.json"
-        contents = self.post(url, data_j=payload)
-        return contents
-
-    def get_transfer(self, object_id):
-        url = self.base_url + "omni/transfers/%d.json" % object_id
-        contents = self.get(url)
-        return contents
-
-
-class TransferState(object):
-    UNSET = 1
-    CREATED = 2
-    RESERVED = 3
-    SENT = 4
-    RECEIVED = 5
-    CLOSED = 6
-    CANCELED = 7
+class WorkflowMessagePayload(dict):
+    pass

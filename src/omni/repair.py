@@ -31,49 +31,25 @@ __license__ = "Apache License, Version 2.0"
 from . import util
 
 
-class MerchandiseAPI(object):
+class RepairAPI(object):
 
-    def list_merchandise(self, *args, **kwargs):
+    def list_repairs(self, *args, **kwargs):
         util.filter_args(kwargs)
-        url = self.base_url + "omni/merchandise.json"
+        url = self.base_url + "omni/repairs.json"
         contents = self.get(url, **kwargs)
         return contents
 
-    def get_merchandise(self, object_id):
-        url = self.base_url + "omni/merchandise/%d.json" % object_id
+    def create_repair(self, payload):
+        url = self.base_url + "omni/repairs.json"
+        contents = self.post(url, data_j=payload)
+        return contents
+
+    def get_repair(self, object_id):
+        url = self.base_url + "omni/repairs/%d.json" % object_id
         contents = self.get(url)
         return contents
 
-    def update_merchandise(self, object_id, payload):
-        url = self.base_url + "omni/merchandise/%d/update.json" % object_id
-        contents = self.post(url, data_m=payload)
+    def update_repair(self, object_id, payload):
+        url = self.base_url + "omni/repairs/%d/update.json" % object_id
+        contents = self.post(url, data_j=payload)
         return contents
-
-    def list_store_merchandise(self, store_id=None, *args, **kwargs):
-        util.filter_args(kwargs)
-        url = self.base_url + "omni/merchandise/store.json"
-        contents = self.get(url, store_id=store_id, **kwargs)
-        return contents
-
-    def prices_merchandise(self, items):
-        url = self.base_url + "omni/merchandise/prices.json"
-        self.put(url, data_j=items)
-
-    def costs_merchandise(self, items):
-        url = self.base_url + "omni/merchandise/costs.json"
-        self.put(url, data_j=items)
-
-
-class Sellable(object):
-    NOT_SELLABLE = 1
-    SELLABLE = 2
-
-
-class Stockable(object):
-    NOT_STOCKABLE = 1
-    STOCKABLE = 2
-
-
-class PricingType(object):
-    UNIT = 1
-    WEIGHT = 2

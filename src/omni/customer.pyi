@@ -1,16 +1,24 @@
-from typing import NotRequired, Sequence
+from typing import Literal, NotRequired, Sequence
 
 from .base import BaseDelta
 from .person import Person, PersonDelta
 from .contactable import Contactable, ContactableDelta
+from .identifiable import Identifiable, IdentifiableDelta
 
-class Customer(Contactable):
+PhysicalSignatureT = Literal[1, 2, 3]
+
+class PhysicalSignature:
+    SIGNED: Literal[1] = ...
+    NOT_SIGNED: Literal[2] = ...
+    UNKNOWN: Literal[3] = ...
+
+class Customer(Contactable, Identifiable):
     customer_code: str
-    physical_signature: int | None
+    physical_signature: PhysicalSignatureT | None
 
-class CustomerDelta(ContactableDelta):
+class CustomerDelta(ContactableDelta, IdentifiableDelta):
     customer_code: NotRequired[str]
-    physical_signature: NotRequired[int | None]
+    physical_signature: NotRequired[PhysicalSignatureT | None]
 
 class CustomerPerson(Person, Customer):
     pass

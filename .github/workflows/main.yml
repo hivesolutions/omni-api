@@ -31,8 +31,7 @@ jobs:
       - run: |
           pip install pytest
           pytest
-      - run: python setup.py test
-        if: ${{ !contains(fromJson('["3.9", "3.10", "3.11", "3.12", "latest"]'), matrix.python-version) }}
+        if: ${{ contains(fromJson('["3.10", "3.11", "3.12", "latest", "rc"]'), matrix.python-version) }}
   build-pypy:
     name: Build PyPy
     strategy:
@@ -51,5 +50,58 @@ jobs:
       - run: |
           pip install pytest
           pytest
-      - run: pypy setup.py test
-        if: ${{ !contains(fromJson('["3.9", "3.10", "3.11", "3.12", "latest"]'), matrix.python-version) }}
+        if: ${{ contains(fromJson('["3.10", "3.11", "3.12", "latest", "rc"]'), matrix.python-version) }}
+  typecheck:
+    name: Typecheck
+    runs-on: ubuntu-latest
+    container: python:3.13
+    steps:
+      - uses: actions/checkout@v7
+      - run: python --version
+      - run: pip install -r requirements.txt
+      - run: pip install pyright
+      - run: pyright src/omni/*.pyi src/examples src/omni/test
+  build-live:
+    name: Build Live
+    runs-on: ubuntu-latest
+    env:
+      DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+      DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v7
+      - run: echo "Registry credentials not available, skipping live tests"
+        if: env.DOCKERHUB_TOKEN == ''
+      - run: echo "$DOCKERHUB_TOKEN" | docker login --username "$DOCKERHUB_USERNAME" --password-stdin
+        if: env.DOCKERHUB_TOKEN != ''
+      - run: |
+          docker run -d --name omni -p 8080:8080 --entrypoint sh \
+            -e RUN_MODE=development \
+            -e COLONY_CONFIG_FILE=config/python/singleton.py \
+            -e DB_ENGINE=sqlite \
+            -e DB_FILE=ci.db \
+            -e RESET_DB=1 \
+            -e AT_TEST_MODE=1 \
+            -e LEVEL=WARNING \
+            hivesolutions/omni:latest \
+            -c "cd /omni && python3 scripts/load_demo_data.py && exec colony_wsgi"
+        if: env.DOCKERHUB_TOKEN != ''
+      - run: |
+          for i in $(seq 1 60); do
+            code=$(curl -s -m 3 -o /dev/null -w '%{http_code}' 'http://localhost:8080/omni/login.json?username=root&password=Root@12345' || true)
+            if [ "$code" = "200" ]; then break; fi
+            sleep 5
+          done
+          docker logs omni | tail -5
+          test "$code" = "200"
+        if: env.DOCKERHUB_TOKEN != ''
+      - run: pip install -r requirements.txt
+        if: env.DOCKERHUB_TOKEN != ''
+      - run: |
+          pip install pytest
+          pytest
+        env:
+          OMNI_TEST_LIVE: 1
+          OMNI_BASE_URL: http://localhost:8080/
+          OMNI_USERNAME: root
+          OMNI_PASSWORD: Root@12345
+        if: env.DOCKERHUB_TOKEN != ''
