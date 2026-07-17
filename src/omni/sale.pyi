@@ -102,7 +102,7 @@ class SaleAPI(object):
     def self_sales(self, *args, **kwargs) -> Sequence[Sale]: ...
     def stats_sales(
         self,
-        date: float | None = ...,
+        date: str | float | None = ...,
         unit: str = ...,
         span: int = ...,
         store_id: int | str | None = ...,

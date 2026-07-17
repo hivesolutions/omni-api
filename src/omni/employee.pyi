@@ -21,10 +21,10 @@ class EmployeeAPI(object):
     def self_employee(self) -> Employee: ...
     def stats_employee(
         self,
-        date: float | None = ...,
+        date: str | float | None = ...,
         unit: str = ...,
         span: int = ...,
-        store_id: int | None = ...,
+        store_id: int | str | None = ...,
         employee_id: int | None = ...,
         has_global: bool | None = ...,
         output: str = ...,
