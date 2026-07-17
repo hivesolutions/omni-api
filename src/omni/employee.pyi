@@ -21,7 +21,7 @@ class EmployeeAPI(object):
     def self_employee(self) -> Employee: ...
     def stats_employee(
         self,
-        date: str | float | None = ...,
+        date: float | None = ...,
         unit: str = ...,
         span: int = ...,
         store_id: int | str | None = ...,
