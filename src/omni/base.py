@@ -39,6 +39,7 @@ from . import errors
 from . import entity
 from . import status
 from . import repair
+from . import script
 from . import return_
 from . import saft_pt
 from . import invoice
@@ -104,6 +105,7 @@ class API(
     entity.EntityAPI,
     status.StatusAPI,
     repair.RepairAPI,
+    script.ScriptAPI,
     return_.ReturnAPI,
     saft_pt.SaftPtAPI,
     invoice.InvoiceAPI,

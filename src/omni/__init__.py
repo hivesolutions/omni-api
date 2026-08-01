@@ -68,6 +68,7 @@ from . import sale
 from . import sale_line
 from . import sale_order
 from . import sale_snapshot
+from . import script
 from . import service
 from . import signed_document
 from . import status
@@ -131,6 +132,7 @@ from .sale import (
     ReturnState,
     SaleCustomerType,
 )
+from .script import ScriptAPI, Script, ScriptDelta, ScriptPayload, ScriptTask
 from .signed_document import SignedDocumentAPI
 from .status import StatusAPI
 from .stock_adjustment import StockAdjustmentAPI
