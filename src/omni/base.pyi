@@ -20,6 +20,7 @@ from .repair_operation import RepairOperationAPI
 from .saft_pt import SaftPtAPI
 from .sale import SaleAPI
 from .sale_snapshot import SaleSnapshotAPI
+from .script import ScriptAPI
 from .signed_document import SignedDocumentAPI
 from .status import StatusAPI
 from .store import StoreAPI
@@ -228,6 +229,7 @@ class API(
     EntityAPI,
     StatusAPI,
     RepairAPI,
+    ScriptAPI,
     SaftPtAPI,
     InvoiceAPI,
     ReceiptAPI,
