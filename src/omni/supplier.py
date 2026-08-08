@@ -57,3 +57,7 @@ class Supplier(dict):
 
 class SupplierCompany(dict):
     pass
+
+
+class SupplierPerson(dict):
+    pass

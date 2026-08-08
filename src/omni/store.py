@@ -44,6 +44,16 @@ class StoreAPI(object):
         contents = self.get(url)
         return contents
 
+    def update_store(self, object_id, payload):
+        url = self.base_url + "omni/stores/%d/update.json" % object_id
+        contents = self.post(url, data_j=payload)
+        return contents
+
+    def delete_store(self, object_id):
+        url = self.base_url + "omni/stores/%d/delete.json" % object_id
+        contents = self.post(url)
+        return contents
+
 
 class Physical(object):
     PHYSICAL = 1
@@ -55,4 +65,16 @@ class FunctionalUnit(dict):
 
 
 class Store(dict):
+    pass
+
+
+class FunctionalUnitDelta(dict):
+    pass
+
+
+class StoreDelta(dict):
+    pass
+
+
+class StorePayload(dict):
     pass
