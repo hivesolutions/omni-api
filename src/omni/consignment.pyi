@@ -3,7 +3,7 @@ from typing import Any, Literal, Mapping, NotRequired, Sequence
 from .base import BaseDelta, BaseReference
 from .price import Price
 from .document import DocumentDelta
-from .store import Store
+from .store import FunctionalUnit
 from .employee import Employee
 from .consignment_line import ConsignmentLine, ConsignmentLineDelta
 from .supplier import Supplier
@@ -26,7 +26,7 @@ class Consignment(WorkflowOperation[ConsignmentStateT]):
     price: Price
     primary_buyer: Employee
     supplier: NotRequired[Supplier | None]
-    delivery_site: NotRequired[Store]
+    delivery_site: NotRequired[FunctionalUnit]
     consignment_lines: NotRequired[Sequence[ConsignmentLine]]
 
 class ConsignmentDelta(WorkflowOperationDelta):

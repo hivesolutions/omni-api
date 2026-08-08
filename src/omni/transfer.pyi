@@ -2,7 +2,7 @@ from typing import Any, Literal, Mapping, NotRequired, Sequence
 
 from .base import BaseDelta, BaseReference
 from .price import Price
-from .store import Store
+from .store import FunctionalUnit
 from .employee import Employee
 from .transfer_line import TransferLine, TransferLineDelta
 from .signed_document import SignedDocument
@@ -23,8 +23,8 @@ class Transfer(WorkflowOperation[TransferStateT]):
     vat: float
     price: NotRequired[Price]
     price_vat: NotRequired[float]
-    origin: NotRequired[Store]
-    destination: Store
+    origin: NotRequired[FunctionalUnit]
+    destination: FunctionalUnit
     sender: NotRequired[Employee | None]
     receiver: NotRequired[Employee | None]
     transfer_lines: NotRequired[Sequence[TransferLine]]

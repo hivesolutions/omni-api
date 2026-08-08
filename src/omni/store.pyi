@@ -16,7 +16,7 @@ class FunctionalUnitDelta(ContactableDelta):
     number_of_employees: NotRequired[int | None]
 
 class Store(FunctionalUnit):
-    store_code: NotRequired[str | None]
+    store_code: str | None
 
 class StoreDelta(FunctionalUnitDelta):
     store_code: NotRequired[str | None]

@@ -30,6 +30,7 @@ __license__ = "Apache License, Version 2.0"
 
 from os import environ
 from unittest import TestCase
+from uuid import uuid4
 from typing import TYPE_CHECKING
 
 from omni import API, Flag, Status, TaskState
@@ -109,22 +110,23 @@ class ScriptLiveTest(TestCase):
         self.api = API()
 
     def test_crud(self) -> None:
+        identifier = "omni_api_test_script_%s" % uuid4().hex[:8]
         payload: ScriptPayload = {
             "script": {
-                "identifier": "omni_api_test_script",
+                "identifier": identifier,
                 "code": "value = 1",
                 "is_transaction": Flag.NO,
             }
         }
         script = self.api.create_script(payload)
         self.assertNotEqual(script["object_id"], None)
-        self.assertEqual(script["identifier"], "omni_api_test_script")
+        self.assertEqual(script["identifier"], identifier)
         self.assertEqual(script["code"], "value = 1")
         self.assertEqual(script["is_transaction"], Flag.NO)
 
         full = self.api.get_script(script["object_id"])
         self.assertEqual(full["object_id"], script["object_id"])
-        self.assertEqual(full["identifier"], "omni_api_test_script")
+        self.assertEqual(full["identifier"], identifier)
         self.assertEqual(full["status"], Status.ENABLED)
 
         update: ScriptPayload = {"script": {"code": "value = 2"}}
@@ -136,7 +138,7 @@ class ScriptLiveTest(TestCase):
     def test_execute(self) -> None:
         payload: ScriptPayload = {
             "script": {
-                "identifier": "omni_api_execute_script",
+                "identifier": "omni_api_execute_script_%s" % uuid4().hex[:8],
                 "code": "value = 1",
                 "is_transaction": Flag.NO,
             }
