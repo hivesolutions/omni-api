@@ -23,8 +23,8 @@ class Consignment(WorkflowOperation[ConsignmentStateT]):
     discount: float
     discount_vat: float | None
     communication_frequency: float | None
-    price: Price
-    primary_buyer: Employee
+    price: NotRequired[Price]
+    primary_buyer: NotRequired[Employee]
     supplier: NotRequired[Supplier | None]
     delivery_site: NotRequired[FunctionalUnit]
     consignment_lines: NotRequired[Sequence[ConsignmentLine]]

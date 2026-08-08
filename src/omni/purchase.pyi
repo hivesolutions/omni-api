@@ -15,7 +15,7 @@ class Purchase(Operation):
     discount: float
     discount_vat: float | None
     price: Price
-    supplier: NotRequired[Supplier | None]
+    supplier: Supplier | None
     primary_buyer: NotRequired[Employee]
     purchase_lines: NotRequired[Sequence[PurchaseLine]]
 

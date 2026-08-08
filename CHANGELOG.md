@@ -19,6 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 * Store code typed as always present and functional unit relations no longer claim store level fields
+* Relation optionality audited against the eager loading of every list and show retrieval
 
 ## [0.12.0] - 2026-08-02
 

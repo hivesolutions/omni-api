@@ -3,7 +3,7 @@ from typing import Literal, NotRequired, Sequence
 from .base import BaseDelta, BaseReference, Result
 from .sale import Sale
 from .price import Price
-from .store import Store
+from .store import FunctionalUnit
 from .customer import Customer
 from .employee import Employee
 from .merchandise import TransactionalMerchandise
@@ -49,7 +49,7 @@ class RepairOperation(WorkflowOperation[RepairOperationStateT]):
     estimated_date: float | None
     priority: RepairPriorityT | None
     supplier_reference: str | None
-    owner: Store
+    owner: FunctionalUnit
     employee: NotRequired[Employee | None]
     customer: NotRequired[Customer | None]
     merchandise: NotRequired[TransactionalMerchandise | None]
