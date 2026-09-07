@@ -94,3 +94,44 @@ Omni API is currently licensed under the [Apache License, Version 2.0](http://ww
 [![Coverage Status](https://coveralls.io/repos/hivesolutions/omni-api/badge.svg?branch=master)](https://coveralls.io/r/hivesolutions/omni-api?branch=master)
 [![PyPi Status](https://img.shields.io/pypi/v/omni-api.svg)](https://pypi.python.org/pypi/omni-api)
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](https://www.apache.org/licenses/)
+
+## Accounts Payable
+
+Supplier bills link existing purchases to their payment and approval workflow. Read the
+[settlement contract](https://github.com/hivesolutions/omni/blob/feat/accounts-payable/doc/design/010-accounts_payable.md)
+for opening balances, supplier credits, returns, currency handling and reversals.
+
+```python
+bill = api.create_supplier_bill({
+    "supplier_bill": {
+        "purchase": {"object_id": 10},
+        "reference": "INV/2026/1",
+        "payment_terms_days": 30,
+    }
+})
+api.approve_supplier_bill(bill["object_id"])
+api.create_payment_supplier_bill(bill["object_id"], {
+    "supplier_bill_payment": {
+        "entry_type": 2,
+        "applied_amount": 0,
+        "currency": bill["currency"],
+        "description": "Opening balance confirmed against supplier statement",
+        "request_key": "statement-2026-1",
+    }
+})
+```
+
+Entry type 2 records a historical adjustment and explicitly confirms the opening
+balance; zero confirms that the full amount remains unpaid. Type 1 registers a
+payment already made, type 3 records supplier credit, type 4 records a refund and
+type 5 applies credit from another bill. These methods do not initiate provider
+payments. Use a stable request key for a retry of the same registration.
+
+Use `request_supplier_bill` or `request_payment_supplier_bill` when policy requires
+a separate checker, then the approval-request methods to review the request.
+`get_permissions_supplier_bill` returns the server's action permissions. All routes
+continue to enforce permissions and validate the current balance on the server.
+
+`list_supplier_bills`, `report_supplier_bills` and `export_supplier_bills` accept the
+usual filter arguments. Export returns CSV bytes. Attach receipts with
+`create_message_supplier_bill(id, {"body": "Receipt", "files": [("receipt.txt", "text/plain", b"Receipt")]})`.

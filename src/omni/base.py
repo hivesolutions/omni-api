@@ -58,6 +58,7 @@ from . import merchandise
 from . import consignment
 from . import identifiable
 from . import sale_snapshot
+from . import supplier_bill
 from . import inventory_line
 from . import system_company
 from . import money_sale_slip
@@ -67,6 +68,7 @@ from . import consignment_out
 from . import consignment_slip
 from . import stock_adjustment
 from . import repair_operation
+from . import approval_request
 
 BASE_URL = "http://localhost:8080/mvc/"
 """ The default base URL to be used when no other
@@ -124,6 +126,7 @@ class API(
     consignment.ConsignmentAPI,
     identifiable.IdentifiableAPI,
     sale_snapshot.SaleSnapshotAPI,
+    supplier_bill.SupplierBillAPI,
     inventory_line.InventoryLineAPI,
     system_company.SystemCompanyAPI,
     money_sale_slip.MoneySaleSlipAPI,
@@ -133,6 +136,7 @@ class API(
     consignment_slip.ConsignmentSlipAPI,
     stock_adjustment.StockAdjustmentAPI,
     repair_operation.RepairOperationAPI,
+    approval_request.ApprovalRequestAPI,
 ):
 
     def __init__(self, *args, **kwargs):

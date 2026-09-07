@@ -26,6 +26,7 @@ __license__ = "Apache License, Version 2.0"
 """ The license for the module """
 
 from . import address
+from . import approval_request
 from . import base
 from . import company
 from . import consignment
@@ -76,6 +77,7 @@ from . import stock_adjustment
 from . import store
 from . import sub_product
 from . import supplier
+from . import supplier_bill
 from . import system_company
 from . import transfer
 from . import transfer_line
@@ -88,6 +90,7 @@ from . import workflow_operation
 
 from .models import *
 from .base import BASE_URL, API, Base, BaseDelta, Status, Flag
+from .approval_request import ApprovalRequestAPI, ApprovalRequest
 from .consignment import ConsignmentAPI, ConsignmentState
 from .consignment_out import ConsignmentOutAPI
 from .consignment_slip import ConsignmentSlipAPI
@@ -139,6 +142,19 @@ from .stock_adjustment import StockAdjustmentAPI
 from .store import StoreAPI, Physical
 from .sub_product import SubProductAPI
 from .supplier import SupplierAPI
+from .supplier_bill import (
+    SupplierBillAPI,
+    SupplierBill,
+    SupplierBillPayload,
+    SupplierBillPayment,
+    SupplierBillPaymentPayload,
+    SupplierBillInstalment,
+    SupplierBillInstalmentPayload,
+    SupplierBillSchedule,
+    SupplierBillSchedulePayload,
+    SupplierBillState,
+    SupplierBillPaymentType,
+)
 from .system_company import SystemCompanyAPI
 from .task import TaskState, Task, TaskDelta
 from .transfer import TransferAPI, TransferState
