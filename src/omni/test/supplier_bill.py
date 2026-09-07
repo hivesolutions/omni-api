@@ -370,9 +370,5 @@ class SupplierBillTest(TestCase):
             self.assertEqual(kwargs["data_m"], payload)
             self.assertEqual(kwargs["data_m"]["files"][0][2], b"receipt data")
         self.assertEqual(payload.get("files"), files)
-        self.assertEqual(
-            self.api._message_payload_options_supplier_bill(
-                dict(body="Receipt", files=[])
-            ),
-            dict(data_j=dict(body="Receipt")),
-        )
+        self.api.create_message_supplier_bill(1, {"body": "Receipt", "files": []})
+        self.assertEqual(self.api.requests[-1][2], dict(data_j=dict(body="Receipt")))
