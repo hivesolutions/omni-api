@@ -2,7 +2,6 @@ from typing import Any, Literal, Mapping, NoReturn, NotRequired, Sequence, Typed
 
 from appier import OAuth2API
 
-from .approval_request import ApprovalRequestAPI
 from .consignment import ConsignmentAPI
 from .customer import CustomerAPI
 from .document import DocumentAPI
@@ -165,11 +164,8 @@ OAuthScopeT = Literal[
     "purchases.supplier_bill.create",
     "purchases.supplier_bill.show",
     "purchases.supplier_bill.update",
-    "purchases.supplier_bill.approve",
-    "purchases.supplier_bill.request",
     "purchases.supplier_bill.cancel",
     "purchases.supplier_bill_payment.create",
-    "purchases.supplier_bill_payment.request",
     "purchases.supplier_bill_payment.reverse",
     "sales.credit_note.list",
     "sales.credit_note.show",
@@ -261,7 +257,6 @@ class API(
     InventoryCheckAPI,
     SignedDocumentAPI,
     RepairOperationAPI,
-    ApprovalRequestAPI,
 ):
     base_url: str
     open_url: str

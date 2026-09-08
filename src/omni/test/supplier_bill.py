@@ -105,28 +105,6 @@ class SupplierBillTest(TestCase):
         self.assertEqual(result, {})
         self.assertEqual(kwargs["data_j"], payload)
 
-    def test_approve_supplier_bill(self) -> None:
-        result = self.api.approve_supplier_bill(1)
-
-        method, url, kwargs = self.api.requests[0]
-        self.assertEqual(method, "PUT")
-        self.assertEqual(
-            url, "http://localhost:8080/omni/supplier_bills/1/approve.json"
-        )
-        self.assertEqual(result, {})
-        self.assertEqual(kwargs, {})
-
-    def test_request_supplier_bill(self) -> None:
-        result = self.api.request_supplier_bill(1)
-
-        method, url, kwargs = self.api.requests[0]
-        self.assertEqual(method, "POST")
-        self.assertEqual(
-            url, "http://localhost:8080/omni/supplier_bills/1/request.json"
-        )
-        self.assertEqual(result, {})
-        self.assertEqual(kwargs, {})
-
     def test_cancel_supplier_bill(self) -> None:
         payload: SupplierBillReasonPayload = {"reason": "Incorrect reference"}
         result = self.api.cancel_supplier_bill(1, payload)
@@ -181,26 +159,6 @@ class SupplierBillTest(TestCase):
         self.assertEqual(method, "POST")
         self.assertEqual(
             url, "http://localhost:8080/omni/supplier_bills/1/payments.json"
-        )
-        self.assertEqual(result, {})
-        self.assertEqual(kwargs["data_j"], payload)
-
-    def test_request_payment_supplier_bill(self) -> None:
-        payload: SupplierBillPaymentPayload = {
-            "supplier_bill_payment": {
-                "entry_type": 1,
-                "applied_amount": 30,
-                "currency": "EUR",
-                "description": "Statement 1",
-                "request_key": "statement-1",
-            }
-        }
-        result = self.api.request_payment_supplier_bill(1, payload)
-
-        method, url, kwargs = self.api.requests[0]
-        self.assertEqual(method, "POST")
-        self.assertEqual(
-            url, "http://localhost:8080/omni/supplier_bills/1/payments/request.json"
         )
         self.assertEqual(result, {})
         self.assertEqual(kwargs["data_j"], payload)

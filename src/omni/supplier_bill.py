@@ -59,16 +59,6 @@ class SupplierBillAPI(object):
         contents = self.post(url, data_j=payload)
         return contents
 
-    def approve_supplier_bill(self, object_id):
-        url = self.base_url + "omni/supplier_bills/%d/approve.json" % object_id
-        contents = self.put(url)
-        return contents
-
-    def request_supplier_bill(self, object_id):
-        url = self.base_url + "omni/supplier_bills/%d/request.json" % object_id
-        contents = self.post(url)
-        return contents
-
     def cancel_supplier_bill(self, object_id, payload):
         url = self.base_url + "omni/supplier_bills/%d/cancel.json" % object_id
         contents = self.put(url, data_j=payload)
@@ -88,11 +78,6 @@ class SupplierBillAPI(object):
 
     def create_payment_supplier_bill(self, object_id, payload):
         url = self.base_url + "omni/supplier_bills/%d/payments.json" % object_id
-        contents = self.post(url, data_j=payload)
-        return contents
-
-    def request_payment_supplier_bill(self, object_id, payload):
-        url = self.base_url + "omni/supplier_bills/%d/payments/request.json" % object_id
         contents = self.post(url, data_j=payload)
         return contents
 
@@ -191,9 +176,8 @@ class SupplierBillReport(dict):
 
 
 class SupplierBillState(object):
-    PENDING = 1
-    APPROVED = 2
-    CANCELED = 3
+    OPEN = 1
+    CANCELED = 2
 
 
 class SupplierBillPaymentType(object):

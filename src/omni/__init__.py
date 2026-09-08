@@ -26,7 +26,6 @@ __license__ = "Apache License, Version 2.0"
 """ The license for the module """
 
 from . import address
-from . import approval_request
 from . import base
 from . import company
 from . import consignment
@@ -90,7 +89,6 @@ from . import workflow_operation
 
 from .models import *
 from .base import BASE_URL, API, Base, BaseDelta, Status, Flag
-from .approval_request import ApprovalRequestAPI, ApprovalRequest
 from .consignment import ConsignmentAPI, ConsignmentState
 from .consignment_out import ConsignmentOutAPI
 from .consignment_slip import ConsignmentSlipAPI

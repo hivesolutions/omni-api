@@ -68,7 +68,6 @@ from . import consignment_out
 from . import consignment_slip
 from . import stock_adjustment
 from . import repair_operation
-from . import approval_request
 
 BASE_URL = "http://localhost:8080/mvc/"
 """ The default base URL to be used when no other
@@ -136,7 +135,6 @@ class API(
     consignment_slip.ConsignmentSlipAPI,
     stock_adjustment.StockAdjustmentAPI,
     repair_operation.RepairOperationAPI,
-    approval_request.ApprovalRequestAPI,
 ):
 
     def __init__(self, *args, **kwargs):

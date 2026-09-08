@@ -7,11 +7,10 @@ from .payment import Payment
 from .purchase import Purchase
 from .supplier import Supplier
 from .operation import Operation
-from .approval_request import ApprovalRequest
 from .workflow_message import WorkflowMessage
 from .workflow_operation import WorkflowEvent, WorkflowOperation, WorkflowOperationDelta
 
-SupplierBillStateT = Literal[1, 2, 3]
+SupplierBillStateT = Literal[1, 2]
 SupplierBillPaymentTypeT = Literal[1, 2, 3, 4, 5]
 SupplierBillSettlementStateT = Literal[
     "unconfirmed", "unpaid", "partially_paid", "paid"
@@ -19,9 +18,8 @@ SupplierBillSettlementStateT = Literal[
 SupplierBillAgingBucketT = Literal["current", "1-30", "31-60", "61-90", "90+"]
 
 class SupplierBillState:
-    PENDING: Literal[1] = ...
-    APPROVED: Literal[2] = ...
-    CANCELED: Literal[3] = ...
+    OPEN: Literal[1] = ...
+    CANCELED: Literal[2] = ...
 
 class SupplierBillPaymentType:
     PAYMENT: Literal[1] = ...
@@ -127,8 +125,6 @@ class SupplierBillAPI(object):
     def update_supplier_bill(
         self, object_id: int, payload: SupplierBillPayload
     ) -> SupplierBill: ...
-    def approve_supplier_bill(self, object_id: int) -> SupplierBill: ...
-    def request_supplier_bill(self, object_id: int) -> ApprovalRequest: ...
     def cancel_supplier_bill(
         self, object_id: int, payload: SupplierBillReasonPayload
     ) -> SupplierBill: ...
@@ -137,9 +133,6 @@ class SupplierBillAPI(object):
     def create_payment_supplier_bill(
         self, object_id: int, payload: SupplierBillPaymentPayload
     ) -> SupplierBillPayment: ...
-    def request_payment_supplier_bill(
-        self, object_id: int, payload: SupplierBillPaymentPayload
-    ) -> ApprovalRequest: ...
     def reverse_payment_supplier_bill(
         self, object_id: int, payment_id: int, payload: SupplierBillReasonPayload
     ) -> SupplierBillPayment: ...

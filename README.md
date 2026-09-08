@@ -97,7 +97,7 @@ Omni API is currently licensed under the [Apache License, Version 2.0](http://ww
 
 ## Accounts Payable
 
-Supplier bills link existing purchases to their payment and approval workflow. Read the
+Supplier bills link existing purchases to their payment workflow. Read the
 [settlement contract](https://github.com/hivesolutions/omni/blob/feat/accounts-payable/doc/design/010-accounts_payable.md)
 for opening balances, supplier credits, returns, currency handling and reversals.
 
@@ -109,7 +109,6 @@ bill = api.create_supplier_bill({
         "payment_terms_days": 30,
     }
 })
-api.approve_supplier_bill(bill["object_id"])
 api.create_payment_supplier_bill(bill["object_id"], {
     "supplier_bill_payment": {
         "entry_type": 2,
@@ -127,8 +126,6 @@ payment already made, type 3 records supplier credit, type 4 records a refund an
 type 5 applies credit from another bill. These methods do not initiate provider
 payments. Use a stable request key for a retry of the same registration.
 
-Use `request_supplier_bill` or `request_payment_supplier_bill` when policy requires
-a separate checker, then the approval-request methods to review the request.
 `get_permissions_supplier_bill` returns the server's action permissions. All routes
 continue to enforce permissions and validate the current balance on the server.
 
