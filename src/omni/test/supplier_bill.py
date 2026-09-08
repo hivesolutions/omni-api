@@ -28,11 +28,12 @@ __copyright__ = "Copyright (c) 2008-2024 Hive Solutions Lda."
 __license__ = "Apache License, Version 2.0"
 """ The license for the module """
 
+from email.parser import BytesParser
 from typing import TYPE_CHECKING
 from unittest import TestCase
-from unittest.mock import MagicMock
+from unittest.mock import MagicMock, patch
 
-from .base import build_mock
+from .base import build_api, build_mock
 
 if TYPE_CHECKING:
     from omni.supplier_bill import (
@@ -95,6 +96,23 @@ class SupplierBillTest(TestCase):
         self.assertEqual(result, {})
         self.assertEqual(kwargs, {})
 
+    def test_get_supplier_bill_response(self) -> None:
+        api = build_api()
+        api.session_id = "session"
+        response = MagicMock()
+        response.read.return_value = (
+            b'{"bill_payments": [{"entry_type": 2, "payment_method": null}]}'
+        )
+        response.getcode.return_value = 200
+        response.info.return_value = {"Content-Type": "application/json"}
+        with patch("appier.http._resolve", return_value=response):
+            result = api.get_supplier_bill(1)
+
+        payments = result.get("bill_payments") or []
+        self.assertEqual(len(payments), 1)
+        self.assertEqual(payments[0]["entry_type"], 2)
+        self.assertEqual(payments[0]["payment_method"], None)
+
     def test_update_supplier_bill(self) -> None:
         payload: SupplierBillPayload = {"supplier_bill": {"reference": "statement-1"}}
         result = self.api.update_supplier_bill(1, payload)
@@ -142,6 +160,20 @@ class SupplierBillTest(TestCase):
             kwargs,
             dict(filters=["supplier:equals:7"], start_record=10, number_records=5),
         )
+
+    def test_export_supplier_bills_response(self) -> None:
+        api = build_api()
+        api.session_id = "session"
+        contents = b"object_id,currency\r\n1,EUR\r\n"
+        response = MagicMock()
+        response.read.return_value = contents
+        response.getcode.return_value = 200
+        response.info.return_value = {"Content-Type": "text/csv; charset=utf-8"}
+        with patch("appier.http._resolve", return_value=response):
+            result: bytes = api.export_supplier_bills()
+
+        self.assertEqual(result, contents)
+        self.assertIsInstance(result, bytes)
 
     def test_create_payment_supplier_bill(self) -> None:
         payload: SupplierBillPaymentPayload = {
@@ -246,8 +278,52 @@ class SupplierBillTest(TestCase):
         self.api.update_message_supplier_bill(1, 2, payload)
         for method, url, kwargs in self.api.requests:
             self.assertEqual(method, "POST")
-            self.assertEqual(kwargs["data_m"], payload)
-            self.assertEqual(kwargs["data_m"]["files"][0][2], b"receipt data")
+            self.assertEqual(kwargs["data_m"], {"body": "Receipt", "files[]": files})
+            self.assertEqual(kwargs["data_m"]["files[]"][0][2], b"receipt data")
         self.assertEqual(payload.get("files"), files)
-        self.api.create_message_supplier_bill(1, {"body": "Receipt", "files": []})
-        self.assertEqual(self.api.requests[-1][2], dict(data_j=dict(body="Receipt")))
+
+    def test_message_payload_options_supplier_bill_empty(self) -> None:
+        for files in ([], ()):
+            payload: SupplierBillMessagePayload = {"body": "Receipt", "files": files}
+            self.api.create_message_supplier_bill(1, payload)
+            self.api.update_message_supplier_bill(1, 2, payload)
+            self.assertEqual(payload, {"body": "Receipt", "files": files})
+        for method, url, kwargs in self.api.requests:
+            self.assertEqual(kwargs, dict(data_j=dict(body="Receipt")))
+
+    def test_message_payload_options_supplier_bill_multipart(self) -> None:
+        api = build_api()
+        api.session_id = "session"
+        response = MagicMock()
+        response.read.return_value = b"{}"
+        response.getcode.return_value = 200
+        response.info.return_value = {"Content-Type": "application/json"}
+        receipt = ("receipt.pdf", "application/pdf", b"receipt\x00data")
+        empty = ("empty.txt", "text/plain", b"")
+        for files in ([receipt], (receipt,), [receipt, empty], (receipt, empty)):
+            payload: SupplierBillMessagePayload = {"body": "Receipt", "files": files}
+            for update in (False, True):
+                with patch("appier.http._resolve", return_value=response) as resolve:
+                    if update:
+                        api.update_message_supplier_bill(1, 2, payload)
+                    else:
+                        api.create_message_supplier_bill(1, payload)
+
+                args = resolve.call_args[0]
+                headers = "Content-Type: %s\r\n\r\n" % args[2]["Content-Type"]
+                message = BytesParser().parsebytes(headers.encode("utf-8") + args[3])
+                parts = [part for part in message.walk() if not part.is_multipart()]
+                self.assertEqual(len(parts), len(files) + 1)
+                self.assertEqual(
+                    parts[0].get_param("name", header="Content-Disposition"), "body"
+                )
+                self.assertEqual(parts[0].get_payload(decode=True), b"Receipt")
+                for part, (name, content_type, contents) in zip(parts[1:], files):
+                    self.assertEqual(
+                        part.get_param("name", header="Content-Disposition"), "files[]"
+                    )
+                    self.assertEqual(part.get_filename(), name)
+                    self.assertEqual(part.get_content_type(), content_type)
+                    self.assertEqual(part.get_payload(decode=True), contents)
+                self.assertEqual(payload, {"body": "Receipt", "files": files})
+                self.assertIs(payload["files"], files)

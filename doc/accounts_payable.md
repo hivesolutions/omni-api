@@ -8,6 +8,8 @@ for opening balances, supplier credits, returns, currency handling and reversals
 ## Creating a Supplier Bill
 
 Create a bill for an existing purchase with its supplier reference and payment terms.
+The `purchase` relation is required when creating a bill. Updates can omit it; the
+linked purchase cannot be changed.
 
 ```python
 bill = api.create_supplier_bill({

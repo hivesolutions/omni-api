@@ -68,7 +68,7 @@ class SupplierBillPayment(Operation):
     application_date: float
     currency: str
     request_key: str
-    payment_method: str
+    payment_method: str | None
     reversed: Literal[0, 1]
     reversal_date: float | None
     reversal_reason: str | None
@@ -129,7 +129,7 @@ class SupplierBillAPI(object):
         self, object_id: int, payload: SupplierBillReasonPayload
     ) -> SupplierBill: ...
     def report_supplier_bills(self, *args, **kwargs) -> SupplierBillReport: ...
-    def export_supplier_bills(self, *args, **kwargs) -> str | bytes: ...
+    def export_supplier_bills(self, *args, **kwargs) -> bytes: ...
     def create_payment_supplier_bill(
         self, object_id: int, payload: SupplierBillPaymentPayload
     ) -> SupplierBillPayment: ...

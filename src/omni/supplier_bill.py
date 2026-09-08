@@ -131,7 +131,7 @@ class SupplierBillAPI(object):
         files = payload.pop("files", None)
         if not files:
             return dict(data_j=payload)
-        payload["files"] = files
+        payload["files[]"] = list(files)
         return dict(data_m=payload)
 
 

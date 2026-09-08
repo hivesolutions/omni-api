@@ -47,7 +47,7 @@ that should be used to redeem the `access_token` required for session authentica
 
 ## Documentation
 
-Documentation is available [here](doc/README.md).
+See the [documentation index](doc/README.md).
 
 ## Examples
 
