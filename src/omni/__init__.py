@@ -148,10 +148,6 @@ from .supplier_bill import (
     SupplierBillPayload,
     SupplierBillPayment,
     SupplierBillPaymentPayload,
-    SupplierBillInstalment,
-    SupplierBillInstalmentPayload,
-    SupplierBillSchedule,
-    SupplierBillSchedulePayload,
     SupplierBillState,
     SupplierBillPaymentType,
 )

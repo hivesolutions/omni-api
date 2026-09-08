@@ -1,6 +1,6 @@
 from typing import Literal, Mapping, NotRequired, Sequence, TypedDict
 
-from .base import Base, BaseDelta, BaseReference, Result
+from .base import BaseDelta, BaseReference, Result
 from .user import BaseUser
 from .store import FunctionalUnit
 from .payment import Payment
@@ -44,7 +44,6 @@ class SupplierBill(WorkflowOperation[SupplierBillStateT]):
     outstanding_amount: float
     credit_amount: float
     balance_confirmed: Literal[0, 1]
-    notified_date: float | None
     observations: str | None
     purchase: Purchase
     supplier: Supplier
@@ -53,7 +52,6 @@ class SupplierBill(WorkflowOperation[SupplierBillStateT]):
     aging_bucket: SupplierBillAgingBucketT
     overdue: bool
     bill_payments: NotRequired[Sequence[SupplierBillPayment]]
-    instalments: NotRequired[Sequence[SupplierBillInstalment]]
 
 class SupplierBillDelta(WorkflowOperationDelta):
     purchase: NotRequired[BaseReference]
@@ -83,7 +81,6 @@ class SupplierBillPayment(Operation):
     supplier_bill: WorkflowOperation[SupplierBillStateT]
     source_bill: WorkflowOperation[SupplierBillStateT] | None
     supplier_return: Operation | None
-    instalment: SupplierBillInstalment | None
     payment: Payment | None
     create_user: BaseUser | None
     modify_user: BaseUser | None
@@ -99,43 +96,9 @@ class SupplierBillPaymentDelta(BaseDelta):
     ]
     source_bill: NotRequired[BaseReference]
     supplier_return: NotRequired[BaseReference]
-    instalment: NotRequired[BaseReference]
 
 class SupplierBillPaymentPayload(BaseDelta):
     supplier_bill_payment: SupplierBillPaymentDelta
-
-class SupplierBillInstalment(Base):
-    due_date: float
-    amount: float
-    enabled: Literal[0, 1]
-    outstanding_amount: NotRequired[float]
-
-class SupplierBillInstalmentDelta(BaseDelta):
-    due_date: NotRequired[float]
-    amount: NotRequired[float]
-    enabled: NotRequired[Literal[0, 1]]
-
-class SupplierBillInstalmentPayload(BaseDelta):
-    supplier_bill_instalment: SupplierBillInstalmentDelta
-
-class SupplierBillSchedule(Base):
-    name: str
-    amount: float
-    interval_days: int
-    next_due_date: float
-    enabled: Literal[0, 1]
-    recursion_string: str
-    last_execution_date: float | None
-
-class SupplierBillScheduleDelta(BaseDelta):
-    name: NotRequired[str]
-    amount: NotRequired[float]
-    interval_days: NotRequired[int]
-    next_due_date: NotRequired[float]
-    enabled: NotRequired[Literal[0, 1]]
-
-class SupplierBillSchedulePayload(BaseDelta):
-    supplier_bill_schedule: SupplierBillScheduleDelta
 
 class SupplierBillReasonPayload(TypedDict):
     reason: str
@@ -180,21 +143,6 @@ class SupplierBillAPI(object):
     def reverse_payment_supplier_bill(
         self, object_id: int, payment_id: int, payload: SupplierBillReasonPayload
     ) -> SupplierBillPayment: ...
-    def create_instalment_supplier_bill(
-        self, object_id: int, payload: SupplierBillInstalmentPayload
-    ) -> SupplierBillInstalment: ...
-    def update_instalment_supplier_bill(
-        self, object_id: int, instalment_id: int, payload: SupplierBillInstalmentPayload
-    ) -> SupplierBillInstalment: ...
-    def list_schedules_supplier_bill(
-        self, object_id: int
-    ) -> Sequence[SupplierBillSchedule]: ...
-    def create_schedule_supplier_bill(
-        self, object_id: int, payload: SupplierBillSchedulePayload
-    ) -> SupplierBillSchedule: ...
-    def update_schedule_supplier_bill(
-        self, object_id: int, schedule_id: int, payload: SupplierBillSchedulePayload
-    ) -> SupplierBillSchedule: ...
     def list_messages_supplier_bill(
         self, object_id: int
     ) -> Sequence[WorkflowEvent]: ...

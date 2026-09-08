@@ -104,37 +104,6 @@ class SupplierBillAPI(object):
         contents = self.put(url, data_j=payload)
         return contents
 
-    def create_instalment_supplier_bill(self, object_id, payload):
-        url = self.base_url + "omni/supplier_bills/%d/instalments.json" % object_id
-        contents = self.post(url, data_j=payload)
-        return contents
-
-    def update_instalment_supplier_bill(self, object_id, instalment_id, payload):
-        url = self.base_url + "omni/supplier_bills/%d/instalments/%d/update.json" % (
-            object_id,
-            instalment_id,
-        )
-        contents = self.post(url, data_j=payload)
-        return contents
-
-    def list_schedules_supplier_bill(self, object_id):
-        url = self.base_url + "omni/supplier_bills/%d/schedules.json" % object_id
-        contents = self.get(url)
-        return contents
-
-    def create_schedule_supplier_bill(self, object_id, payload):
-        url = self.base_url + "omni/supplier_bills/%d/schedules.json" % object_id
-        contents = self.post(url, data_j=payload)
-        return contents
-
-    def update_schedule_supplier_bill(self, object_id, schedule_id, payload):
-        url = self.base_url + "omni/supplier_bills/%d/schedules/%d/update.json" % (
-            object_id,
-            schedule_id,
-        )
-        contents = self.post(url, data_j=payload)
-        return contents
-
     def list_messages_supplier_bill(self, object_id):
         url = self.base_url + "omni/supplier_bills/%d/messages.json" % object_id
         contents = self.get(url)
@@ -202,30 +171,6 @@ class SupplierBillPaymentDelta(dict):
 
 
 class SupplierBillPaymentPayload(dict):
-    pass
-
-
-class SupplierBillInstalment(dict):
-    pass
-
-
-class SupplierBillInstalmentDelta(dict):
-    pass
-
-
-class SupplierBillInstalmentPayload(dict):
-    pass
-
-
-class SupplierBillSchedule(dict):
-    pass
-
-
-class SupplierBillScheduleDelta(dict):
-    pass
-
-
-class SupplierBillSchedulePayload(dict):
     pass
 
 

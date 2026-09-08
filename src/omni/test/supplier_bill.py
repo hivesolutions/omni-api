@@ -38,8 +38,6 @@ if TYPE_CHECKING:
     from omni.supplier_bill import (
         SupplierBillPayload,
         SupplierBillPaymentPayload,
-        SupplierBillInstalmentPayload,
-        SupplierBillSchedulePayload,
         SupplierBillReasonPayload,
         SupplierBillMessagePayload,
     )
@@ -215,83 +213,6 @@ class SupplierBillTest(TestCase):
         self.assertEqual(method, "PUT")
         self.assertEqual(
             url, "http://localhost:8080/omni/supplier_bills/1/payments/2/reverse.json"
-        )
-        self.assertEqual(result, {})
-        self.assertEqual(kwargs["data_j"], payload)
-
-    def test_create_instalment_supplier_bill(self) -> None:
-        payload: SupplierBillInstalmentPayload = {
-            "supplier_bill_instalment": {"amount": 30, "due_date": 1790812800}
-        }
-        result = self.api.create_instalment_supplier_bill(1, payload)
-
-        method, url, kwargs = self.api.requests[0]
-        self.assertEqual(method, "POST")
-        self.assertEqual(
-            url, "http://localhost:8080/omni/supplier_bills/1/instalments.json"
-        )
-        self.assertEqual(result, {})
-        self.assertEqual(kwargs["data_j"], payload)
-
-    def test_update_instalment_supplier_bill(self) -> None:
-        payload: SupplierBillInstalmentPayload = {
-            "supplier_bill_instalment": {"amount": 30, "due_date": 1790812800}
-        }
-        result = self.api.update_instalment_supplier_bill(1, 2, payload)
-
-        method, url, kwargs = self.api.requests[0]
-        self.assertEqual(method, "POST")
-        self.assertEqual(
-            url, "http://localhost:8080/omni/supplier_bills/1/instalments/2/update.json"
-        )
-        self.assertEqual(result, {})
-        self.assertEqual(kwargs["data_j"], payload)
-
-    def test_list_schedules_supplier_bill(self) -> None:
-        result = self.api.list_schedules_supplier_bill(1)
-
-        method, url, kwargs = self.api.requests[0]
-        self.assertEqual(method, "GET")
-        self.assertEqual(
-            url, "http://localhost:8080/omni/supplier_bills/1/schedules.json"
-        )
-        self.assertEqual(result, {})
-        self.assertEqual(kwargs, {})
-
-    def test_create_schedule_supplier_bill(self) -> None:
-        payload: SupplierBillSchedulePayload = {
-            "supplier_bill_schedule": {
-                "name": "Monthly",
-                "amount": 30,
-                "interval_days": 30,
-                "next_due_date": 1790812800,
-            }
-        }
-        result = self.api.create_schedule_supplier_bill(1, payload)
-
-        method, url, kwargs = self.api.requests[0]
-        self.assertEqual(method, "POST")
-        self.assertEqual(
-            url, "http://localhost:8080/omni/supplier_bills/1/schedules.json"
-        )
-        self.assertEqual(result, {})
-        self.assertEqual(kwargs["data_j"], payload)
-
-    def test_update_schedule_supplier_bill(self) -> None:
-        payload: SupplierBillSchedulePayload = {
-            "supplier_bill_schedule": {
-                "name": "Monthly",
-                "amount": 30,
-                "interval_days": 30,
-                "next_due_date": 1790812800,
-            }
-        }
-        result = self.api.update_schedule_supplier_bill(1, 2, payload)
-
-        method, url, kwargs = self.api.requests[0]
-        self.assertEqual(method, "POST")
-        self.assertEqual(
-            url, "http://localhost:8080/omni/supplier_bills/1/schedules/2/update.json"
         )
         self.assertEqual(result, {})
         self.assertEqual(kwargs["data_j"], payload)
