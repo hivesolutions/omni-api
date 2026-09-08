@@ -45,6 +45,10 @@ the user must be redirect to the url provided by `api.oauth_autorize` method cal
 Running then the `api.oauth_access` call with the returned `code` from the server side
 that should be used to redeem the `access_token` required for session authentication.
 
+## Documentation
+
+See the [documentation index](doc/README.md).
+
 ## Examples
 
 Examples are located [here](src/examples).

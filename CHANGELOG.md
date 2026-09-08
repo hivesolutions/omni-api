@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+* Support for supplier bills, manual purchase payments, historical adjustments, credits, refunds, attachments and payable reports
+* Accounts payable usage guide and documentation index
 * Support for the update and delete store operations
 * Typed supplier company listing and retrieval with the supplier hierarchy
 
@@ -18,6 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+* Supplier bill attachment uploads and response types
 * Store code typed as always present and functional unit relations no longer claim store level fields
 * Relation optionality audited against the eager loading of every list and show retrieval
 

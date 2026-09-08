@@ -25,6 +25,7 @@ from .signed_document import SignedDocumentAPI
 from .status import StatusAPI
 from .store import StoreAPI
 from .supplier import SupplierAPI
+from .supplier_bill import SupplierBillAPI
 from .system_company import SystemCompany, SystemCompanyAPI
 from .transfer import TransferAPI
 from .user import BaseUser, UserAPI
@@ -159,6 +160,13 @@ OAuthScopeT = Literal[
     "purchases.purchase_transaction.list",
     "purchases.purchase_transaction.create",
     "purchases.purchase_transaction.show",
+    "purchases.supplier_bill.list",
+    "purchases.supplier_bill.create",
+    "purchases.supplier_bill.show",
+    "purchases.supplier_bill.update",
+    "purchases.supplier_bill.cancel",
+    "purchases.supplier_bill_payment.create",
+    "purchases.supplier_bill_payment.reverse",
     "sales.credit_note.list",
     "sales.credit_note.show",
     "sales.customer_return.list",
@@ -243,6 +251,7 @@ class API(
     ConsignmentAPI,
     IdentifiableAPI,
     SaleSnapshotAPI,
+    SupplierBillAPI,
     SystemCompanyAPI,
     MoneySaleSlipAPI,
     InventoryCheckAPI,

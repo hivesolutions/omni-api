@@ -58,6 +58,7 @@ from . import merchandise
 from . import consignment
 from . import identifiable
 from . import sale_snapshot
+from . import supplier_bill
 from . import inventory_line
 from . import system_company
 from . import money_sale_slip
@@ -124,6 +125,7 @@ class API(
     consignment.ConsignmentAPI,
     identifiable.IdentifiableAPI,
     sale_snapshot.SaleSnapshotAPI,
+    supplier_bill.SupplierBillAPI,
     inventory_line.InventoryLineAPI,
     system_company.SystemCompanyAPI,
     money_sale_slip.MoneySaleSlipAPI,
