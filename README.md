@@ -17,8 +17,7 @@ Simple REST API wrapper for the Omni infra-structure.
 
 ## Usage
 
-Typical usage of the Omni client implies the providing of the username and the
-password inside the target omni instance (Direct Mode).
+Typical usage of the Omni client implies the providing of the username and the password inside the target omni instance (Direct Mode).
 
 ```python
 api = omni.Api(
@@ -28,8 +27,7 @@ api = omni.Api(
 )
 ```
 
-Alternatively it's possible to use the api throught an OAuth base approach using
-the provided client id and secret values.
+Alternatively it's possible to use the api throught an OAuth base approach using the provided client id and secret values.
 
 ```python
 api = omni.Api(
@@ -39,11 +37,9 @@ api = omni.Api(
 )
 ```
 
-For these type of handling the `OAuthAccessError` exception must be handled and then
-the user must be redirect to the url provided by `api.oauth_autorize` method call.
+For these type of handling the `OAuthAccessError` exception must be handled and then the user must be redirect to the url provided by `api.oauth_autorize` method call.
 
-Running then the `api.oauth_access` call with the returned `code` from the server side
-that should be used to redeem the `access_token` required for session authentication.
+Running then the `api.oauth_access` call with the returned `code` from the server side that should be used to redeem the `access_token` required for session authentication.
 
 ## Documentation
 
