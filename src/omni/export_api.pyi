@@ -52,7 +52,7 @@ class ExportDigests(TypedDict):
 class ExportPairs(TypedDict):
     start_id: int
     end_id: int
-    pairs: Sequence[Sequence[float]]
+    pairs: Sequence[tuple[int, float]]
 
 class ExportEntityCursor(TypedDict):
     after_id: int

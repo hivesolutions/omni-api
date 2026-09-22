@@ -29,8 +29,9 @@ __license__ = "Apache License, Version 2.0"
 """ The license for the module """
 
 from unittest import TestCase
+from unittest.mock import MagicMock, patch
 
-from .base import build_mock
+from .base import build_api, build_mock
 
 
 class ExportAPITest(TestCase):
@@ -72,6 +73,29 @@ class ExportAPITest(TestCase):
         self.assertEqual(url, "http://localhost:8080/omni/export/digests.json")
         self.assertEqual(result, {})
         self.assertEqual(kwargs, dict(start_id=0, end_id=1000, pairs=True))
+
+    def test_export_digests_response(self) -> None:
+        api = build_api()
+        api.session_id = "session"
+        response = MagicMock()
+        response.read.return_value = (
+            b'{"start_id": 0, "end_id": 1000, '
+            b'"pairs": [[1, 1790000000.5], [2, 1790000001.0]]}'
+        )
+        response.getcode.return_value = 200
+        response.info.return_value = {"Content-Type": "application/json"}
+        with patch("appier.http._resolve", return_value=response):
+            result = api.export_digests(start_id=0, end_id=1000, pairs=True)
+
+        if "pairs" not in result:
+            self.fail("pairs expected")
+        self.assertEqual(len(result["pairs"]), 2)
+        pair: tuple[int, float] = result["pairs"][0]
+        object_id, mtime = pair
+        self.assertEqual(object_id, 1)
+        self.assertEqual(mtime, 1790000000.5)
+        self.assertIsInstance(object_id, int)
+        self.assertIsInstance(mtime, float)
 
     def test_export_entities(self) -> None:
         result = self.api.export_entities("sale_transaction", ids="1,2,3")
