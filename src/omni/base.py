@@ -40,6 +40,7 @@ from . import entity
 from . import status
 from . import repair
 from . import script
+from . import export
 from . import return_
 from . import saft_pt
 from . import invoice
@@ -52,7 +53,6 @@ from . import transfer
 from . import document
 from . import employee
 from . import sale_order
-from . import export
 from . import credit_note
 from . import sub_product
 from . import merchandise
@@ -108,6 +108,7 @@ class API(
     status.StatusAPI,
     repair.RepairAPI,
     script.ScriptAPI,
+    export.ExportAPI,
     return_.ReturnAPI,
     saft_pt.SaftPtAPI,
     invoice.InvoiceAPI,
@@ -120,7 +121,6 @@ class API(
     document.DocumentAPI,
     employee.EmployeeAPI,
     sale_order.SaleOrderAPI,
-    export.ExportAPI,
     credit_note.CreditNoteAPI,
     sub_product.SubProductAPI,
     merchandise.MerchandiseAPI,

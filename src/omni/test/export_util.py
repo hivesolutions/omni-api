@@ -103,19 +103,20 @@ class ExportUtilTest(TestCase):
         self.assertRaises(KeyError, export_util.get_field, object, "address.zip")
 
     def test_open_export(self) -> None:
-        path = os.path.join(tempfile.mkdtemp(), "export.csv")
-        file = export_util.open_export(path)
-        try:
-            self.assertEqual(file.encoding, "latin-1")
-            self.assertEqual(file.errors, "ignore")
-            file.write("name;city\r\nJo\u00e3o;Lisbon \u20ac\r\n")
-        finally:
-            file.close()
+        with tempfile.TemporaryDirectory() as directory:
+            path = os.path.join(directory, "export.csv")
+            file = export_util.open_export(path)
+            try:
+                self.assertEqual(file.encoding, "latin-1")
+                self.assertEqual(file.errors, "ignore")
+                file.write("name;city\r\nJo\u00e3o;Lisbon \u20ac\r\n")
+            finally:
+                file.close()
 
-        # the file is written in latin-1 without newline translation,
-        # dropping the characters the encoding cannot represent
-        with open(path, "rb") as _file:
-            self.assertEqual(_file.read(), b"name;city\r\nJo\xe3o;Lisbon \r\n")
+            # the file is written in latin-1 without newline translation,
+            # dropping the characters the encoding cannot represent
+            with open(path, "rb") as _file:
+                self.assertEqual(_file.read(), b"name;city\r\nJo\xe3o;Lisbon \r\n")
 
     def test_export(self) -> None:
         objects = [

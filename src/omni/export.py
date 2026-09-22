@@ -32,6 +32,7 @@ from . import util
 
 
 class ExportAPI(object):
+
     def export_schema(self):
         url = self.base_url + "omni/export/schema.json"
         contents = self.get(url)
@@ -62,7 +63,15 @@ class ExportAPI(object):
         return contents
 
 
-class ExportSchema(dict):
+class ExportIdentifier(dict):
+    pass
+
+
+class ExportField(dict):
+    pass
+
+
+class ExportRelation(dict):
     pass
 
 
@@ -70,7 +79,19 @@ class ExportEntity(dict):
     pass
 
 
+class ExportSchema(dict):
+    pass
+
+
+class ExportCursor(dict):
+    pass
+
+
 class ExportChanges(dict):
+    pass
+
+
+class ExportRange(dict):
     pass
 
 
@@ -79,6 +100,10 @@ class ExportDigests(dict):
 
 
 class ExportPairs(dict):
+    pass
+
+
+class ExportEntityCursor(dict):
     pass
 
 

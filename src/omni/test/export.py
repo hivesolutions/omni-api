@@ -28,13 +28,18 @@ __copyright__ = "Copyright (c) 2008-2024 Hive Solutions Lda."
 __license__ = "Apache License, Version 2.0"
 """ The license for the module """
 
+import os
+import re
 from unittest import TestCase
 from unittest.mock import MagicMock, patch
+
+from omni import export
 
 from .base import build_api, build_mock
 
 
 class ExportAPITest(TestCase):
+
     def setUp(self) -> None:
         TestCase.setUp(self)
         self.api = build_mock()
@@ -87,7 +92,7 @@ class ExportAPITest(TestCase):
         with patch("appier.http._resolve", return_value=response):
             result = api.export_digests(start_id=0, end_id=1000, pairs=True)
 
-        if "pairs" not in result:
+        if not "pairs" in result:
             self.fail("pairs expected")
         self.assertEqual(len(result["pairs"]), 2)
         pair: tuple[int, float] = result["pairs"][0]
@@ -121,3 +126,21 @@ class ExportAPITest(TestCase):
         )
         self.assertEqual(result, {})
         self.assertEqual(kwargs, dict(until_mtime=1790000000.0))
+
+    def test_markers(self) -> None:
+        # every type the stub declares has a marker in the module and
+        # nothing else does, so that a name the checker accepts from the
+        # module may be imported at runtime as well
+        path = os.path.splitext(export.__file__)[0] + ".pyi"
+        with open(path) as file:
+            names = re.findall(r"^class (\w+)\(TypedDict\):", file.read(), re.M)
+        markers = [
+            name
+            for name, value in vars(export).items()
+            if isinstance(value, type) and issubclass(value, dict)
+        ]
+
+        self.assertEqual(len(names), 13)
+        self.assertEqual(markers, names)
+        for name in names:
+            self.assertEqual(getattr(export, name)(), {})
