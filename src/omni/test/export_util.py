@@ -29,7 +29,7 @@ __license__ = "Apache License, Version 2.0"
 """ The license for the module """
 
 from unittest import TestCase
-from typing import Any
+from typing import Any, Mapping, Sequence
 import io
 import os
 import tempfile
@@ -105,8 +105,6 @@ class ExportUtilTest(TestCase):
     def test_open_export(self) -> None:
         path = os.path.join(tempfile.mkdtemp(), "export.csv")
         file = export_util.open_export(path)
-        if not isinstance(file, io.TextIOWrapper):
-            self.fail("text file expected")
         try:
             self.assertEqual(file.encoding, "latin-1")
             self.assertEqual(file.errors, "ignore")
@@ -132,7 +130,7 @@ class ExportUtilTest(TestCase):
             calls.append(object)
             return objects[object["skip"] : object["skip"] + object["limit"]]
 
-        def callback(index: int, objects: list[dict[str, Any]]) -> None:
+        def callback(index: int, objects: Sequence[Mapping[str, Any]]) -> None:
             ticks.append((index, len(objects)))
 
         file = io.StringIO()

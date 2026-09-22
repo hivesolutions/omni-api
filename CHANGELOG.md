@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Support for the update and delete store operations
 * Typed supplier company listing and retrieval with the supplier hierarchy
 * Support for the export of the business data through its schema, change stream, digests, snapshots and totals - [#204](https://github.com/hivesolutions/omni/issues/204)
+* Typed CSV export helpers, from the field conversions to the paged writing of a file
 
 ### Changed
 
