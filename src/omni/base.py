@@ -52,7 +52,7 @@ from . import transfer
 from . import document
 from . import employee
 from . import sale_order
-from . import export_api
+from . import export
 from . import credit_note
 from . import sub_product
 from . import merchandise
@@ -120,7 +120,7 @@ class API(
     document.DocumentAPI,
     employee.EmployeeAPI,
     sale_order.SaleOrderAPI,
-    export_api.ExportAPI,
+    export.ExportAPI,
     credit_note.CreditNoteAPI,
     sub_product.SubProductAPI,
     merchandise.MerchandiseAPI,

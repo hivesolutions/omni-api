@@ -42,7 +42,7 @@ from . import employee
 from . import entity
 from . import errors
 from . import export
-from . import export_api
+from . import export_util
 from . import identifiable
 from . import inventory_check
 from . import inventory_line
@@ -100,8 +100,7 @@ from .document import DocumentAPI, DocumentStatus, DocumentType
 from .employee import EmployeeAPI
 from .entity import EntityAPI
 from .errors import OmniError
-from .export import FUNCS, get_field, open_export
-from .export_api import (
+from .export import (
     ExportAPI,
     ExportSchema,
     ExportEntity,
@@ -111,6 +110,7 @@ from .export_api import (
     ExportEntities,
     ExportTotals,
 )
+from .export_util import FUNCS, get_field, open_export
 from .identifiable import IdentifiableAPI
 from .inventory_check import InventoryCheckAPI
 from .inventory_line import InventoryLineAPI
@@ -168,4 +168,4 @@ from .util import format_places, filter_args
 from .web import WebAPI
 from .workflow_message import WorkflowMessage, WorkflowMessagePayload
 
-from .export import export as export_do
+from .export_util import export as export_do

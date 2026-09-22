@@ -28,97 +28,63 @@ __copyright__ = "Copyright (c) 2008-2024 Hive Solutions Lda."
 __license__ = "Apache License, Version 2.0"
 """ The license for the module """
 
-import csv
-import datetime
-
-import appier
-
-STEP = 256
-""" The default step value to be used in the iteration
-around the values retrieved from the server side, a large
-value on this field may create some memory problems in the
-server and a large latency """
+from . import util
 
 
-def to_string(value, encoding=None):
-    if encoding and appier.legacy.is_unicode(value):
-        value = value.encode(encoding, "ignore")
-    return value
+class ExportAPI(object):
+    def export_schema(self):
+        url = self.base_url + "omni/export/schema.json"
+        contents = self.get(url)
+        return contents
+
+    def export_changes(self, *args, **kwargs):
+        util.filter_args(kwargs)
+        url = self.base_url + "omni/export/changes.json"
+        contents = self.get(url, **kwargs)
+        return contents
+
+    def export_digests(self, *args, **kwargs):
+        util.filter_args(kwargs)
+        url = self.base_url + "omni/export/digests.json"
+        contents = self.get(url, **kwargs)
+        return contents
+
+    def export_entities(self, entity, *args, **kwargs):
+        util.filter_args(kwargs)
+        url = self.base_url + "omni/export/%s.json" % entity
+        contents = self.get(url, **kwargs)
+        return contents
+
+    def export_totals(self, entity, *args, **kwargs):
+        util.filter_args(kwargs)
+        url = self.base_url + "omni/export/%s/totals.json" % entity
+        contents = self.get(url, **kwargs)
+        return contents
 
 
-def to_date(value, encoding=None):
-    try:
-        value_d = datetime.datetime.utcfromtimestamp(value)
-    except Exception:
-        return ""
-    return value_d.strftime("%Y-%m-%d")
+class ExportSchema(dict):
+    pass
 
 
-FUNCS = dict(string=to_string, date=to_date)
+class ExportEntity(dict):
+    pass
 
 
-def get_field(object, name, encoding="latin-1", type_m=dict()):
-    if appier.legacy.PYTHON_3:
-        encoding = None
-    name_l = name.split(".")
-
-    for key in name_l:
-        if not object:
-            break
-        object = object[key]
-
-    _type = type_m.get(name, "string")
-    func = FUNCS.get(_type, None)
-    object = func(object, encoding=encoding) if func and not object == None else object
-
-    return object
+class ExportChanges(dict):
+    pass
 
 
-def open_export(path):
-    if appier.legacy.PYTHON_3:
-        return open(path, "w", newline="", encoding="latin-1", errors="ignore")
-    else:
-        return open(path, "wb")
+class ExportDigests(dict):
+    pass
 
 
-def export(file, caller, attributes, names=None, type_m=None, step=STEP, callback=None):
-    names = names or attributes
-    type_m = type_m or dict()
+class ExportPairs(dict):
+    pass
 
-    csv_f = csv.writer(file, delimiter=";")
-    csv_f.writerow(names)
 
-    index = 0
+class ExportEntities(dict):
+    pass
 
-    while True:
-        # runs a tick operation in the caller adjusting both the
-        # skip and the limit values according to the current iteration
-        # in case there are no object retrieves that indicates the
-        # end of the loop and a break happens
-        object = dict(skip=index, limit=step)
-        objects = caller(object=object)
-        if not objects:
-            break
 
-        # iterates over all the objects that have been retrieved
-        # and obtains the target fields to write a new CSV row
-        # per each of the retrieved object and according to the
-        # requested set of attributes per object
-        for object in objects:
-            values = [get_field(object, key, type_m=type_m) for key in attributes]
-            csv_f.writerow(values)
-
-        # in case there's a valid callback function to be called
-        # runs the call with the current index and objects
-        if callback:
-            callback(index, objects)
-
-        # increments the current base index by the length of the
-        # received objects, this should be the next index
-        index += len(objects)
-
-        # verifies if the current retrieval is considered valid
-        # meets expectations and if not breaks the current loop
-        is_valid = len(objects) == step
-        if not is_valid:
-            break
+class ExportTotals(dict):
+    pass

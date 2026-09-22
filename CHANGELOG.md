@@ -19,6 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 * Documentation prose no longer uses manual line wrapping
+* CSV export helpers moved to a module of their own, the export module now holding the export API of the pipeline - [#204](https://github.com/hivesolutions/omni/issues/204)
 
 ### Fixed
 

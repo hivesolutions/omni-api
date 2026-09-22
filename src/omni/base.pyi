@@ -7,7 +7,7 @@ from .customer import CustomerAPI
 from .document import DocumentAPI
 from .employee import EmployeeAPI
 from .entity import EntityAPI
-from .export_api import ExportAPI
+from .export import ExportAPI
 from .identifiable import IdentifiableAPI
 from .inventory_check import InventoryCheckAPI
 from .invoice import InvoiceAPI
