@@ -42,6 +42,7 @@ from . import employee
 from . import entity
 from . import errors
 from . import export
+from . import export_api
 from . import identifiable
 from . import inventory_check
 from . import inventory_line
@@ -100,6 +101,16 @@ from .employee import EmployeeAPI
 from .entity import EntityAPI
 from .errors import OmniError
 from .export import FUNCS, get_field, open_export
+from .export_api import (
+    ExportAPI,
+    ExportSchema,
+    ExportEntity,
+    ExportChanges,
+    ExportDigests,
+    ExportPairs,
+    ExportEntities,
+    ExportTotals,
+)
 from .identifiable import IdentifiableAPI
 from .inventory_check import InventoryCheckAPI
 from .inventory_line import InventoryLineAPI
