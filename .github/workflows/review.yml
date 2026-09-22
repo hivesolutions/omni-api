@@ -1,0 +1,89 @@
+name: Review Workflow
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - ready_for_review
+      - reopened
+
+concurrency:
+  group: review-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  review:
+    name: Review with Claude
+    timeout-minutes: 30
+    if: github.event.pull_request.draft == false && github.event.pull_request.user.type != 'Bot'
+    runs-on: [self-hosted, ubuntu, latest]
+    permissions:
+      contents: read
+      pull-requests: write
+      id-token: write
+      actions: read
+
+    steps:
+      - name: Cleanup the hosted runner
+        uses: joamag/cleanup-hosted@master
+
+      - name: Checkout code
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 1
+
+      - name: Review pull request
+        uses: anthropics/claude-code-action@v1
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          track_progress: true
+          use_sticky_comment: true
+
+          prompt: |
+            REPO: ${{ github.repository }}
+            PR NUMBER: ${{ github.event.pull_request.number }}
+
+            Review this pull request. Its branch is already checked out in the
+            working directory, and AGENTS.md holds the conventions of the
+            repository, which the review follows.
+
+            Look for, in this order:
+
+            1. Bugs and regressions: wrong behaviour, unhandled errors and edge
+               cases, the URL or the HTTP method of an operation wrong, request
+               payloads that do not match the wire format the server expects,
+               responses read through keys the server does not send, and
+               anything a test should have caught.
+            2. The rules of AGENTS.md the change may break: code that runs on
+               Python 2.7 and on Python 3.13 alike, no type annotations in the
+               `.py` files (they belong in the `.pyi` files), the black
+               formatting, the CRLF line endings of the files kept as they are,
+               `not item in list` and `item == None`, the commenting style of
+               the project and the structure of its docstrings, the version of
+               `setup.py` not bumped, every public class and method of a module
+               also present in its stub, and every stub field declared at the
+               class of the hierarchy that owns it.
+            3. Tests: the new and changed code covered by tests written like the
+               existing ones, the recorded requests of the mock API asserted on
+               their method, URL and payload, and the tests that need a real
+               instance guarded by `OMNI_TEST_LIVE`.
+            4. The documents the change should update: the unreleased section of
+               the changelog, and the documentation of what changed.
+            5. Security: secrets, injection, the credentials and the session
+               identifiers of the API client, and data reaching someone it
+               should not.
+
+            Verify every finding against the code before reporting it, reading the
+            files around the diff and not the diff alone, and say how sure you
+            are. Leave out what black settles, praise and restatements of what
+            the change does: a short review of real findings is worth more than a
+            long one.
+
+            Report each finding as an inline comment on the line it is about,
+            saying what is wrong, why it matters and how to fix it, and use a
+            top-level comment for the summary: the findings by severity, or that
+            none was found.
+
+          claude_args: |
+            --model claude-fable-5-1
+            --allowedTools "mcp__github_inline_comment__create_inline_comment,Bash(gh pr comment:*),Bash(gh pr diff:*),Bash(gh pr view:*)"
