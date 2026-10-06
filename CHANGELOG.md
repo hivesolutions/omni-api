@@ -9,6 +9,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+*
+
+### Changed
+
+*
+
+### Fixed
+
+*
+
+## [0.13.0] - 2026-10-06
+
+### Added
+
 * Automated review of pull requests in the continuous integration pipeline, at the maximum effort by default
 * Support for supplier bills, manual purchase payments, historical adjustments, credits, refunds, attachments and payable reports
 * Accounts payable usage guide and documentation index
