@@ -181,6 +181,7 @@ class MerchandiseLiveTest(TestCase):
             for value in self.api.list_store_merchandise(number_records=10)
             if value["_class"] == "Product"
         ][0]
+        previous = self.api.get_merchandise(product["object_id"]).get("brand") or {}
         brand: BrandPayload = {
             "brand": {"name": "omni_api_test_brand_%s" % uuid4().hex[:8]}
         }
@@ -211,6 +212,15 @@ class MerchandiseLiveTest(TestCase):
         full = self.api.get_merchandise(product["object_id"])
         self.assertEqual(full.get("brand"), None)
 
+        restore: list[MerchandiseGroup] = [
+            {"object_id": product["object_id"], "brand": previous.get("object_id")}
+        ]
+        self.api.groups_merchandise(restore)
+        full = self.api.get_merchandise(product["object_id"])
+        self.assertEqual(
+            (full.get("brand") or {}).get("object_id"), previous.get("object_id")
+        )
+
     def test_rules(self) -> None:
         product = [
             value
@@ -232,32 +242,32 @@ class MerchandiseLiveTest(TestCase):
             }
         }
         rule = self.api.create_merchandise_rule(payload)
+        try:
+            items: list[MerchandiseIdentifier] = [{"company_product_code": code}]
+            result = self.api.rules_merchandise(items, fields=["brand"])
+            self.assertEqual(result, dict(changed=1))
+            full = self.api.get_merchandise(product["object_id"])
+            self.assertEqual((full.get("brand") or {}).get("object_id"), brand_id)
 
-        items: list[MerchandiseIdentifier] = [{"company_product_code": code}]
-        result = self.api.rules_merchandise(items, fields=["brand"])
-        self.assertEqual(result, dict(changed=1))
-        full = self.api.get_merchandise(product["object_id"])
-        self.assertEqual((full.get("brand") or {}).get("object_id"), brand_id)
+            result = self.api.rules_merchandise(items, fields=["brand"])
+            self.assertEqual(result, dict(changed=0))
+            result = self.api.rules_merchandise(items, force=False, fields=["brand"])
+            self.assertEqual(result, dict(changed=0))
 
-        result = self.api.rules_merchandise(items, fields=["brand"])
-        self.assertEqual(result, dict(changed=0))
-        result = self.api.rules_merchandise(items, force=False, fields=["brand"])
-        self.assertEqual(result, dict(changed=0))
-
-        with self.assertRaises(OmniError) as context:
-            self.api.rules_merchandise(
-                [{"company_product_code": "omni_api_%s" % suffix}]
-            )
-        self.assertEqual(context.exception.name(), "InvalidMerchandise")
-
-        update: MerchandiseRulePayload = {
-            "merchandise_rule": {"pattern": "^omni_api_%s$" % suffix}
-        }
-        self.api.update_merchandise_rule(rule["object_id"], update)
-        restore: list[MerchandiseGroup] = [
-            {"company_product_code": code, "brand": previous.get("object_id")}
-        ]
-        self.api.groups_merchandise(restore)
+            with self.assertRaises(OmniError) as context:
+                self.api.rules_merchandise(
+                    [{"company_product_code": "omni_api_%s" % suffix}]
+                )
+            self.assertEqual(context.exception.name(), "InvalidMerchandise")
+        finally:
+            update: MerchandiseRulePayload = {
+                "merchandise_rule": {"pattern": "^omni_api_%s$" % suffix}
+            }
+            self.api.update_merchandise_rule(rule["object_id"], update)
+            restore: list[MerchandiseGroup] = [
+                {"company_product_code": code, "brand": previous.get("object_id")}
+            ]
+            self.api.groups_merchandise(restore)
 
     def test_qualifiers(self) -> None:
         result = self.api.qualifiers_merchandise()
