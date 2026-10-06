@@ -1,11 +1,13 @@
 from typing import Literal, NotRequired, Sequence, TypedDict
 
-from .base import BaseDelta, BaseReference
+from .base import BaseDelta, BaseReference, Result
+from .brand import Brand
 from .named import Named, NamedDelta
 
 SellableT = Literal[1, 2]
 StockableT = Literal[1, 2]
 PricingTypeT = Literal[1, 2]
+MerchandiseFieldT = Literal["group", "brand", "categories"]
 
 class Sellable:
     NOT_SELLABLE: Literal[1] = ...
@@ -35,6 +37,7 @@ class TransactionalMerchandise(Merchandise):
     pricing_type: PricingTypeT | None
     sellable: SellableT
     stockable: StockableT
+    brand: NotRequired[Brand | None]
 
 class TransactionalMerchandiseDelta(MerchandiseDelta):
     company_product_code: NotRequired[str]
@@ -47,6 +50,7 @@ class TransactionalMerchandiseDelta(MerchandiseDelta):
     sellable: NotRequired[SellableT]
     stockable: NotRequired[StockableT]
     vat_class: NotRequired[BaseReference]
+    brand: NotRequired[BaseReference]
 
 class StoreMerchandise(TransactionalMerchandise):
     retail_price: float | None
@@ -68,6 +72,20 @@ class MerchandiseCost(TypedDict):
     object_id: NotRequired[int]
     company_product_code: NotRequired[str]
 
+class MerchandiseGroup(TypedDict):
+    object_id: NotRequired[int]
+    company_product_code: NotRequired[str]
+    group: NotRequired[int | None]
+    categories: NotRequired[Sequence[int] | None]
+    brand: NotRequired[int | None]
+
+class MerchandiseIdentifier(TypedDict):
+    object_id: NotRequired[int]
+    company_product_code: NotRequired[str]
+
+class MerchandiseChanged(TypedDict):
+    changed: int
+
 class MerchandiseAPI(object):
     def list_merchandise(self, *args, **kwargs) -> Sequence[Merchandise]: ...
     def get_merchandise(self, object_id: int) -> Merchandise: ...
@@ -79,3 +97,11 @@ class MerchandiseAPI(object):
     ) -> Sequence[StoreMerchandise]: ...
     def prices_merchandise(self, items: Sequence[MerchandisePrice]) -> None: ...
     def costs_merchandise(self, items: Sequence[MerchandiseCost]) -> None: ...
+    def groups_merchandise(self, items: Sequence[MerchandiseGroup]) -> Result: ...
+    def rules_merchandise(
+        self,
+        items: Sequence[MerchandiseIdentifier],
+        force: bool | None = ...,
+        fields: Sequence[MerchandiseFieldT] | None = ...,
+    ) -> MerchandiseChanged: ...
+    def qualifiers_merchandise(self) -> MerchandiseChanged: ...

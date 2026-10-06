@@ -46,7 +46,7 @@ class MerchandiseAPI(object):
 
     def update_merchandise(self, object_id, payload):
         url = self.base_url + "omni/merchandise/%d/update.json" % object_id
-        contents = self.post(url, data_m=payload)
+        contents = self.post(url, data_j=payload)
         return contents
 
     def list_store_merchandise(self, store_id=None, *args, **kwargs):
@@ -62,6 +62,26 @@ class MerchandiseAPI(object):
     def costs_merchandise(self, items):
         url = self.base_url + "omni/merchandise/costs.json"
         self.put(url, data_j=items)
+
+    def groups_merchandise(self, items):
+        url = self.base_url + "omni/merchandise/groups.json"
+        contents = self.put(url, data_j=items)
+        return contents
+
+    def rules_merchandise(self, items, force=None, fields=None):
+        url = self.base_url + "omni/merchandise/rules.json"
+        data_j = dict(root=items)
+        if not force == None:
+            data_j["force"] = force
+        if not fields == None:
+            data_j["fields"] = fields
+        contents = self.put(url, data_j=data_j)
+        return contents
+
+    def qualifiers_merchandise(self):
+        url = self.base_url + "omni/merchandise/qualifiers.json"
+        contents = self.put(url)
+        return contents
 
 
 class Sellable(object):
@@ -108,4 +128,16 @@ class MerchandisePrice(dict):
 
 
 class MerchandiseCost(dict):
+    pass
+
+
+class MerchandiseGroup(dict):
+    pass
+
+
+class MerchandiseIdentifier(dict):
+    pass
+
+
+class MerchandiseChanged(dict):
     pass

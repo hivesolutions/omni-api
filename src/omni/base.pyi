@@ -2,6 +2,7 @@ from typing import Any, Literal, Mapping, NoReturn, NotRequired, Sequence, Typed
 
 from appier import OAuth2API
 
+from .brand import BrandAPI
 from .consignment import ConsignmentAPI
 from .customer import CustomerAPI
 from .document import DocumentAPI
@@ -13,6 +14,7 @@ from .inventory_check import InventoryCheckAPI
 from .invoice import InvoiceAPI
 from .media import MediaAPI
 from .merchandise import MerchandiseAPI
+from .merchandise_rule import MerchandiseRuleAPI
 from .money_sale_slip import MoneySaleSlipAPI
 from .purchase import PurchaseAPI
 from .receipt import ReceiptAPI
@@ -115,11 +117,20 @@ OAuthScopeT = Literal[
     "foundation.system_user.delete",
     "foundation.web.subscribe",
     "foundation.web_push.subscribe",
+    "inventory.brand.list",
+    "inventory.brand.create",
+    "inventory.brand.show",
+    "inventory.brand.update",
     "inventory.inventory_check.list",
     "inventory.inventory_check.show",
     "inventory.inventory_line.list",
     "inventory.inventory_line.show",
     "inventory.inventory_line.update",
+    "inventory.merchandise_rule.list",
+    "inventory.merchandise_rule.create",
+    "inventory.merchandise_rule.show",
+    "inventory.merchandise_rule.update",
+    "inventory.merchandise_rule.import",
     "inventory.product.list",
     "inventory.product.create",
     "inventory.product.show",
@@ -235,6 +246,7 @@ class API(
     UserAPI,
     StoreAPI,
     MediaAPI,
+    BrandAPI,
     EntityAPI,
     StatusAPI,
     RepairAPI,
@@ -259,6 +271,7 @@ class API(
     InventoryCheckAPI,
     SignedDocumentAPI,
     RepairOperationAPI,
+    MerchandiseRuleAPI,
 ):
     base_url: str
     open_url: str

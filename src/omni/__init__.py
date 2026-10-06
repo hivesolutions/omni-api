@@ -27,6 +27,7 @@ __license__ = "Apache License, Version 2.0"
 
 from . import address
 from . import base
+from . import brand
 from . import company
 from . import consignment
 from . import consignment_line
@@ -49,6 +50,7 @@ from . import inventory_line
 from . import invoice
 from . import media
 from . import merchandise
+from . import merchandise_rule
 from . import models
 from . import money_sale_slip
 from . import named
@@ -90,6 +92,7 @@ from . import workflow_operation
 
 from .models import *
 from .base import BASE_URL, API, Base, BaseDelta, Status, Flag
+from .brand import BrandAPI, Brand, BrandDelta, BrandPayload
 from .consignment import ConsignmentAPI, ConsignmentState
 from .consignment_out import ConsignmentOutAPI
 from .consignment_slip import ConsignmentSlipAPI
@@ -117,6 +120,13 @@ from .inventory_line import InventoryLineAPI
 from .invoice import InvoiceAPI
 from .media import MediaAPI, MediaVisibility
 from .merchandise import MerchandiseAPI, Sellable, Stockable, PricingType
+from .merchandise_rule import (
+    MerchandiseRuleAPI,
+    MerchandiseRule,
+    MerchandiseRuleDelta,
+    MerchandiseRulePayload,
+    MerchandiseRuleTarget,
+)
 from .money_sale_slip import MoneySaleSlipAPI
 from .named import Named
 from .operation import OperationType

@@ -35,6 +35,7 @@ from . import sale
 from . import user
 from . import store
 from . import media
+from . import brand
 from . import errors
 from . import entity
 from . import status
@@ -69,6 +70,7 @@ from . import consignment_out
 from . import consignment_slip
 from . import stock_adjustment
 from . import repair_operation
+from . import merchandise_rule
 
 BASE_URL = "http://localhost:8080/mvc/"
 """ The default base URL to be used when no other
@@ -104,6 +106,7 @@ class API(
     user.UserAPI,
     store.StoreAPI,
     media.MediaAPI,
+    brand.BrandAPI,
     entity.EntityAPI,
     status.StatusAPI,
     repair.RepairAPI,
@@ -137,6 +140,7 @@ class API(
     consignment_slip.ConsignmentSlipAPI,
     stock_adjustment.StockAdjustmentAPI,
     repair_operation.RepairOperationAPI,
+    merchandise_rule.MerchandiseRuleAPI,
 ):
 
     def __init__(self, *args, **kwargs):
