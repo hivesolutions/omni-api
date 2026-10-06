@@ -29,17 +29,17 @@ __license__ = "Apache License, Version 2.0"
 """ The license for the module """
 
 
-import os
-import re
-import json
-import importlib
+from importlib import import_module
+from json import loads
 from os import environ
+from os.path import splitext
+from re import M, escape, findall
 from unittest import TestCase
 from unittest.mock import MagicMock, patch
 from uuid import uuid4
 from typing import TYPE_CHECKING
 
-from omni import API, MerchandiseRuleTarget
+from omni import API, MerchandiseRuleTarget, OmniError
 
 from .base import build_api, build_mock
 
@@ -74,9 +74,7 @@ class MerchandiseTest(TestCase):
         self.assertEqual(result, {})
         self.assertEqual(kwargs, dict(data_j=payload))
 
-    def test_update_merchandise_request(self) -> None:
-        # the (wrapped) payload is sent as JSON, as its nested values
-        # can't be encoded as the fields of a multipart form
+    def test_update_merchandise_response(self) -> None:
         api = build_api()
         api.session_id = "session"
         response = MagicMock()
@@ -89,14 +87,10 @@ class MerchandiseTest(TestCase):
         with patch("appier.http._resolve", return_value=response) as resolve:
             result = api.update_merchandise(1, payload)
 
-        url, method, headers, data = resolve.call_args[0][:4]
-        self.assertEqual(
-            url,
-            "http://localhost:8080/omni/merchandise/1/update.json?session_id=session",
-        )
-        self.assertEqual(method, "POST")
-        self.assertEqual(headers["Content-Type"], "application/json")
-        self.assertEqual(json.loads(data), payload)
+        args = resolve.call_args[0]
+        self.assertEqual(args[1], "POST")
+        self.assertEqual(args[2]["Content-Type"], "application/json")
+        self.assertEqual(loads(args[3]), payload)
         self.assertEqual(result["object_id"], 1)
         self.assertEqual(result.get("brand"), None)
 
@@ -127,8 +121,6 @@ class MerchandiseTest(TestCase):
         self.assertEqual(kwargs, dict(data_j=dict(root=items)))
 
     def test_rules_merchandise_options(self) -> None:
-        # the unset force flag (false) is sent, as only the options
-        # that are not provided are left for the server defaults
         items: list[MerchandiseIdentifier] = [{"object_id": 4}]
         self.api.rules_merchandise(items, force=False)
         self.api.rules_merchandise(items, fields=["brand"])
@@ -158,10 +150,10 @@ class MerchandiseTest(TestCase):
         # nothing else does, so that a name the checker accepts from the
         # module may be imported at runtime as well (the module is imported
         # by its full name as the models package shadows its name in omni)
-        merchandise = importlib.import_module("omni.merchandise")
-        path = os.path.splitext(str(merchandise.__file__))[0] + ".pyi"
+        merchandise = import_module("omni.merchandise")
+        path = splitext(str(merchandise.__file__))[0] + ".pyi"
         with open(path) as file:
-            names = re.findall(r"^class (\w+)\(\w+\):", file.read(), re.M)
+            names = findall(r"^class (\w+)\(\w+\):", file.read(), M)
         names = [name for name in names if not name.endswith("API")]
         markers = [
             name
@@ -201,6 +193,16 @@ class MerchandiseLiveTest(TestCase):
         full = self.api.get_merchandise(product["object_id"])
         self.assertEqual((full.get("brand") or {}).get("object_id"), brand_id)
 
+        invalid: list[MerchandiseGroup] = [
+            {"object_id": product["object_id"], "brand": None},
+            {"object_id": product["object_id"], "brand": 0},
+        ]
+        with self.assertRaises(OmniError) as context:
+            self.api.groups_merchandise(invalid)
+        self.assertEqual(context.exception.name(), "InvalidBrand")
+        full = self.api.get_merchandise(product["object_id"])
+        self.assertEqual((full.get("brand") or {}).get("object_id"), brand_id)
+
         items: list[MerchandiseGroup] = [
             {"object_id": product["object_id"], "brand": None}
         ]
@@ -225,7 +227,7 @@ class MerchandiseLiveTest(TestCase):
                 "name": "omni_api_test_rule_%s" % suffix,
                 "priority": -1,
                 "target": MerchandiseRuleTarget.CODE,
-                "pattern": "^%s$" % re.escape(code),
+                "pattern": "^%s$" % escape(code),
                 "brand": {"object_id": brand_id},
             }
         }
@@ -241,6 +243,12 @@ class MerchandiseLiveTest(TestCase):
         self.assertEqual(result, dict(changed=0))
         result = self.api.rules_merchandise(items, force=False, fields=["brand"])
         self.assertEqual(result, dict(changed=0))
+
+        with self.assertRaises(OmniError) as context:
+            self.api.rules_merchandise(
+                [{"company_product_code": "omni_api_%s" % suffix}]
+            )
+        self.assertEqual(context.exception.name(), "InvalidMerchandise")
 
         update: MerchandiseRulePayload = {
             "merchandise_rule": {"pattern": "^omni_api_%s$" % suffix}

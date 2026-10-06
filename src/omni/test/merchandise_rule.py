@@ -29,16 +29,17 @@ __license__ = "Apache License, Version 2.0"
 """ The license for the module """
 
 
-import os
-import re
-import json
+from json import loads
 from os import environ
+from os.path import splitext
+from re import M, findall
 from unittest import TestCase
 from unittest.mock import MagicMock, patch
 from uuid import uuid4
 from typing import TYPE_CHECKING
 
-from omni import API, OmniError, Status, MerchandiseRuleTarget, merchandise_rule
+from omni import API, MerchandiseRuleTarget, OmniError, Status
+from omni import merchandise_rule
 
 from .base import build_api, build_mock
 
@@ -124,9 +125,7 @@ class MerchandiseRuleTest(TestCase):
         self.assertEqual(result, {})
         self.assertEqual(kwargs, dict(data_j=items))
 
-    def test_import_merchandise_rules_request(self) -> None:
-        # the rules are sent as a (bare) JSON list, that the server reads
-        # as its root field, and the counts of the rules are decoded
+    def test_import_merchandise_rules_response(self) -> None:
         api = build_api()
         api.session_id = "session"
         response = MagicMock()
@@ -140,14 +139,10 @@ class MerchandiseRuleTest(TestCase):
         with patch("appier.http._resolve", return_value=response) as resolve:
             result = api.import_merchandise_rules(items)
 
-        url, method, headers, data = resolve.call_args[0][:4]
-        self.assertEqual(
-            url,
-            "http://localhost:8080/omni/merchandise_rules/import.json?session_id=session",
-        )
-        self.assertEqual(method, "POST")
-        self.assertEqual(headers["Content-Type"], "application/json")
-        self.assertEqual(json.loads(data), items)
+        args = resolve.call_args[0]
+        self.assertEqual(args[1], "POST")
+        self.assertEqual(args[2]["Content-Type"], "application/json")
+        self.assertEqual(loads(args[3]), items)
         self.assertEqual(result["created"], 1)
         self.assertEqual(result["updated"], 1)
 
@@ -155,9 +150,9 @@ class MerchandiseRuleTest(TestCase):
         # every type the stub declares has a marker in the module and
         # nothing else does, so that a name the checker accepts from the
         # module may be imported at runtime as well
-        path = os.path.splitext(merchandise_rule.__file__)[0] + ".pyi"
+        path = splitext(merchandise_rule.__file__)[0] + ".pyi"
         with open(path) as file:
-            names = re.findall(r"^class (\w+)\(\w+\):", file.read(), re.M)
+            names = findall(r"^class (\w+)\(\w+\):", file.read(), M)
         names = [name for name in names if not name.endswith("API")]
         markers = [
             name

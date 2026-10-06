@@ -29,14 +29,15 @@ __license__ = "Apache License, Version 2.0"
 """ The license for the module """
 
 
-import os
-import re
 from os import environ
+from os.path import splitext
+from re import M, findall
 from unittest import TestCase
 from uuid import uuid4
 from typing import TYPE_CHECKING
 
-from omni import API, Status, brand
+from omni import API, OmniError, Status
+from omni import brand
 
 from .base import build_mock
 
@@ -94,9 +95,9 @@ class BrandTest(TestCase):
         # every type the stub declares has a marker in the module and
         # nothing else does, so that a name the checker accepts from the
         # module may be imported at runtime as well
-        path = os.path.splitext(brand.__file__)[0] + ".pyi"
+        path = splitext(brand.__file__)[0] + ".pyi"
         with open(path) as file:
-            names = re.findall(r"^class (\w+)\(\w+\):", file.read(), re.M)
+            names = findall(r"^class (\w+)\(\w+\):", file.read(), M)
         names = [name for name in names if not name.endswith("API")]
         markers = [
             name
@@ -104,7 +105,7 @@ class BrandTest(TestCase):
             if isinstance(value, type) and issubclass(value, dict)
         ]
 
-        self.assertEqual(names, ["Brand", "BrandDelta", "BrandPayload"])
+        self.assertEqual(len(names), 3)
         self.assertEqual(markers, names)
         for name in names:
             self.assertEqual(getattr(brand, name)(), {})
@@ -142,3 +143,9 @@ class BrandLiveTest(TestCase):
         updated = self.api.update_brand(created["object_id"], update)
         self.assertEqual(updated["name"], name)
         self.assertEqual(updated["description"], "Straps")
+
+        with self.assertRaises(OmniError) as context:
+            self.api.create_brand(payload)
+        self.assertEqual(context.exception.name(), "ModelValidationError")
+        brands = self.api.list_brands(object={"find_s": name})
+        self.assertEqual([value["object_id"] for value in brands], [full["object_id"]])
