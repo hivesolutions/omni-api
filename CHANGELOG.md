@@ -16,6 +16,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Typed supplier company listing and retrieval with the supplier hierarchy
 * Support for the export of the business data through its schema, change stream, digests, snapshots and totals - [#204](https://github.com/hivesolutions/omni/issues/204)
 * Typed CSV export helpers, from the field conversions to the paged writing of a file
+* Support for the brands, from their listing to their creation and update, and for the brand of the merchandise - [#282](https://github.com/hivesolutions/omni/issues/282)
+* Support for the merchandise rules, from their listing to their creation, update and import - [#275](https://github.com/hivesolutions/omni/issues/275)
+* Support for the bulk update of the groups, categories and brand of the merchandise and for the re-application of the merchandise rules - [#276](https://github.com/hivesolutions/omni/issues/276)
+* Support for the rebuild of the reference counts of the groups and categories of the merchandise - [#277](https://github.com/hivesolutions/omni/issues/277)
 
 ### Changed
 
@@ -27,6 +31,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Supplier bill attachment uploads and response types
 * Store code typed as always present and functional unit relations no longer claim store level fields
 * Relation optionality audited against the eager loading of every list and show retrieval
+* Update of the merchandise sends its payload as JSON, as the nested values of a multipart form were rejected by the server
 
 ## [0.12.0] - 2026-08-02
 
