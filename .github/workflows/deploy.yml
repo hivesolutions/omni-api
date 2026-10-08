@@ -8,7 +8,7 @@ jobs:
     name: Build
     strategy:
       matrix:
-        python-version: ["3.12"]
+        python-version: ["3.14"]
     runs-on: ubuntu-latest
     container: python:${{ matrix.python-version }}
     steps:
@@ -18,7 +18,7 @@ jobs:
       - run: |
           pip install black
           black . --check
-        if: matrix.python-version == '3.12'
+        if: matrix.python-version == '3.14'
       - run: |
           pip install pytest
           pytest
