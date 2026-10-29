@@ -20,6 +20,7 @@ from .purchase import PurchaseAPI
 from .receipt import ReceiptAPI
 from .repair import RepairAPI
 from .repair_operation import RepairOperationAPI
+from .role import RoleAPI
 from .saft_pt import SaftPtAPI
 from .sale import SaleAPI
 from .sale_snapshot import SaleSnapshotAPI
@@ -88,6 +89,11 @@ OAuthScopeT = Literal[
     "foundation.media.show",
     "foundation.media.update",
     "foundation.media.delete",
+    "foundation.role.list",
+    "foundation.role.create",
+    "foundation.role.show",
+    "foundation.role.update",
+    "foundation.role.acl_entries.update",
     "foundation.root_entity.list",
     "foundation.root_entity.show",
     "foundation.root_entity.update",
@@ -115,6 +121,8 @@ OAuthScopeT = Literal[
     "foundation.system_user.show.self",
     "foundation.system_user.update",
     "foundation.system_user.delete",
+    "foundation.system_user.acl_entries.update",
+    "foundation.system_user.roles.update",
     "foundation.web.subscribe",
     "foundation.web_push.subscribe",
     "inventory.brand.list",
@@ -244,6 +252,7 @@ class API(
     WebAPI,
     SaleAPI,
     UserAPI,
+    RoleAPI,
     StoreAPI,
     MediaAPI,
     BrandAPI,
