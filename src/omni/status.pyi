@@ -32,6 +32,7 @@ class StatusMigration(TypedDict):
 class StatusDatabase(TypedDict):
     engine: str
     internal_version: str | None
+    server_version: NotRequired[str | None]
     database_size: int
     database_size_string: str
     host: NotRequired[str | None]

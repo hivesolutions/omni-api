@@ -67,6 +67,10 @@ class StatusLiveTest(TestCase):
         self.assertEqual(status["database"]["database_size"] > 0, True)
         self.assertNotEqual(status["database"]["database_size_string"], "")
         database = status["database"]
+        server_version = database.get("server_version")
+        self.assertNotEqual(server_version, None)
+        if server_version:
+            self.assertEqual("." in server_version, True)
         latency = database.get("latency")
         self.assertNotEqual(latency, None)
         if not latency == None:
