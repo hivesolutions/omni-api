@@ -66,6 +66,7 @@ from . import repair
 from . import repair_operation
 from . import repair_slip
 from . import return_
+from . import role
 from . import saft_pt
 from . import sale
 from . import sale_line
@@ -143,6 +144,7 @@ from .repair_operation import (
     RepairPriority,
 )
 from .return_ import ReturnAPI
+from .role import RoleAPI, AclEntry, Role, RoleDelta, RolePayload
 from .saft_pt import SaftPtAPI, SaftPtReport, SaftPtReportDelta, SaftPtReportPayload
 from .sale_order import SaleOrderAPI
 from .sale_snapshot import SaleSnapshotAPI
@@ -173,7 +175,7 @@ from .supplier_bill import (
 from .system_company import SystemCompanyAPI
 from .task import TaskState, Task, TaskDelta
 from .transfer import TransferAPI, TransferState
-from .user import UserAPI, UserType
+from .user import UserAPI, UserType, AclValue
 from .util import format_places, filter_args
 from .web import WebAPI
 from .workflow_message import WorkflowMessage, WorkflowMessagePayload

@@ -33,6 +33,7 @@ import appier
 from . import web
 from . import sale
 from . import user
+from . import role
 from . import store
 from . import media
 from . import brand
@@ -104,6 +105,7 @@ class API(
     web.WebAPI,
     sale.SaleAPI,
     user.UserAPI,
+    role.RoleAPI,
     store.StoreAPI,
     media.MediaAPI,
     brand.BrandAPI,
