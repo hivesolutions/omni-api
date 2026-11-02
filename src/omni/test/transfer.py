@@ -90,20 +90,32 @@ class TransferLiveTest(TestCase):
         physical = [store for store in stores if store["physical"] == Physical.PHYSICAL]
         if len(physical) < 2:
             self.skipTest("not enough physical stores available")
-        merchandise = self.api.list_store_merchandise(number_records=30)
-        stocked = [
-            item
-            for item in merchandise
-            if (item.get("stock_on_hand") or 0) > 0 and item.get("retail_price")
-        ]
-        if not stocked:
+
+        # uses as origin the first physical store with stocked merchandise
+        # (listed with its own stock) as the transfer requires the stock to
+        # exist in the origin, and any other physical store as destination
+        origin, item = None, None
+        for store in physical:
+            merchandise = self.api.list_store_merchandise(
+                store_id=store["object_id"], number_records=30
+            )
+            stocked = [
+                value
+                for value in merchandise
+                if (value.get("stock_on_hand") or 0) > 0 and value.get("retail_price")
+            ]
+            if not stocked:
+                continue
+            origin, item = store, stocked[0]
+            break
+        if origin == None or item == None:
             self.skipTest("no stocked merchandise available")
-        item = stocked[0]
+        destination = [store for store in physical if not store is origin][0]
 
         payload: TransferPayload = {
             "transfer": {
-                "origin": {"object_id": physical[0]["object_id"]},
-                "destination": {"object_id": physical[1]["object_id"]},
+                "origin": {"object_id": origin["object_id"]},
+                "destination": {"object_id": destination["object_id"]},
                 "transfer_lines": [
                     {"merchandise": {"object_id": item["object_id"]}, "quantity": 1}
                 ],
@@ -117,7 +129,7 @@ class TransferLiveTest(TestCase):
         self.assertNotEqual(transfer["extended_identifier"], None)
 
         full = self.api.get_transfer(transfer["object_id"])
-        self.assertEqual(full["destination"]["object_id"], physical[1]["object_id"])
+        self.assertEqual(full["destination"]["object_id"], destination["object_id"])
         lines = full.get("transfer_lines") or []
         self.assertEqual(len(lines), 1)
         self.assertEqual(lines[0]["merchandise"]["object_id"], item["object_id"])
