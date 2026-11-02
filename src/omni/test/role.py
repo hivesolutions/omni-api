@@ -181,7 +181,7 @@ class RoleLiveTest(TestCase):
         self.assertEqual(full["object_id"], created["object_id"])
         self.assertEqual(full["name"], name)
         self.assertEqual(full["description_long"], "Stock")
-        self.assertEqual(full["acl_entries"], [])
+        self.assertEqual(full.get("acl_entries"), [])
 
         roles = self.api.list_roles(object={"find_s": name})
         self.assertEqual([value["object_id"] for value in roles], [full["object_id"]])
@@ -217,7 +217,10 @@ class RoleLiveTest(TestCase):
 
         full = self.api.get_role(object_id)
         self.assertEqual(
-            sorted((value["name"], value["value"]) for value in full["acl_entries"]),
+            sorted(
+                (value["name"], value["value"])
+                for value in full.get("acl_entries") or []
+            ),
             [("product.cost", AclValue.DENY), ("transfer.list", AclValue.ALLOW)],
         )
 
