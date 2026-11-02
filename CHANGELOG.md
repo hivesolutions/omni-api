@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 * Deployment of the package runs on Python 3.14
+* Python release candidate removed from the continuous integration pipeline, its pytest failing to start
 
 ### Fixed
 
