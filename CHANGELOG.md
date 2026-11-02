@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-*
+* Typed runtime information of the instance and latency, host and last migration of its database in the status - [#344](https://github.com/hivesolutions/omni/issues/344)
 
 ### Changed
 

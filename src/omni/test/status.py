@@ -66,6 +66,29 @@ class StatusLiveTest(TestCase):
         self.assertEqual(status["database"]["engine"] in ("sqlite", "mysql"), True)
         self.assertEqual(status["database"]["database_size"] > 0, True)
         self.assertNotEqual(status["database"]["database_size_string"], "")
+        database = status["database"]
+        latency = database.get("latency")
+        self.assertNotEqual(latency, None)
+        if not latency == None:
+            self.assertEqual(latency >= 0.0, True)
+        self.assertEqual(database.get("latency_string", "").endswith(" ms"), True)
+        if database["engine"] == "sqlite":
+            self.assertEqual(database.get("host"), None)
+            self.assertEqual(database.get("port"), None)
+            self.assertEqual(database.get("last_migration"), None)
+        else:
+            self.assertNotEqual(database.get("host"), None)
+            self.assertNotEqual(database.get("port"), None)
+        runtime = status.get("runtime")
+        self.assertNotEqual(runtime, None)
+        if runtime:
+            self.assertEqual(runtime["pid"] > 0, True)
+            self.assertEqual(runtime["threads"] > 0, True)
+            self.assertEqual(runtime["uptime"] >= 0.0, True)
+            self.assertNotEqual(runtime["uptime_string"], "")
+            self.assertEqual(
+                runtime["server_time"] >= status["system"]["start_timestamp"], True
+            )
         self.assertEqual("." in status["info"]["version"], True)
         self.assertNotEqual(len(status["libraries"]), 0)
         for library in status["libraries"]:

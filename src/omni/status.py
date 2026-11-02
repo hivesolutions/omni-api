@@ -45,7 +45,15 @@ class StatusSystem(dict):
     pass
 
 
+class StatusMigration(dict):
+    pass
+
+
 class StatusDatabase(dict):
+    pass
+
+
+class StatusRuntime(dict):
     pass
 
 
