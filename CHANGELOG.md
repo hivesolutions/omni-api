@@ -9,6 +9,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+*
+
+### Changed
+
+*
+
+### Fixed
+
+*
+
+## [0.14.0] - 2026-11-02
+
+### Added
+
 * Python 3.13 and 3.14 in the continuous integration pipeline
 * Support for the roles, from their listing to their creation and update, and for the ACL entries of the roles - [#325](https://github.com/hivesolutions/omni/issues/325)
 * Support for the ACL entries and the roles of the users, from their listing to their addition and removal - [#325](https://github.com/hivesolutions/omni/issues/325)
