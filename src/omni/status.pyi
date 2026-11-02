@@ -17,11 +17,46 @@ class StatusSystem(TypedDict):
     release_date_time: str
     environment: str
 
+class StatusMigration(TypedDict):
+    object_id: int
+    uuid: str
+    timestamp: int
+    description: str | None
+    result: str
+    operation: str | None
+    operator: str | None
+    duration: int
+    start_s: str
+    end_s: str
+
 class StatusDatabase(TypedDict):
     engine: str
     internal_version: str | None
     database_size: int
     database_size_string: str
+    host: NotRequired[str | None]
+    port: NotRequired[int | None]
+    latency: NotRequired[float]
+    latency_string: NotRequired[str]
+    last_migration: NotRequired[StatusMigration | None]
+
+class StatusRuntime(TypedDict):
+    uptime: float
+    uptime_string: str
+    pid: int
+    memory: int | None
+    memory_string: str | None
+    threads: int
+    cpu_count: int | None
+    load: Sequence[float] | None
+    load_string: str | None
+    load_high: bool
+    disk_free: int | None
+    disk_total: int | None
+    disk_free_string: str | None
+    disk_total_string: str | None
+    disk_low: bool
+    server_time: float
 
 class StatusKafka(TypedDict):
     server: str
@@ -48,6 +83,7 @@ class SystemStatus(TypedDict):
     database: StatusDatabase
     server_software: str | None
     hostname: str
+    runtime: NotRequired[StatusRuntime]
     kafka: NotRequired[StatusKafka]
     pushi: NotRequired[StatusPushi]
     network: NotRequired[Mapping[str, Any]]
