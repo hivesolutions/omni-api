@@ -94,6 +94,31 @@ class MerchandiseTest(TestCase):
         self.assertEqual(result["object_id"], 1)
         self.assertEqual(result.get("brand"), None)
 
+    def test_update_merchandise_ean_secondary(self) -> None:
+        api = build_api()
+        api.session_id = "session"
+        response = MagicMock()
+        response.read.return_value = b'{"ean_secondary": "5609876543210"}'
+        response.getcode.return_value = 200
+        response.info.return_value = {"Content-Type": "application/json"}
+        payload: MerchandisePayload = {
+            "transactional_merchandise": {"ean_secondary": "5609876543210"}
+        }
+        with patch("appier.http._resolve", return_value=response) as resolve:
+            result = api.update_merchandise(1, payload)
+
+        args = resolve.call_args[0]
+        self.assertEqual(args[1], "POST")
+        self.assertEqual(loads(args[3]), payload)
+        self.assertEqual(result.get("ean_secondary"), "5609876543210")
+
+        payload = {"transactional_merchandise": {"ean_secondary": None}}
+        result = self.api.update_merchandise(1, payload)
+
+        _method, _url, kwargs = self.api.requests[0]
+        self.assertEqual(result, {})
+        self.assertEqual(kwargs, dict(data_j=payload))
+
     def test_groups_merchandise(self) -> None:
         items: list[MerchandiseGroup] = [
             {"company_product_code": "THINKBOOK-14-G6", "group": 2, "categories": [3]},

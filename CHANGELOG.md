@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 * Typed runtime information of the instance and latency, host and last migration of its database in the status - [#344](https://github.com/hivesolutions/omni/issues/344)
 * Typed version of the database server in the status - [#346](https://github.com/hivesolutions/omni/issues/346)
+* Typed secondary EAN of the merchandise - [#352](https://github.com/hivesolutions/omni/issues/352)
 
 ### Changed
 

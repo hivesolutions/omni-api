@@ -31,6 +31,7 @@ class TransactionalMerchandise(Merchandise):
     company_product_code: str
     barcode: str | None
     ean: str | None
+    ean_secondary: NotRequired[str | None]
     upc: str | None
     weight: float | None
     quantity_places: int | None
@@ -43,6 +44,7 @@ class TransactionalMerchandiseDelta(MerchandiseDelta):
     company_product_code: NotRequired[str]
     barcode: NotRequired[str | None]
     ean: NotRequired[str | None]
+    ean_secondary: NotRequired[str | None]
     upc: NotRequired[str | None]
     weight: NotRequired[float | None]
     quantity_places: NotRequired[int | None]
