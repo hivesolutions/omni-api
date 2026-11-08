@@ -90,6 +90,22 @@ class UserTest(TestCase):
         self.assertEqual(method, "GET")
         self.assertEqual(url, "http://localhost:8080/omni/users/self.json")
 
+    def test_delete_user(self) -> None:
+        self.api.delete_user(1)
+
+        method, url, kwargs = self.api.requests[0]
+        self.assertEqual(method, "POST")
+        self.assertEqual(url, "http://localhost:8080/omni/users/1/delete.json")
+        self.assertEqual("data_j" in kwargs, False)
+
+    def test_undelete_user(self) -> None:
+        self.api.undelete_user(1)
+
+        method, url, kwargs = self.api.requests[0]
+        self.assertEqual(method, "POST")
+        self.assertEqual(url, "http://localhost:8080/omni/users/1/undelete.json")
+        self.assertEqual("data_j" in kwargs, False)
+
     def test_get_acl_user(self) -> None:
         self.api.get_acl_user(1)
 

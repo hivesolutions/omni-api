@@ -54,6 +54,16 @@ class UserAPI(object):
         contents = self.get(url)
         return contents
 
+    def delete_user(self, object_id):
+        url = self.base_url + "omni/users/%d/delete.json" % object_id
+        contents = self.post(url)
+        return contents
+
+    def undelete_user(self, object_id):
+        url = self.base_url + "omni/users/%d/undelete.json" % object_id
+        contents = self.post(url)
+        return contents
+
     def get_acl_user(self, object_id):
         url = self.base_url + "omni/users/%d/acl.json" % object_id
         contents = self.get(url)
