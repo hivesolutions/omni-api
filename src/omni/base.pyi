@@ -3,12 +3,14 @@ from typing import Any, Literal, Mapping, NoReturn, NotRequired, Sequence, Typed
 from appier import OAuth2API
 
 from .brand import BrandAPI
+from .class_ import ClassAPI
 from .consignment import ConsignmentAPI
 from .customer import CustomerAPI
 from .document import DocumentAPI
 from .employee import EmployeeAPI
 from .entity import EntityAPI
 from .export import ExportAPI
+from .family import FamilyAPI
 from .identifiable import IdentifiableAPI
 from .inventory_check import InventoryCheckAPI
 from .invoice import InvoiceAPI
@@ -28,6 +30,7 @@ from .script import ScriptAPI
 from .signed_document import SignedDocumentAPI
 from .status import StatusAPI
 from .store import StoreAPI
+from .sub_class import SubClassAPI
 from .supplier import SupplierAPI
 from .supplier_bill import SupplierBillAPI
 from .system_company import SystemCompany, SystemCompanyAPI
@@ -129,6 +132,16 @@ OAuthScopeT = Literal[
     "inventory.brand.create",
     "inventory.brand.show",
     "inventory.brand.update",
+    "inventory.class.list",
+    "inventory.class.create",
+    "inventory.class.show",
+    "inventory.class.update",
+    "inventory.class.delete",
+    "inventory.family.list",
+    "inventory.family.create",
+    "inventory.family.show",
+    "inventory.family.update",
+    "inventory.family.delete",
     "inventory.inventory_check.list",
     "inventory.inventory_check.show",
     "inventory.inventory_line.list",
@@ -161,6 +174,11 @@ OAuthScopeT = Literal[
     "inventory.stock_adjustment.request",
     "inventory.stock_adjustment.approve",
     "inventory.stock_adjustment.show",
+    "inventory.sub_class.list",
+    "inventory.sub_class.create",
+    "inventory.sub_class.show",
+    "inventory.sub_class.update",
+    "inventory.sub_class.delete",
     "inventory.sub_product.list",
     "inventory.sub_product.create",
     "inventory.sub_product.show",
@@ -261,6 +279,8 @@ class API(
     RepairAPI,
     ScriptAPI,
     ExportAPI,
+    FamilyAPI,
+    ClassAPI,
     SaftPtAPI,
     InvoiceAPI,
     ReceiptAPI,
@@ -270,6 +290,7 @@ class API(
     TransferAPI,
     DocumentAPI,
     EmployeeAPI,
+    SubClassAPI,
     MerchandiseAPI,
     ConsignmentAPI,
     IdentifiableAPI,

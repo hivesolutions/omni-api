@@ -28,6 +28,7 @@ __license__ = "Apache License, Version 2.0"
 from . import address
 from . import base
 from . import brand
+from . import class_
 from . import company
 from . import consignment
 from . import consignment_line
@@ -44,6 +45,7 @@ from . import entity
 from . import errors
 from . import export
 from . import export_util
+from . import family
 from . import identifiable
 from . import inventory_check
 from . import inventory_line
@@ -78,6 +80,7 @@ from . import signed_document
 from . import status
 from . import stock_adjustment
 from . import store
+from . import sub_class
 from . import sub_product
 from . import supplier
 from . import supplier_bill
@@ -94,6 +97,7 @@ from . import workflow_operation
 from .models import *
 from .base import BASE_URL, API, Base, BaseDelta, Status, Flag
 from .brand import BrandAPI, Brand, BrandDelta, BrandPayload
+from .class_ import ClassAPI, Class, ClassDelta, ClassPayload
 from .consignment import ConsignmentAPI, ConsignmentState
 from .consignment_out import ConsignmentOutAPI
 from .consignment_slip import ConsignmentSlipAPI
@@ -115,6 +119,7 @@ from .export import (
     ExportTotals,
 )
 from .export_util import FUNCS, get_field, open_export
+from .family import FamilyAPI, Family, FamilyDelta, FamilyPayload
 from .identifiable import IdentifiableAPI
 from .inventory_check import InventoryCheckAPI
 from .inventory_line import InventoryLineAPI
@@ -161,6 +166,7 @@ from .signed_document import SignedDocumentAPI
 from .status import StatusAPI
 from .stock_adjustment import StockAdjustmentAPI
 from .store import StoreAPI, Physical
+from .sub_class import SubClassAPI, SubClass, SubClassDelta, SubClassPayload
 from .sub_product import SubProductAPI
 from .supplier import SupplierAPI
 from .supplier_bill import (

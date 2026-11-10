@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Typed version of the database server in the status - [#346](https://github.com/hivesolutions/omni/issues/346)
 * Typed secondary EAN of the merchandise - [#352](https://github.com/hivesolutions/omni/issues/352)
 * Delete (disable) and undelete (enable) of the users
+* Support for the families, classes and sub classes of the merchandise, from their listing to their creation, update and delete - [#441](https://github.com/hivesolutions/omni/issues/441) [#21](https://github.com/hivesolutions/omni-api/issues/21)
 
 ### Changed
 
