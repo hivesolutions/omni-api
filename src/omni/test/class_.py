@@ -196,3 +196,6 @@ class ClassLiveTest(TestCase):
         with self.assertRaises(OmniError) as context:
             self.api.delete_class(created["object_id"])
         self.assertEqual(context.exception.name(), "InvalidOperation")
+
+        self.api.delete_family(other_family_created["object_id"])
+        self.api.delete_family(family_created["object_id"])
