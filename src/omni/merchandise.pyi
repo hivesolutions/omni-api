@@ -60,6 +60,12 @@ class StoreMerchandise(TransactionalMerchandise):
     vat_rate: float | None
     stock_on_hand: float | None
 
+class GroupMerchandise(Merchandise):
+    pass
+
+class GroupMerchandiseDelta(MerchandiseDelta):
+    pass
+
 class MerchandisePayload(BaseDelta):
     transactional_merchandise: TransactionalMerchandiseDelta
 

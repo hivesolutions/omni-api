@@ -43,6 +43,8 @@ from . import status
 from . import repair
 from . import script
 from . import export
+from . import family
+from . import class_
 from . import return_
 from . import saft_pt
 from . import invoice
@@ -54,6 +56,7 @@ from . import supplier
 from . import transfer
 from . import document
 from . import employee
+from . import sub_class
 from . import sale_order
 from . import credit_note
 from . import sub_product
@@ -114,6 +117,8 @@ class API(
     repair.RepairAPI,
     script.ScriptAPI,
     export.ExportAPI,
+    family.FamilyAPI,
+    class_.ClassAPI,
     return_.ReturnAPI,
     saft_pt.SaftPtAPI,
     invoice.InvoiceAPI,
@@ -125,6 +130,7 @@ class API(
     transfer.TransferAPI,
     document.DocumentAPI,
     employee.EmployeeAPI,
+    sub_class.SubClassAPI,
     sale_order.SaleOrderAPI,
     credit_note.CreditNoteAPI,
     sub_product.SubProductAPI,

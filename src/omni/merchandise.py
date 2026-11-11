@@ -119,6 +119,14 @@ class StoreMerchandise(dict):
     pass
 
 
+class GroupMerchandise(dict):
+    pass
+
+
+class GroupMerchandiseDelta(dict):
+    pass
+
+
 class MerchandisePayload(dict):
     pass
 
