@@ -3,6 +3,7 @@ on: [push]
 jobs:
   build:
     name: Build
+    timeout-minutes: 10
     strategy:
       matrix:
         python-version: [
@@ -21,60 +22,105 @@ jobs:
         ]
     runs-on: ubuntu-latest
     container: python:${{ matrix.python-version }}
+
     steps:
-      - uses: actions/checkout@v7
-      - run: python --version
-      - run: pip install -r requirements.txt
-      - run: |
+      - name: Checkout code
+        uses: actions/checkout@v7
+
+      - name: Show Python version
+        run: python --version
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Check formatting
+        if: matrix.python-version == '3.12'
+        run: |
           pip install black
           black . --check
-        if: matrix.python-version == '3.12'
-      - run: |
+
+      - name: Run tests
+        if: ${{ contains(fromJson('["3.10", "3.11", "3.12", "3.13", "3.14", "latest"]'), matrix.python-version) }}
+        run: |
           pip install pytest
           pytest
-        if: ${{ contains(fromJson('["3.10", "3.11", "3.12", "3.13", "3.14", "latest"]'), matrix.python-version) }}
+
   build-pypy:
     name: Build PyPy
+    timeout-minutes: 10
     strategy:
       matrix:
         python-version: [2.7, 3.6, 3.9, "3.10"]
     runs-on: ubuntu-latest
     container: pypy:${{ matrix.python-version }}
+
     steps:
-      - uses: actions/checkout@v7
-      - run: pypy --version
-      - run: pip install -r requirements.txt
-      - run: |
+      - name: Checkout code
+        uses: actions/checkout@v7
+
+      - name: Show PyPy version
+        run: pypy --version
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Check formatting
+        if: matrix.python-version == '3.12'
+        run: |
           pip install black
           black . --check
-        if: matrix.python-version == '3.12'
-      - run: |
+
+      - name: Run tests
+        if: ${{ contains(fromJson('["3.10", "3.11", "3.12", "3.13", "3.14", "latest"]'), matrix.python-version) }}
+        run: |
           pip install pytest
           pytest
-        if: ${{ contains(fromJson('["3.10", "3.11", "3.12", "3.13", "3.14", "latest"]'), matrix.python-version) }}
+
   typecheck:
     name: Typecheck
+    timeout-minutes: 10
     runs-on: ubuntu-latest
     container: python:3.13
+
     steps:
-      - uses: actions/checkout@v7
-      - run: python --version
-      - run: pip install -r requirements.txt
-      - run: pip install pyright
-      - run: pyright src/omni/*.pyi src/examples src/omni/test
+      - name: Checkout code
+        uses: actions/checkout@v7
+
+      - name: Show Python version
+        run: python --version
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Install Pyright
+        run: pip install pyright
+
+      - name: Run type checker
+        run: pyright src/omni/*.pyi src/examples src/omni/test
+
   build-live:
     name: Build Live
+    timeout-minutes: 30
     runs-on: ubuntu-latest
     env:
       DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
       DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+
     steps:
-      - uses: actions/checkout@v7
-      - run: echo "Registry credentials not available, skipping live tests"
+      - name: Checkout code
+        uses: actions/checkout@v7
+
+      - name: Skip without registry credentials
         if: env.DOCKERHUB_TOKEN == ''
-      - run: echo "$DOCKERHUB_TOKEN" | docker login --username "$DOCKERHUB_USERNAME" --password-stdin
+        run: echo "Registry credentials not available, skipping live tests"
+
+      - name: Login to DockerHub
         if: env.DOCKERHUB_TOKEN != ''
-      - run: |
+        run: echo "$DOCKERHUB_TOKEN" | docker login --username "$DOCKERHUB_USERNAME" --password-stdin
+
+      - name: Start the Omni container
+        if: env.DOCKERHUB_TOKEN != ''
+        run: |
           docker run -d --name omni -p 8080:8080 --entrypoint sh \
             -e RUN_MODE=development \
             -e COLONY_CONFIG_FILE=config/python/singleton.py \
@@ -85,8 +131,10 @@ jobs:
             -e LEVEL=WARNING \
             hivesolutions/omni:latest \
             -c "cd /omni && python3 scripts/load_demo_data.py && exec colony_wsgi"
+
+      - name: Wait for Omni
         if: env.DOCKERHUB_TOKEN != ''
-      - run: |
+        run: |
           for i in $(seq 1 60); do
             code=$(curl -s -m 3 -o /dev/null -w '%{http_code}' 'http://localhost:8080/omni/login.json?username=root&password=Root@12345' || true)
             if [ "$code" = "200" ]; then break; fi
@@ -94,10 +142,14 @@ jobs:
           done
           docker logs omni | tail -5
           test "$code" = "200"
+
+      - name: Install dependencies
         if: env.DOCKERHUB_TOKEN != ''
-      - run: pip install -r requirements.txt
+        run: pip install -r requirements.txt
+
+      - name: Run live tests
         if: env.DOCKERHUB_TOKEN != ''
-      - run: |
+        run: |
           pip install pytest
           pytest
         env:
@@ -105,4 +157,3 @@ jobs:
           OMNI_BASE_URL: http://localhost:8080/
           OMNI_USERNAME: root
           OMNI_PASSWORD: Root@12345
-        if: env.DOCKERHUB_TOKEN != ''
