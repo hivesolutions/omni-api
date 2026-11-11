@@ -33,7 +33,7 @@ import setuptools
 
 setuptools.setup(
     name="omni-api",
-    version="0.14.0",
+    version="0.15.0",
     author="Hive Solutions Lda.",
     author_email="development@hive.pt",
     description="Omni API Client",
