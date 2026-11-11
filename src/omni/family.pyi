@@ -1,12 +1,13 @@
-from typing import NotRequired, Sequence
+from typing import Sequence
 
-from .base import Base, BaseDelta
+from .base import BaseDelta
+from .merchandise import GroupMerchandise, GroupMerchandiseDelta
 
-class Family(Base):
-    name: str
+class Family(GroupMerchandise):
+    pass
 
-class FamilyDelta(BaseDelta):
-    name: NotRequired[str]
+class FamilyDelta(GroupMerchandiseDelta):
+    pass
 
 class FamilyPayload(BaseDelta):
     family: FamilyDelta

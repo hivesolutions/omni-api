@@ -186,7 +186,7 @@ class MerchandiseTest(TestCase):
             if isinstance(value, type) and issubclass(value, dict)
         ]
 
-        self.assertEqual(len(names), 11)
+        self.assertEqual(len(names), 13)
         self.assertEqual(markers, names)
         for name in names:
             self.assertEqual(getattr(merchandise, name)(), {})

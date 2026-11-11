@@ -1,14 +1,13 @@
 from typing import NotRequired, Sequence, TypedDict
 
-from .base import Base, BaseDelta, BaseReference
+from .base import BaseReference
 from .family import Family
+from .merchandise import GroupMerchandise, GroupMerchandiseDelta
 
-class Class(Base):
-    name: str
+class Class(GroupMerchandise):
     family: NotRequired[Family]
 
-class ClassDelta(BaseDelta):
-    name: NotRequired[str]
+class ClassDelta(GroupMerchandiseDelta):
     family: NotRequired[BaseReference]
 
 ClassPayload = TypedDict("ClassPayload", {"class": ClassDelta})

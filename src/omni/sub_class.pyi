@@ -1,14 +1,13 @@
 from typing import NotRequired, Sequence
 
-from .base import Base, BaseDelta, BaseReference
+from .base import BaseDelta, BaseReference
 from .class_ import Class
+from .merchandise import GroupMerchandise, GroupMerchandiseDelta
 
-class SubClass(Base):
-    name: str
+class SubClass(GroupMerchandise):
     class_: NotRequired[Class]
 
-class SubClassDelta(BaseDelta):
-    name: NotRequired[str]
+class SubClassDelta(GroupMerchandiseDelta):
     class_: NotRequired[BaseReference]
 
 class SubClassPayload(BaseDelta):
