@@ -222,8 +222,7 @@ class UserLiveTest(TestCase):
         self.assertEqual(user["type"], UserType.USER)
         self.assertEqual(user["status"], Status.ENABLED)
         self.assertNotEqual(user["object_id"], None)
-        self.assertNotEqual(user["password_hash"], None)
-        self.assertNotEqual(user["password_hash"], password)
+        self.assertEqual("password_hash" in user, False)
 
         created = API(username=username, password=password)
         logged = created.self_user()

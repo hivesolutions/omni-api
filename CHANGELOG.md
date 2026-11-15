@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 * Titles in the steps of the CI workflows
+* Users no longer described with their password hash, as Omni stops returning it - [hivesolutions/omni#453](https://github.com/hivesolutions/omni/issues/453)
 
 ### Fixed
 
