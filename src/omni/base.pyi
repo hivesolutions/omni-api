@@ -36,6 +36,7 @@ from .supplier_bill import SupplierBillAPI
 from .system_company import SystemCompany, SystemCompanyAPI
 from .transfer import TransferAPI
 from .user import BaseUser, UserAPI
+from .warehouse import WarehouseAPI
 from .web import WebAPI
 
 BASE_URL: str = ...
@@ -126,6 +127,11 @@ OAuthScopeT = Literal[
     "foundation.system_user.delete",
     "foundation.system_user.acl_entries.update",
     "foundation.system_user.roles.update",
+    "foundation.warehouse.list",
+    "foundation.warehouse.create",
+    "foundation.warehouse.show",
+    "foundation.warehouse.update",
+    "foundation.warehouse.delete",
     "foundation.web.subscribe",
     "foundation.web_push.subscribe",
     "inventory.brand.list",
@@ -291,6 +297,7 @@ class API(
     DocumentAPI,
     EmployeeAPI,
     SubClassAPI,
+    WarehouseAPI,
     MerchandiseAPI,
     ConsignmentAPI,
     IdentifiableAPI,
