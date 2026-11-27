@@ -57,6 +57,7 @@ from . import transfer
 from . import document
 from . import employee
 from . import sub_class
+from . import warehouse
 from . import sale_order
 from . import credit_note
 from . import sub_product
@@ -97,6 +98,7 @@ SCOPE = (
     "base.user",
     "base.admin",
     "foundation.store.list",
+    "foundation.warehouse.list",
     "foundation.web.subscribe",
 )
 """ The list of permissions to be used to create the
@@ -131,6 +133,7 @@ class API(
     document.DocumentAPI,
     employee.EmployeeAPI,
     sub_class.SubClassAPI,
+    warehouse.WarehouseAPI,
     sale_order.SaleOrderAPI,
     credit_note.CreditNoteAPI,
     sub_product.SubProductAPI,

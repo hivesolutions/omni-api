@@ -88,6 +88,7 @@ from . import system_company
 from . import transfer
 from . import transfer_line
 from . import user
+from . import warehouse
 from . import util
 from . import value
 from . import web
@@ -183,6 +184,7 @@ from .task import TaskState, Task, TaskDelta
 from .transfer import TransferAPI, TransferState
 from .user import UserAPI, UserType, AclValue
 from .util import format_places, filter_args
+from .warehouse import WarehouseAPI, Warehouse, WarehouseDelta, WarehousePayload
 from .web import WebAPI
 from .workflow_message import WorkflowMessage, WorkflowMessagePayload
 

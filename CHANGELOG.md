@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-*
+* Support for the warehouses, the places that hold stock without being stores, from their listing to their creation, update and delete - [#486](https://github.com/hivesolutions/omni/issues/486)
 
 ### Changed
 
